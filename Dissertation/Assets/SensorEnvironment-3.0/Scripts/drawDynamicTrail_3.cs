@@ -15,18 +15,8 @@ public class drawDynamicTrail_3 : MonoBehaviour
     private float timeToDraw = 0;
     public float timeDelay = 0.5f;
 
-    void Awake()
-    {
-      // trails = GameObject.FindGameObjectsWithTag("Trail");
-      // AgentScript_3 agentScript = GameObject.FindWithTag("Agent").GetComponent<AgentScript_3>();
-      // AcademyScript_3 academyScript = GameObject.FindWithTag("Academy").GetComponent<AcademyScript_3>();
-    }
-
     void Update()
     {
-      // trails = GameObject.FindGameObjectsWithTag("Trail");
-      // Debug.Log(academyScript.heightOfMovingObjects);
-      // if (agentScript.drawTrails){//drawTrails
       if (Time.time > timeToDraw)
       {
         trails = GameObject.FindGameObjectsWithTag("Trail");
@@ -49,6 +39,5 @@ public class drawDynamicTrail_3 : MonoBehaviour
         }
         timeToDraw = Time.time + timeDelay;
       }
-      // }
     }
 }

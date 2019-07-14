@@ -26,6 +26,9 @@ public class AgentScript_3 : Agent
     Vector3 randomPosition;
     private int numberOfSensors;
     private int hold = 0;
+    private int numberOfAreas;
+    private int sensorsInThisArea;
+    List<GameObject> Sensors = new List<GameObject>();
     // Drawing trails
     private GameObject[] trails;
     public float NumberOfTrails;
@@ -41,6 +44,11 @@ public class AgentScript_3 : Agent
     public string[] nameOfFile;
     private string path = "Assets/Exported_Data/";
     private string content;
+    // Reset target
+    GameObject parentObject;
+    GameObject firstChild;
+    AcademyScript_3 academyScript;
+    targetPlacing_3 targetScript;
     /////////////////////////////////// Functions ////////////////////////////////////
 
     public Vector3 GetCenter()
@@ -80,13 +88,15 @@ public class AgentScript_3 : Agent
     //////////////////////////////////////////////////////////////////////////////////
     public void Start()
     {
-      //var test;
-      // float test = GameObject.FindWithTag("Academy").GetComponent<AcademyScript_3>().heightOfMovingObjects;
+      // Get scripts from other objects.
       AcademyScript_3 academyScript = GameObject.FindWithTag("Academy").GetComponent<AcademyScript_3>();
+
+      // Getting the number of areas
+      numberOfAreas = GameObject.FindGameObjectsWithTag("Area").Length;
 
       if (drawTrails)
       {
-        bool drawingScript = GetComponent<drawDynamicTrail_3>().enabled = true;//GameObject.FindWithTag(Agent)
+        bool drawingScript = GetComponent<drawDynamicTrail_3>().enabled = true;
       } else
       {
         bool drawingScript = GetComponent<drawDynamicTrail_3>().enabled = false;
@@ -105,7 +115,6 @@ public class AgentScript_3 : Agent
       }
 
       environment = GameObject.FindWithTag("Ground");
-      // movementHeight = environment.GetComponent<ShowSensors_dynamically_3>().heightOfMovement();
       movementHeight = academyScript.heightOfMovingObjects;
       material = new Material(Shader.Find("Sprites/Default"));
     }
@@ -115,7 +124,7 @@ public class AgentScript_3 : Agent
       float rayDistance = 50f;
       float[] rayAngles = {10f,20f,30f,40f,50f,60f,70f,80f,90f,100f,110f,120f,130f,140f,150f,160f,170f,180f};
       string[] detectableObjcts = {"Wall","Goal","Obstacle","Pedestrian","Sensor"};// <- should include Pedestrian and Sensor!?
-      
+
       AddVectorObs(rayPer.Perceive(rayDistance,rayAngles,detectableObjcts,0f,0f));
 
       // Adding the distance to the observations received.
@@ -180,7 +189,7 @@ public class AgentScript_3 : Agent
 
       if (collision.collider.CompareTag("Goal"))
       {
-        AddReward(5f);
+        AddReward(1f);//5f
         // Tracking collision with pedestrians.
         exportData(path+nameOfFile[1],"0\n");
         // Tracking collisions with sensors
@@ -195,13 +204,18 @@ public class AgentScript_3 : Agent
       {
         AddReward(-0.1f);
         sensorCollisions += 1;
-        //exportData(path+nameOfFile[2],countingSessions+", 1\n");
+        exportData(path+nameOfFile[2],countingSessions+", 1\n");
       }
     }
 
     public override void AgentReset()
     {
-      AcademyScript_3 academyScript = GameObject.FindWithTag("Academy").GetComponent<AcademyScript_3>();
+      // Getting the "correct" target
+      academyScript = GameObject.FindWithTag("Academy").GetComponent<AcademyScript_3>();
+      parentObject = this.transform.parent.gameObject;
+      firstChild = parentObject.transform.GetChild(0).gameObject;
+      targetScript = firstChild.transform.GetChild(0).GetComponent<targetPlacing_3>();
+
       // Incrementing the counter
       countingSessions += 1;
       // Reset sensor collision tracker
@@ -217,26 +231,45 @@ public class AgentScript_3 : Agent
       // Change location
       if ((int)academyScript.resetParameters["NumberOfSensorClouds"] != 0)
       {
-        allSensors = GameObject.FindGameObjectsWithTag("Sensor");
+        // Getting sensors within the area
+        // allSensors = GameObject.FindGameObjectsWithTag("Sensor");
+        // sensorsInThisArea = allSensors.Length / numberOfAreas;
 
-        numberOfSensors = allSensors.Length / (int)academyScript.resetParameters["NumberOfSensorClouds"];//NumberofSensorClouds
+        Sensors.Clear();
+
+        foreach (Transform child in firstChild.transform)
+        {
+          if (child.tag == "Sensor")
+          {
+            Sensors.Add(child.gameObject);
+          }
+        }
+
+        numberOfSensors = Sensors.Count / (int)academyScript.resetParameters["NumberOfSensorClouds"];//NumberofSensorClouds
 
         for (int j = 0; j < academyScript.resetParameters["NumberOfSensorClouds"];j++)//NumberofSensorClouds
         {
+          // Debug.Log(academyScript.resetParameters["NumberOfSensorClouds"]);
           randomPosition = new Vector3(Random.Range(academyScript.resetParameters["Radius"] - academyScript.extendX,academyScript.extendX - academyScript.resetParameters["Radius"]),
                                  environment.transform.localScale.y,
                                  Random.Range(academyScript.resetParameters["Radius"] - academyScript.extendZ,academyScript.extendZ - academyScript.resetParameters["Radius"]));
+
+          // Ensuring that the sensors appears in the correct area.
+          randomPosition = randomPosition + firstChild.transform.position;
 
           for(int i = hold; i < (hold + numberOfSensors);i++)
           {
             Vector3 sensorPosition = Random.insideUnitSphere * academyScript.resetParameters["Radius"] + randomPosition;
             sensorPosition.y = movementHeight; //1.5f
-            allSensors[i].transform.position = sensorPosition;
+            Sensors[i].transform.position = sensorPosition;
           }
           hold += numberOfSensors;
         }
         hold = 0;
       }
+      // Change location of target
+      targetScript.resetTarget();
+
       // // Calculate the new center
       // center = GetCenter();
       //
@@ -287,7 +320,6 @@ public class AgentScript_3 : Agent
             if (lrC.positionCount > maximumPositions)
             {
               maximumPositions = lrC.positionCount;
-              //Debug.Log("The maximum number of positions are: " + maximumPositions);
             }
             Gradient gradient = new Gradient();
             gradient.SetKeys(

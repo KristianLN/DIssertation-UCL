@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using MLAgents;
+using System.IO;
+using System.Text;
 
 public class targetPlacing_3 : MonoBehaviour
 {
@@ -13,8 +16,6 @@ public class targetPlacing_3 : MonoBehaviour
     private float extendX;
     private float extendZ;
     Vector3 randomPosition;
-    private GameObject environment;
-    private GameObject goalObject;
     private bool didWeHit = false;
     private bool noHit = false;
     private string[] tagsOfInterst = new string[3];
@@ -27,23 +28,22 @@ public class targetPlacing_3 : MonoBehaviour
       {
         RaycastHit hit;
 
-        x = goalObject.transform.position.x + range*Mathf.Cos(angle);
-        z = goalObject.transform.position.z + range*Mathf.Sin(angle);
+        x = transform.position.x + range*Mathf.Cos(angle);
+        z = transform.position.z + range*Mathf.Sin(angle);
 
         Vector3 dir = new Vector3(x,3,z);
 
-        if (Physics.Raycast(goalObject.transform.position,dir, out hit))
+        if (Physics.Raycast(transform.position,dir, out hit))
         {
-          Debug.DrawLine(goalObject.transform.position,dir,Color.red,10.0f);
+
 
           if (hit.distance <= range)
           {
             noHit = true;
+            Debug.DrawLine(transform.position,dir,Color.red,10.0f);
           }
-        } else
-        {
-          Debug.DrawLine(goalObject.transform.position,dir,Color.red,10.0f);
         }
+
         angle += 2*Mathf.PI / numberOfAngles;
       }
       return noHit;
@@ -51,17 +51,15 @@ public class targetPlacing_3 : MonoBehaviour
 
     public void inCaseOfCollision()
     {
-      goalObject = GameObject.FindGameObjectsWithTag("Goal")[0];
-      environment = GameObject.FindWithTag("Ground");
+      extendX = (transform.parent.localScale.x) / 2;
+      extendZ = (transform.parent.localScale.z) / 2;
 
-      extendX = (environment.transform.localScale.x) / 2;
-      extendZ = (environment.transform.localScale.z) / 2;
-
-      randomPosition = new Vector3(Random.Range(goalObject.transform.localScale.x - extendX,extendX - goalObject.transform.localScale.x),
+      randomPosition = new Vector3(Random.Range(transform.localScale.x - extendX,extendX - transform.localScale.x),
                              3,
-                             Random.Range(goalObject.transform.localScale.z - extendZ,extendZ - goalObject.transform.localScale.z));
+                             Random.Range(transform.localScale.z - extendZ,extendZ - transform.localScale.z));
 
-      goalObject.transform.position = randomPosition;
+      transform.position = randomPosition + this.transform.parent.parent.position;
+      transform.rotation = Quaternion.identity;
     }
 
     public void Start()
@@ -70,9 +68,6 @@ public class targetPlacing_3 : MonoBehaviour
       tagsOfInterst[0] = "Obstacle";
       tagsOfInterst[1] = "Wall";
       tagsOfInterst[2] = "Agent";
-
-      goalObject = GameObject.FindGameObjectsWithTag("Goal")[0];
-      environment = GameObject.FindWithTag("Ground");
 
       if (checkForCollision())
       {
@@ -103,6 +98,15 @@ public class targetPlacing_3 : MonoBehaviour
     public void Update()
     {
       if (checkForCollision())
+      {
+        inCaseOfCollision();
+      }
+    }
+    public void resetTarget()
+    {
+      inCaseOfCollision();
+
+      if(checkForCollision())
       {
         inCaseOfCollision();
       }
