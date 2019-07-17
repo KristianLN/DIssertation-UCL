@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MLAgents;
 
-public class AcademyScript_3 : Academy
+public class AcademyScript_4 : Academy
 {
   // General declarations
   private GameObject[] environments;
@@ -22,6 +22,8 @@ public class AcademyScript_3 : Academy
   // Declarations to addSensorClouds()
   public GameObject sensor;
   public float heightOfMovingObjects = 3;
+  public GameObject crowdedArea;
+  float crowdedAreasToAdd = 0;
   // Declarations to enableWalls()
   private int choice;
   private int lB;
@@ -45,7 +47,7 @@ public class AcademyScript_3 : Academy
     }
   }
 
-  void addSensorClouds(float xScale, float zScale, Vector3 translateVector, Transform parentTransform)
+  void addSensorClouds(float xScale, float zScale, Vector3 translateVector, Transform parentTransform, float areasToAdd)
   {
     // Creating the clouds
     for (var i = 0; i < resetParameters["NumberOfSensorClouds"];i++)
@@ -64,9 +66,22 @@ public class AcademyScript_3 : Academy
         var newSensor = Instantiate(sensor,sensorPosition,Quaternion.identity);
         newSensor.transform.parent = parentTransform;
       }
-      // Instantiate a GameObject which is a sphere, with origin at randomPosition and radius equal to Radius.
-      // Tag it "CrowedArea"
+
     }
+
+    if (areasToAdd != 0)
+    {
+      // float updatedNumberOfClouds = Mathf.Abs(resetParameters["NumberOfSensorClouds"] - previousClouds);
+
+      for (var i = 0; i < areasToAdd;i++)
+      {
+        var newCrowdedArea = Instantiate(crowdedArea,randomPosition,Quaternion.identity);
+        newCrowdedArea.transform.parent = parentTransform;
+        newCrowdedArea.GetComponent<SphereCollider>().radius = resetParameters["Radius"];
+        //newCrowdedArea.transform.localScale = new Vector3 (resetParameters["Radius"],resetParameters["Radius"],resetParameters["Radius"]);
+      }
+    }
+
   }
   void enableWalls(int lowerBound, int upperBound)
   {
@@ -126,11 +141,55 @@ public class AcademyScript_3 : Academy
 
     foreach (GameObject environment in environments)
     {
+      int keepTrack = 0;
+      foreach (Transform child in environment.transform)
+      {
+        if (child.tag == "CrowdedArea")
+        {
+          keepTrack += 1;
+        }
+      }
+      // If the number of clouds going forward is less that the previous number, it is necessary to remove a "CrowdedArea" object
+      // Debug.Log("Current number of areas are: " + keepTrack);
+      if (resetParameters["NumberOfSensorClouds"]<keepTrack)
+      {
+        float crowdedAreasToDestroy = keepTrack - resetParameters["NumberOfSensorClouds"];
+        // int keepTrack = 0;
+        for (var i = 0; i < crowdedAreasToDestroy;i++)
+        {
+          Destroy(environment.transform.Find("CrowdedArea").gameObject);
+          // if (child.tag == "CrowdedArea" && keepTrack < crowdedAreasToDestroy)
+          // {
+          //   Destroy(child);
+          //   keepTrack += 1;
+          // }
+        }
+      } else if (resetParameters["NumberOfSensorClouds"]>keepTrack)
+      {
+        crowdedAreasToAdd = resetParameters["NumberOfSensorClouds"] - keepTrack;
+      }
+
+      // if (resetParameters["NumberOfSensorClouds"]<previousClouds)
+      // {
+      //   float crowdedAreasToDestroy = previousClouds - resetParameters["NumberOfSensorClouds"];
+      //   int keepTrack = 0;
+      //   foreach (Transform child in environment.transform)
+      //   {
+      //     if (child.tag == "CrowdedArea" && keepTrack < crowdedAreasToDestroy)
+      //     {
+      //       Destroy(child);
+      //       keepTrack += 1;
+      //     }
+      //   }
+      //
+      // }
+
       addMovingSensors(extendX,extendZ,environment.transform.position,environment.transform);
-      addSensorClouds(extendX,extendZ,environment.transform.position,environment.transform);
+      addSensorClouds(extendX,extendZ,environment.transform.position,environment.transform,crowdedAreasToAdd);
       enableWalls(lB,uB);
       lB += incrementer;
       uB += incrementer;
+      crowdedAreasToAdd = 0;
     }
     // Status report
     Debug.Log("----------- Update Status -----------");

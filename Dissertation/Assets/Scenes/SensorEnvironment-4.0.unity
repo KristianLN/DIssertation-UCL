@@ -129,7 +129,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 419465565}
-  - component: {fileID: 419465564}
+  - component: {fileID: 419465566}
   m_Layer: 0
   m_Name: Academy
   m_TagString: Academy
@@ -137,7 +137,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &419465564
+--- !u!4 &419465565
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 419465563}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &419465566
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,14 +160,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 419465563}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04673a4a317e98549989d189f8b46978, type: 3}
+  m_Script: {fileID: 11500000, guid: 636d24c95e18a0c4e8fdbd976accec40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   broadcastHub:
     broadcastingBrains:
-    - {fileID: 11400000, guid: 75ee67e6bf7b27b4f82374f20ee41ecf, type: 2}
+    - {fileID: 11400000, guid: 7225497244bb2354ca25dfb559386852, type: 2}
     _brainsToControl:
-    - {fileID: 11400000, guid: 75ee67e6bf7b27b4f82374f20ee41ecf, type: 2}
+    - {fileID: 11400000, guid: e7506e6d424909f4bb1f8a7ec48b3a83, type: 2}
+    - {fileID: 11400000, guid: 7225497244bb2354ca25dfb559386852, type: 2}
   maxSteps: 0
   trainingConfiguration:
     width: 84
@@ -174,31 +189,21 @@ MonoBehaviour:
     - key: NumberOfSensors
       value: 0
     - key: NumberOfSensorClouds
-      value: 1
+      value: 0
     - key: Radius
-      value: 10
+      value: 0
     - key: ObstaclesToAdd
+      value: 0
+    - key: NoiseProb
       value: 0
   extendX: 0
   extendZ: 0
   movingSensor: {fileID: 4060407658654098251, guid: 513b83e38626a79489799b5316ff47f6,
     type: 3}
   sensor: {fileID: 3182417458015587267, guid: 2ae6d0055d64e24448fb95f3a3b1f049, type: 3}
-  heightOfMovingObjects: 1.58333
---- !u!4 &419465565
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 419465563}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  heightOfMovingObjects: 1.5833
+  crowdedArea: {fileID: 3182417458015587267, guid: 28e531237c630fb418d2af1e8c6979bd,
+    type: 3}
 --- !u!1001 &1263520109
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -215,6 +220,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Area
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703123200972349965, guid: 064df4f6c5de9c44f897376d1071e401,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7703123200972349964, guid: 064df4f6c5de9c44f897376d1071e401,
         type: 3}
@@ -330,6 +340,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Area
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703123200972349965, guid: 064df4f6c5de9c44f897376d1071e401,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7703123200972349964, guid: 064df4f6c5de9c44f897376d1071e401,
         type: 3}
@@ -557,6 +572,22 @@ PrefabInstance:
       propertyPath: m_UseGravity
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4375349284798792134, guid: 064df4f6c5de9c44f897376d1071e401,
+        type: 3}
+      propertyPath: drawTrails
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4375349284798792134, guid: 064df4f6c5de9c44f897376d1071e401,
+        type: 3}
+      propertyPath: brain
+      value: 
+      objectReference: {fileID: 11400000, guid: 7225497244bb2354ca25dfb559386852,
+        type: 2}
+    - target: {fileID: 4375349284798792134, guid: 064df4f6c5de9c44f897376d1071e401,
+        type: 3}
+      propertyPath: secondBrain
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 064df4f6c5de9c44f897376d1071e401, type: 3}
 --- !u!1 &1709221434
@@ -749,6 +780,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Area
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703123200972349965, guid: 064df4f6c5de9c44f897376d1071e401,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7703123200972349964, guid: 064df4f6c5de9c44f897376d1071e401,
         type: 3}

@@ -7,7 +7,7 @@ using System.IO;
 using System.Text;
 //using System;
 
-public class AgentScript_3 : Agent
+public class AgentScript_4 : Agent
 {
     // Initialising variables
     Rigidbody rbd;
@@ -17,7 +17,8 @@ public class AgentScript_3 : Agent
     public float speed = 10;
     private float movementHeight;
     private int countingSessions = 0;
-    private int sensorCollisions = 0;
+    private int sensorCollisionsGlobal = 0;
+    private int sensorCollisionsLocal = 0;
     // Sensor related
     private GameObject[] allSensors;
     private Vector3 center;
@@ -28,7 +29,8 @@ public class AgentScript_3 : Agent
     private int hold = 0;
     private int numberOfAreas;
     private int sensorsInThisArea;
-    List<GameObject> Sensors = new List<GameObject>();
+    List<GameObject> sensors = new List<GameObject>();
+    List<GameObject> crowdedAreas = new List<GameObject>();
     // Drawing trails
     private GameObject[] trails;
     public float NumberOfTrails;
@@ -47,8 +49,21 @@ public class AgentScript_3 : Agent
     // Reset target
     GameObject parentObject;
     GameObject firstChild;
-    AcademyScript_3 academyScript;
-    targetPlacing_3 targetScript;
+    AcademyScript_4 academyScript;
+    targetPlacing_4 targetScript;
+    // Multiple brains
+    public Brain secondBrain;
+    Brain firstBrain;
+    Agent agent;
+    bool resetLocations = true;
+      // Collision detection to swich between brains
+    float angle = 0;
+    bool hitOccured = false;
+    int numberOfAngles = 8;
+    float range = 5;
+    float x,z;
+    int layerMask;
+    //float z;
     /////////////////////////////////// Functions ////////////////////////////////////
 
     public Vector3 GetCenter()
@@ -85,21 +100,54 @@ public class AgentScript_3 : Agent
     {
       File.AppendAllText(pathToFile,contentToWrite);
     }
+
+
+    public bool checkForCollision()
+    {
+      layerMask = 1 << 8;
+      angle = 0;
+      hitOccured = false;
+      for(var i = 0; i < numberOfAngles;i++)
+      {
+        RaycastHit hit;
+
+        x = transform.position.x + range*Mathf.Cos(angle);
+        z = transform.position.z + range*Mathf.Sin(angle);
+
+        Vector3 dir = new Vector3(x,movementHeight,z);
+        // Debug.DrawLine(transform.position,dir,Color.red,1.0f);
+        if (Physics.Raycast(transform.position,dir, out hit, range,layerMask))
+        {
+          hitOccured = true;
+          //Debug.Log("HIT!");
+        }
+
+        angle += 2*Mathf.PI / numberOfAngles;
+      }
+      return hitOccured;
+    }
+
     //////////////////////////////////////////////////////////////////////////////////
     public void Start()
     {
+      // Storing the default brain, which is necessary is a two-brain-structure is desired.
+      firstBrain = brain;
+      // Storing our agent for later use
+      agent = this.GetComponent<Agent>();
       // Get scripts from other objects.
-      AcademyScript_3 academyScript = GameObject.FindWithTag("Academy").GetComponent<AcademyScript_3>();
-
+      academyScript = GameObject.FindWithTag("Academy").GetComponent<AcademyScript_4>();
+      parentObject = this.transform.parent.gameObject;
+      firstChild = parentObject.transform.GetChild(0).gameObject;
+      targetScript = firstChild.transform.GetChild(0).GetComponent<targetPlacing_4>();
       // Getting the number of areas
       numberOfAreas = GameObject.FindGameObjectsWithTag("Area").Length;
 
       if (drawTrails)
       {
-        bool drawingScript = GetComponent<drawDynamicTrail_3>().enabled = true;
+        bool drawingScript = GetComponent<drawDynamicTrail_4>().enabled = true;
       } else
       {
-        bool drawingScript = GetComponent<drawDynamicTrail_3>().enabled = false;
+        bool drawingScript = GetComponent<drawDynamicTrail_4>().enabled = false;
       }
 
       //countingSessions = 0;
@@ -126,7 +174,6 @@ public class AgentScript_3 : Agent
       string[] detectableObjcts = {"Wall","Goal","Obstacle","Pedestrian","Sensor"};// <- should include Pedestrian and Sensor!?
 
       AddVectorObs(rayPer.Perceive(rayDistance,rayAngles,detectableObjcts,0f,0f));
-
       // Adding the distance to the observations received.
       // distance = Vector3.Distance(center,transform.position);
       // AddVectorObs(distance);
@@ -139,7 +186,6 @@ public class AgentScript_3 : Agent
       {
         rotateDir = transform.up * Mathf.Clamp(vectorAction[0],-1f,1f);
       }
-
       // Rotate
       transform.Rotate(rotateDir,Time.deltaTime * 150f);
 
@@ -163,7 +209,7 @@ public class AgentScript_3 : Agent
         // Tracking collision with pedestrians.
         exportData(path+nameOfFile[1],"0\n");
         // Tracking collisions with sensors
-        exportData(path+nameOfFile[2],countingSessions+", "+sensorCollisions+", 0\n");
+        exportData(path+nameOfFile[2],countingSessions+", "+sensorCollisionsGlobal+", 0\n");
         Done();
       }
 
@@ -173,7 +219,7 @@ public class AgentScript_3 : Agent
         // Tracking collision with pedestrians.
         exportData(path+nameOfFile[1],"0\n");
         // Tracking collisions with sensors
-        exportData(path+nameOfFile[2],countingSessions+", "+sensorCollisions+", 0\n");
+        exportData(path+nameOfFile[2],countingSessions+", "+sensorCollisionsGlobal+", 0\n");
         Done();
       }
 
@@ -183,7 +229,7 @@ public class AgentScript_3 : Agent
         // Tracking collision with pedestrians.
         exportData(path+nameOfFile[1],"1\n");
         // Tracking collisions with sensors
-        exportData(path+nameOfFile[2],countingSessions+", "+sensorCollisions+", 0\n");
+        exportData(path+nameOfFile[2],countingSessions+", "+sensorCollisionsGlobal+", 0\n");
         Done();
       }
 
@@ -193,7 +239,7 @@ public class AgentScript_3 : Agent
         // Tracking collision with pedestrians.
         exportData(path+nameOfFile[1],"0\n");
         // Tracking collisions with sensors
-        exportData(path+nameOfFile[2],countingSessions+", "+sensorCollisions+", 1\n");
+        exportData(path+nameOfFile[2],countingSessions+", "+sensorCollisionsGlobal+", 1\n");
         Done();
 
       }
@@ -202,72 +248,93 @@ public class AgentScript_3 : Agent
     {
       if (collider.CompareTag("Sensor"))
       {
-        AddReward(-0.1f);
-        sensorCollisions += 1;
+        AddReward(-0.001f);
+        sensorCollisionsGlobal += 1;
+        sensorCollisionsLocal += 1;
         exportData(path+nameOfFile[2],countingSessions+", 1\n");
+      } else if (collider.CompareTag("CrowdedArea"))
+      {
+        sensorCollisionsLocal = 0;
+      }
+    }
+
+    private void OnTriggerExit(Collider collider)
+    {
+      if (collider.CompareTag("CrowdedArea"))
+      {
+        if (academyScript.resetParameters["NoiseProb"] > Random.Range(0.0f,1.0f))
+        {
+          AddReward(-0.001f * (sensorCollisionsLocal + Random.Range(0,sensorCollisionsLocal)));
+        } else
+        {
+          AddReward(-0.001f * sensorCollisionsLocal);
+        }
       }
     }
 
     public override void AgentReset()
     {
-      // Getting the "correct" target
-      academyScript = GameObject.FindWithTag("Academy").GetComponent<AcademyScript_3>();
-      parentObject = this.transform.parent.gameObject;
-      firstChild = parentObject.transform.GetChild(0).gameObject;
-      targetScript = firstChild.transform.GetChild(0).GetComponent<targetPlacing_3>();
-
-      // Incrementing the counter
-      countingSessions += 1;
-      // Reset sensor collision tracker
-      sensorCollisions = 0;
-      // Reset rotation and position
-      transform.position = startPos;
-      transform.eulerAngles = startRot;
-
-      // Reset velocity
-      rbd.velocity = Vector3.zero;
-      rbd.angularVelocity = Vector3.zero;
-
-      // Change location
-      if ((int)academyScript.resetParameters["NumberOfSensorClouds"] != 0)
+      // Because of the two-brains-set-up
+      if (resetLocations)
       {
-        // Getting sensors within the area
-        // allSensors = GameObject.FindGameObjectsWithTag("Sensor");
-        // sensorsInThisArea = allSensors.Length / numberOfAreas;
+        // Incrementing the counter
+        countingSessions += 1;
+        // Reset sensor collision tracker
+        sensorCollisionsGlobal = 0;
+        // Reset rotation and position
+        transform.position = startPos;
+        transform.eulerAngles = startRot;
 
-        Sensors.Clear();
+        // Reset velocity
+        rbd.velocity = Vector3.zero;
+        rbd.angularVelocity = Vector3.zero;
 
-        foreach (Transform child in firstChild.transform)
+        // Change location
+        if ((int)academyScript.resetParameters["NumberOfSensorClouds"] != 0)
         {
-          if (child.tag == "Sensor")
+          // Getting all sensors and crowded areas within the environment
+          sensors.Clear();
+          crowdedAreas.Clear();
+
+          foreach (Transform child in firstChild.transform)
           {
-            Sensors.Add(child.gameObject);
+            if (child.tag == "Sensor")
+            {
+              sensors.Add(child.gameObject);
+            }
+            if (child.tag == "CrowdedArea")
+            {
+              crowdedAreas.Add(child.gameObject);
+            }
           }
-        }
-
-        numberOfSensors = Sensors.Count / (int)academyScript.resetParameters["NumberOfSensorClouds"];//NumberofSensorClouds
-
-        for (int j = 0; j < academyScript.resetParameters["NumberOfSensorClouds"];j++)//NumberofSensorClouds
-        {
-          randomPosition = new Vector3(Random.Range(academyScript.resetParameters["Radius"] - academyScript.extendX,academyScript.extendX - academyScript.resetParameters["Radius"]),
-                                 environment.transform.localScale.y,
-                                 Random.Range(academyScript.resetParameters["Radius"] - academyScript.extendZ,academyScript.extendZ - academyScript.resetParameters["Radius"]));
-
-          // Ensuring that the sensors appears in the correct area.
-          randomPosition = randomPosition + firstChild.transform.position;
-
-          for(int i = hold; i < (hold + numberOfSensors);i++)
+          // Determining how many sensors are supposed to be in each cloud.
+          numberOfSensors = sensors.Count / (int)academyScript.resetParameters["NumberOfSensorClouds"];//NumberofSensorClouds
+          // Updating the position of the clouds.
+          for (int j = 0; j < academyScript.resetParameters["NumberOfSensorClouds"];j++)//NumberofSensorClouds
           {
-            Vector3 sensorPosition = Random.insideUnitSphere * academyScript.resetParameters["Radius"] + randomPosition;
-            sensorPosition.y = movementHeight; //1.5f
-            Sensors[i].transform.position = sensorPosition;
+            randomPosition = new Vector3(Random.Range(academyScript.resetParameters["Radius"] - academyScript.extendX,academyScript.extendX - academyScript.resetParameters["Radius"]),
+                                   environment.transform.localScale.y,
+                                   Random.Range(academyScript.resetParameters["Radius"] - academyScript.extendZ,academyScript.extendZ - academyScript.resetParameters["Radius"]));
+
+            // Ensuring that the sensors appears in the correct area.
+            randomPosition = randomPosition + firstChild.transform.position;
+            // Adding the correct amount of sensors in each cloud.
+            for(int i = hold; i < (hold + numberOfSensors);i++)
+            {
+              Vector3 sensorPosition = Random.insideUnitSphere * academyScript.resetParameters["Radius"] + randomPosition;
+              sensorPosition.y = movementHeight; //1.5f
+              sensors[i].transform.position = sensorPosition;
+            }
+            // Ensuring that the crowdedArea obejct is placed in the center of the spawning area for the sensors within the particular cloud.
+            crowdedAreas[j].transform.position = randomPosition;
+
+            hold += numberOfSensors;
           }
-          hold += numberOfSensors;
+          hold = 0;
         }
-        hold = 0;
+        // Change location of target
+        targetScript.resetTarget();
       }
-      // Change location of target
-      targetScript.resetTarget();
 
       // // Calculate the new center
       // center = GetCenter();
@@ -327,6 +394,31 @@ public class AgentScript_3 : Agent
             );
             lrC.colorGradient = gradient;
           }
+        }
+      }
+    }
+
+    public void Update()
+    {
+      if (secondBrain != null)
+      {
+        if (checkForCollision())
+        {
+          agent.GiveBrain(secondBrain);
+          // No desire to reset locations because of the change in brain.
+          resetLocations = false;
+          agent.AgentReset();
+          // Yet, we need the resetting of locations to potentially happen after.
+          resetLocations = true;
+        } else
+        {
+          // The default brain
+          agent.GiveBrain(firstBrain);
+          // No desire to reset locations because of the change in brain.
+          resetLocations = false;
+          agent.AgentReset();
+          // Yet, we need the resetting of locations to potentially happen after.
+          resetLocations = true;
         }
       }
     }
