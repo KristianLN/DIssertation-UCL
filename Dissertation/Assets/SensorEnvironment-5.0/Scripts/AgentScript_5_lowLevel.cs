@@ -7,13 +7,8 @@ using System.IO;
 using System.Text;
 //using System;
 
-public class AgentScript_4 : Agent
+public class AgentScript_5_lowLevel : Agent
 {
-    // Notes
-
-    // GetStepCount(), a under-the-hood-build-in function, is used to monitor the number of steps
-    // taken by a agent on every episode.
-
     // Initialising variables
     Rigidbody rbd;
     RayPerception rayPer;
@@ -24,7 +19,6 @@ public class AgentScript_4 : Agent
     private int countingSessions = 0;
     private int sensorCollisionsGlobal = 0;
     private int sensorCollisionsLocal = 0;
-    int difficult;
     // Sensor related
     private GameObject[] allSensors;
     private Vector3 center;
@@ -55,8 +49,8 @@ public class AgentScript_4 : Agent
     // Reset target
     GameObject parentObject;
     GameObject firstChild;
-    AcademyScript_4 academyScript;
-    targetPlacing_4 targetScript;
+    AcademyScript_5_lowLevel academyScript;
+    targetPlacing_5 targetScript;
     // Multiple brains
     public Brain secondBrain;
     Brain firstBrain;
@@ -71,7 +65,6 @@ public class AgentScript_4 : Agent
     int layerMask;
     //float z;
     /////////////////////////////////// Functions ////////////////////////////////////
-
     public Vector3 GetCenter()
     {
       // Initialize to make sure that everything is reset at the beginning
@@ -106,20 +99,6 @@ public class AgentScript_4 : Agent
     {
       File.AppendAllText(pathToFile,contentToWrite);
     }
-    public int DifficultArea(Vector3 targetPosition)
-    {
-      float absX = Mathf.Abs(targetPosition.x);
-      float absZ = Mathf.Abs(targetPosition.z);
-      if ((absZ > 30f && absZ < 40f) && (absX > 0f && absX < 15f))
-      {
-        difficult = 1;
-      } else
-      {
-        difficult = 0;
-      }
-      return difficult;
-    }
-
     public bool checkForCollision()
     {
       layerMask = 1 << 8;
@@ -144,28 +123,27 @@ public class AgentScript_4 : Agent
       }
       return hitOccured;
     }
-
     //////////////////////////////////////////////////////////////////////////////////
     public void Start()
     {
-      // Storing the default brain, which is necessary is a two-brain-structure is desired.
-      firstBrain = brain;
-      // Storing our agent for later use
-      agent = this.GetComponent<Agent>();
+      // // Storing the default brain, which is necessary is a two-brain-structure is desired.
+      // firstBrain = brain;
+      // // Storing our agent for later use
+      // agent = this.GetComponent<Agent>();
       // Get scripts from other objects.
-      academyScript = GameObject.FindWithTag("Academy").GetComponent<AcademyScript_4>();
+      academyScript = GameObject.FindWithTag("Academy").GetComponent<AcademyScript_5_lowLevel>();
       parentObject = this.transform.parent.gameObject;
       firstChild = parentObject.transform.GetChild(0).gameObject;
-      targetScript = firstChild.transform.GetChild(0).GetComponent<targetPlacing_4>();
+      targetScript = firstChild.transform.GetChild(0).GetComponent<targetPlacing_5>();
       // Getting the number of areas
       numberOfAreas = GameObject.FindGameObjectsWithTag("Area").Length;
 
       if (drawTrails)
       {
-        bool drawingScript = GetComponent<drawDynamicTrail_4>().enabled = true;
+        bool drawingScript = GetComponent<drawDynamicTrail_5>().enabled = true;
       } else
       {
-        bool drawingScript = GetComponent<drawDynamicTrail_4>().enabled = false;
+        bool drawingScript = GetComponent<drawDynamicTrail_5>().enabled = false;
       }
 
       //countingSessions = 0;
@@ -187,11 +165,13 @@ public class AgentScript_4 : Agent
 
     public override void CollectObservations()
     {
-      float rayDistance = 50f;
+      float rayDistance = 20f;//50f
       float[] rayAngles = {10f,20f,30f,40f,50f,60f,70f,80f,90f,100f,110f,120f,130f,140f,150f,160f,170f,180f};
-      string[] detectableObjcts = {"Wall","Goal","Obstacle","Pedestrian","Sensor"};// <- should include Pedestrian and Sensor!?
+      string[] detectableObjcts = {"Pedestrian","Sensor"};// "Wall","Goal","Obstacle",
 
       AddVectorObs(rayPer.Perceive(rayDistance,rayAngles,detectableObjcts,0f,0f));
+      // Adding the observations from the high-level agent.
+      AddVectorObs(GetComponent<AgentScript_5_highLevel>().rotateDir);
       // Adding the distance to the observations received.
       // distance = Vector3.Distance(center,transform.position);
       // AddVectorObs(distance);
@@ -224,51 +204,42 @@ public class AgentScript_4 : Agent
       if (collision.collider.CompareTag("Wall"))
       {
         AddReward(-1f);
-        // Tracking collision with pedestrians.
-        exportData(path+nameOfFile[1],"0\n");
-        // Tracking collisions with sensors
-        exportData(path+nameOfFile[2],countingSessions+", "+sensorCollisionsGlobal+", 0\n");
-        // Getting the steps
-        exportData(path+nameOfFile[3],"0"+", "+GetStepCount()+", "+DifficultArea(firstChild.transform.position)+"\n");
+        // // Tracking collision with pedestrians.
+        // exportData(path+nameOfFile[1],"0\n");
+        // // Tracking collisions with sensors
+        // exportData(path+nameOfFile[2],countingSessions+", "+sensorCollisionsGlobal+", 0\n");
         Done();
       }
 
       if ( collision.collider.CompareTag("Obstacle"))
       {
         AddReward(-1f);
-        // Tracking collision with pedestrians.
-        exportData(path+nameOfFile[1],"0\n");
-        // Tracking collisions with sensors
-        exportData(path+nameOfFile[2],countingSessions+", "+sensorCollisionsGlobal+", 0\n");
-        // Getting the steps
-        exportData(path+nameOfFile[3],"0"+", "+GetStepCount()+", "+DifficultArea(firstChild.transform.position)+"\n");
+        // // Tracking collision with pedestrians.
+        // exportData(path+nameOfFile[1],"0\n");
+        // // Tracking collisions with sensors
+        // exportData(path+nameOfFile[2],countingSessions+", "+sensorCollisionsGlobal+", 0\n");
         Done();
       }
 
       if ( collision.collider.CompareTag("Pedestrian"))
       {
         AddReward(-1f);
-        // Tracking collision with pedestrians.
-        exportData(path+nameOfFile[1],"1\n");
-        // Tracking collisions with sensors
-        exportData(path+nameOfFile[2],countingSessions+", "+sensorCollisionsGlobal+", 0\n");
-        // Getting the steps
-        exportData(path+nameOfFile[3],"0"+", "+GetStepCount()+", "+DifficultArea(firstChild.transform.position)+"\n");
+        // // Tracking collision with pedestrians.
+        // exportData(path+nameOfFile[1],"1\n");
+        // // Tracking collisions with sensors
+        // exportData(path+nameOfFile[2],countingSessions+", "+sensorCollisionsGlobal+", 0\n");
         Done();
       }
 
-      if (collision.collider.CompareTag("Goal"))
-      {
-        AddReward(1f);//5f
-        // Tracking collision with pedestrians.
-        exportData(path+nameOfFile[1],"0\n");
-        // Tracking collisions with sensors
-        exportData(path+nameOfFile[2],countingSessions+", "+sensorCollisionsGlobal+", 1\n");
-        // Getting the steps
-        exportData(path+nameOfFile[3],"1"+", "+GetStepCount()+", "+DifficultArea(firstChild.transform.position)+"\n");
-        Done();
-
-      }
+      // if (collision.collider.CompareTag("Goal"))
+      // {
+      //   AddReward(1f);//5f
+      //   // Tracking collision with pedestrians.
+      //   exportData(path+nameOfFile[1],"0\n");
+      //   // Tracking collisions with sensors
+      //   exportData(path+nameOfFile[2],countingSessions+", "+sensorCollisionsGlobal+", 1\n");
+      //   Done();
+      // }
     }
     private void OnTriggerEnter(Collider collider)
     {
@@ -424,7 +395,7 @@ public class AgentScript_4 : Agent
       }
     }
 
-    public void FixedUpdate()
+    public void Update()
     {
       if (secondBrain != null)
       {

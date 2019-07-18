@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MLAgents;
 
-public class AcademyScript_4 : Academy
+public class AcademyScript_5_highLevel : Academy
 {
   // General declarations
   private GameObject[] environments;
@@ -46,7 +46,6 @@ public class AcademyScript_4 : Academy
       newMovingSensor.transform.parent = parentTransform;
     }
   }
-
   void addSensorClouds(float xScale, float zScale, Vector3 translateVector, Transform parentTransform, float areasToAdd)
   {
     // Creating the clouds
@@ -81,7 +80,6 @@ public class AcademyScript_4 : Academy
         //newCrowdedArea.transform.localScale = new Vector3 (resetParameters["Radius"],resetParameters["Radius"],resetParameters["Radius"]);
       }
     }
-
   }
   void enableWalls(int lowerBound, int upperBound)
   {
@@ -103,7 +101,6 @@ public class AcademyScript_4 : Academy
       obstacles[choice].GetComponent<MeshRenderer>().enabled = true;
       obstacles[choice].GetComponent<BoxCollider>().enabled = true;
     }
-
   }
   public float heightOfMovement()
   {
@@ -135,8 +132,7 @@ public class AcademyScript_4 : Academy
 
     Debug.Log("----- Training session initialised -----");
     Debug.Log("Number of training areas: " + environments.Length);
-    // Adjust manually
-    Debug.Log("Type of agent: Two-Brain-Heuristic-Transition Agent");
+    Debug.Log("Type of agent: Hierarchical RL Agent");
   }
 
   public override void AcademyReset()
@@ -155,7 +151,6 @@ public class AcademyScript_4 : Academy
         }
       }
       // If the number of clouds going forward is less that the previous number, it is necessary to remove a "CrowdedArea" object
-      // Debug.Log("Current number of areas are: " + keepTrack);
       if (resetParameters["NumberOfSensorClouds"]<keepTrack)
       {
         float crowdedAreasToDestroy = keepTrack - resetParameters["NumberOfSensorClouds"];
@@ -163,31 +158,11 @@ public class AcademyScript_4 : Academy
         for (var i = 0; i < crowdedAreasToDestroy;i++)
         {
           Destroy(environment.transform.Find("CrowdedArea").gameObject);
-          // if (child.tag == "CrowdedArea" && keepTrack < crowdedAreasToDestroy)
-          // {
-          //   Destroy(child);
-          //   keepTrack += 1;
-          // }
         }
       } else if (resetParameters["NumberOfSensorClouds"]>keepTrack)
       {
         crowdedAreasToAdd = resetParameters["NumberOfSensorClouds"] - keepTrack;
       }
-
-      // if (resetParameters["NumberOfSensorClouds"]<previousClouds)
-      // {
-      //   float crowdedAreasToDestroy = previousClouds - resetParameters["NumberOfSensorClouds"];
-      //   int keepTrack = 0;
-      //   foreach (Transform child in environment.transform)
-      //   {
-      //     if (child.tag == "CrowdedArea" && keepTrack < crowdedAreasToDestroy)
-      //     {
-      //       Destroy(child);
-      //       keepTrack += 1;
-      //     }
-      //   }
-      //
-      // }
 
       addMovingSensors(extendX,extendZ,environment.transform.position,environment.transform);
       addSensorClouds(extendX,extendZ,environment.transform.position,environment.transform,crowdedAreasToAdd);

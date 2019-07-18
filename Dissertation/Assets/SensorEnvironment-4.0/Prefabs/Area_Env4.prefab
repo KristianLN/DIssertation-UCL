@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7703123200972349964}
   m_Layer: 0
-  m_Name: Area
-  m_TagString: Untagged
+  m_Name: Area_Env4
+  m_TagString: Area
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -231,7 +231,7 @@ GameObject:
   - component: {fileID: 7703123201406597148}
   - component: {fileID: 7703123201406597147}
   - component: {fileID: 4375349284798792134}
-  - component: {fileID: 6134658094777817357}
+  - component: {fileID: 1515212754304927337}
   m_Layer: 0
   m_Name: Agent
   m_TagString: Agent
@@ -337,7 +337,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.6
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4375349284798792134
 MonoBehaviour:
@@ -355,10 +355,10 @@ MonoBehaviour:
   agentParameters:
     agentCameras: []
     agentRenderTextures: []
-    maxStep: 10000
+    maxStep: 0
     resetOnDone: 1
     onDemandDecision: 0
-    numberOfActionsBetweenDecisions: 3
+    numberOfActionsBetweenDecisions: 1
   speed: 10
   NumberOfTrails: 50
   drawTrails: 0
@@ -366,8 +366,9 @@ MonoBehaviour:
   - posCount.txt
   - pedCount.txt
   - sensorCloudCount.txt
+  - StepsToGoal.txt
   secondBrain: {fileID: 0}
---- !u!114 &6134658094777817357
+--- !u!114 &1515212754304927337
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -376,7 +377,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7703123201406597151}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62b9ec594337a39469276dcb5d0ca848, type: 3}
+  m_Script: {fileID: 11500000, guid: 7cb4be2c45d02ef41867b50f2268dc62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   timeDelay: 0.5
@@ -1160,7 +1161,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.1, y: 1.1, z: 1.1}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &7703123202395791631
 BoxCollider:
@@ -1173,7 +1174,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.1, y: 1.1, z: 1.1}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3859038009513781445
 MonoBehaviour:
