@@ -7,7 +7,7 @@ using System.IO;
 using System.Text;
 //using System;
 
-public class AgentScript_4 : Agent
+public class AgentScript_4_clean : Agent
 {
     // Notes
 
@@ -25,8 +25,6 @@ public class AgentScript_4 : Agent
     private int sensorCollisionsGlobal = 0;
     private int sensorCollisionsLocal = 0;
     int difficult;
-    float markingAngle = 0;
-    float markingRange = 3;
     // Sensor related
     private GameObject[] allSensors;
     private Vector3 center;
@@ -52,10 +50,8 @@ public class AgentScript_4 : Agent
     public bool drawTrails = false;
     // Exporting draw
     public string[] nameOfFile;
-    private string path = "Exported_Data/";//"Assets/Exported_Data/"
+    private string path = "Assets/Exported_Data/";
     private string content;
-    // Set to false if running multiple environments
-    public bool verbose;
     // Reset target
     GameObject parentObject;
     GameObject firstChild;
@@ -63,7 +59,7 @@ public class AgentScript_4 : Agent
     targetPlacing_4 targetScript;
     // Multiple brains
     public Brain secondBrain;
-    Brain firstBrain;
+    public Brain firstBrain;
     Agent agent;
     bool resetLocations = true;
       // Collision detection to swich between brains
@@ -148,35 +144,9 @@ public class AgentScript_4 : Agent
       }
       return hitOccured;
     }
-    void markCollision()
-    {
-      markingAngle = 0;
 
-      for(var i = 0; i < 8;i++)
-      {
-        RaycastHit hit;
-
-        x = transform.position.x + markingRange*Mathf.Cos(markingAngle);
-        z = transform.position.z + markingRange*Mathf.Sin(markingAngle);
-
-        Vector3 dir = new Vector3(x,movementHeight,z);
-
-        // if (Physics.Raycast(transform.position,dir, out hit))
-        // {
-        //
-        //
-        //   if (hit.distance <= range)
-        //   {
-        //     noHit = true;
-        Debug.DrawLine(transform.position,dir,Color.green,5.0f);
-        //   }
-        // }
-
-        markingAngle += 2*Mathf.PI / 8;
-      }
-    }
     //////////////////////////////////////////////////////////////////////////////////
-    public override void InitializeAgent()//Start
+    public void InitializeAgent()
     {
       // Storing the default brain, which is necessary is a two-brain-structure is desired.
       firstBrain = brain;
@@ -204,7 +174,6 @@ public class AgentScript_4 : Agent
       rayPer = GetComponent<RayPerception3D>();
       startPos = transform.position;
       startRot = transform.eulerAngles;
-      // Gizmos.color = Color.yellow;
 
       if (NumberOfTrails == 0)
       {
@@ -235,12 +204,12 @@ public class AgentScript_4 : Agent
       {
         rotateDir = transform.up * Mathf.Clamp(vectorAction[0],-1f,1f);
       }
-
       // Rotate
       transform.Rotate(rotateDir,Time.deltaTime * 150f);
 
       // Move
       rbd.velocity = transform.forward * speed;
+
       // Time penalty
       AddReward(-0.0005f);
 
@@ -248,102 +217,6 @@ public class AgentScript_4 : Agent
       // {
       //   AddReward(-0.5f);
       // }
-    }
-
-    void OnCollisionEnter(Collision collision)//public
-    {
-      if (collision.gameObject.CompareTag("Wall"))//Collider
-      {
-        // markCollision();
-        AddReward(-1f);
-        if (verbose)
-        {
-          // Tracking collision with pedestrians.
-          exportData(path+nameOfFile[1],"0\n");
-          // Tracking collisions with sensors
-          exportData(path+nameOfFile[2],countingSessions+", "+sensorCollisionsGlobal+", 0\n");
-          // Getting the steps
-          exportData(path+nameOfFile[3],"0"+", "+GetStepCount()+", "+DifficultArea(firstChild.transform.position)+"\n");
-        }
-        Done();
-      }
-
-      if ( collision.gameObject.CompareTag("Obstacle"))//collider
-      {
-        AddReward(-1f);
-        if (verbose)
-        {
-          // Tracking collision with pedestrians.
-          exportData(path+nameOfFile[1],"0\n");
-          // Tracking collisions with sensors
-          exportData(path+nameOfFile[2],countingSessions+", "+sensorCollisionsGlobal+", 0\n");
-          // Getting the steps
-          exportData(path+nameOfFile[3],"0"+", "+GetStepCount()+", "+DifficultArea(firstChild.transform.position)+"\n");
-        }
-        Done();
-      }
-
-      if ( collision.gameObject.CompareTag("Pedestrian"))//collider
-      {
-        AddReward(-1f);
-        if (verbose)
-        {
-
-          // Tracking collision with pedestrians.
-          exportData(path+nameOfFile[1],"1\n");
-          // Tracking collisions with sensors
-          exportData(path+nameOfFile[2],countingSessions+", "+sensorCollisionsGlobal+", 0\n");
-          // Getting the steps
-          exportData(path+nameOfFile[3],"0"+", "+GetStepCount()+", "+DifficultArea(firstChild.transform.position)+"\n");
-        }
-        Done();
-      }
-
-      if (collision.gameObject.CompareTag("Goal"))//collider
-      {
-        AddReward(1f);//5f
-        if (verbose)
-        {
-          // Tracking collision with pedestrians.
-          exportData(path+nameOfFile[1],"0\n");
-          // Tracking collisions with sensors
-          exportData(path+nameOfFile[2],countingSessions+", "+sensorCollisionsGlobal+", 1\n");
-          // Getting the steps
-          exportData(path+nameOfFile[3],"1"+", "+GetStepCount()+", "+DifficultArea(firstChild.transform.position)+"\n");
-        }
-        Done();
-
-      }
-    }
-    void OnTriggerEnter(Collider collider)//private
-    {
-      if (collider.gameObject.CompareTag("Sensor"))//without gameObject
-      {
-        AddReward(-0.001f);
-        sensorCollisionsGlobal += 1;
-        sensorCollisionsLocal += 1;
-        if (verbose)
-        {
-          exportData(path+nameOfFile[2],countingSessions+", 1\n");
-        }
-      } else if (collider.gameObject.CompareTag("CrowdedArea"))//without gameObject
-      {
-        sensorCollisionsLocal = 0;
-      }
-    }
-
-    void OnTriggerExit(Collider collider)//private
-    {
-      if (collider.gameObject.CompareTag("CrowdedArea"))//without gameObject
-      {
-        if (academyScript.resetParameters["NoiseProb"] > Random.Range(0.0f,1.0f))
-        {
-          AddReward(-0.001f * (sensorCollisionsLocal + Random.Range(0,sensorCollisionsLocal)));
-        } else
-        {
-          AddReward(-0.001f * sensorCollisionsLocal);
-        }
-      }
     }
 
     public override void AgentReset()
@@ -421,11 +294,8 @@ public class AgentScript_4 : Agent
         if (trails.Length > 0)
         {
           // ""+"some integer" is a way to force the integer to being read as a string.
-          if (verbose)
-          {
-            exportData(path+nameOfFile[0],
-                      ""+trails[(trails.Length - 1)].GetComponent<LineRenderer>().positionCount + "\n");
-          }
+          exportData(path+nameOfFile[0],
+                    ""+trails[(trails.Length - 1)].GetComponent<LineRenderer>().positionCount + "\n");
         }
         // Deciding on whether to simply add a a trail or remove one before adding (if the number of trails is equal to the maximum specified).
         if (trails.Length < NumberOfTrails)
@@ -474,29 +344,4 @@ public class AgentScript_4 : Agent
         }
       }
     }
-
-    // public void FixedUpdate()
-    // {
-    //   if (secondBrain != null)
-    //   {
-    //     if (checkForCollision())
-    //     {
-    //       agent.GiveBrain(secondBrain);
-    //       // No desire to reset locations because of the change in brain.
-    //       resetLocations = false;
-    //       agent.AgentReset();
-    //       // Yet, we need the resetting of locations to potentially happen after.
-    //       resetLocations = true;
-    //     } else
-    //     {
-    //       // The default brain
-    //       agent.GiveBrain(firstBrain);
-    //       // No desire to reset locations because of the change in brain.
-    //       resetLocations = false;
-    //       agent.AgentReset();
-    //       // Yet, we need the resetting of locations to potentially happen after.
-    //       resetLocations = true;
-    //     }
-    //   }
-    // }
 }

@@ -46,7 +46,6 @@ public class AcademyScript_4 : Academy
       newMovingSensor.transform.parent = parentTransform;
     }
   }
-
   void addSensorClouds(float xScale, float zScale, Vector3 translateVector, Transform parentTransform, float areasToAdd)
   {
     // Creating the clouds
@@ -81,7 +80,6 @@ public class AcademyScript_4 : Academy
         //newCrowdedArea.transform.localScale = new Vector3 (resetParameters["Radius"],resetParameters["Radius"],resetParameters["Radius"]);
       }
     }
-
   }
   void enableWalls(int lowerBound, int upperBound)
   {
@@ -103,7 +101,6 @@ public class AcademyScript_4 : Academy
       obstacles[choice].GetComponent<MeshRenderer>().enabled = true;
       obstacles[choice].GetComponent<BoxCollider>().enabled = true;
     }
-
   }
   public float heightOfMovement()
   {
@@ -197,10 +194,10 @@ public class AcademyScript_4 : Academy
       crowdedAreasToAdd = 0;
     }
     // Status report
-    Debug.Log("----------- Update Status -----------");
-    Debug.Log("Number of:");
-    Debug.Log("- moving sensors: " + GameObject.FindGameObjectsWithTag("Pedestrian").Length);
-    Debug.Log("- sensors in the clouds: " + GameObject.FindGameObjectsWithTag("Sensor").Length);
-    Debug.Log("- obstacles: " + processedObstacles.Count);
+    // Debug.Log("----------- Update Status -----------");
+    // Debug.Log("Number of:");
+    // Debug.Log("- moving sensors: " + GameObject.FindGameObjectsWithTag("Pedestrian").Length);
+    // Debug.Log("- sensors in the clouds: " + GameObject.FindGameObjectsWithTag("Sensor").Length);
+    // Debug.Log("- obstacles: " + processedObstacles.Count);
   }
 }

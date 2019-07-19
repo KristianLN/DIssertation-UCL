@@ -171,8 +171,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 7225497244bb2354ca25dfb559386852, type: 2}
   maxSteps: 0
   trainingConfiguration:
-    width: 84
-    height: 84
+    width: 1000
+    height: 500
     qualityLevel: 1
     timeScale: 20
     targetFrameRate: -1
@@ -193,7 +193,7 @@ MonoBehaviour:
     - key: Radius
       value: 0
     - key: ObstaclesToAdd
-      value: 5
+      value: 0
     - key: NoiseProb
       value: 0
   extendX: 0
@@ -595,7 +595,17 @@ PrefabInstance:
     - target: {fileID: 4375349284798792134, guid: 973e668181dd413409442d769ae2bbb4,
         type: 3}
       propertyPath: agentParameters.numberOfActionsBetweenDecisions
-      value: 1
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4375349284798792134, guid: 973e668181dd413409442d769ae2bbb4,
+        type: 3}
+      propertyPath: speed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4375349284798792134, guid: 973e668181dd413409442d769ae2bbb4,
+        type: 3}
+      propertyPath: agentParameters.onDemandDecision
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7703123202395791861, guid: 973e668181dd413409442d769ae2bbb4,
         type: 3}
@@ -606,6 +616,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Size.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703123202032834754, guid: 973e668181dd413409442d769ae2bbb4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703123202875835306, guid: 973e668181dd413409442d769ae2bbb4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703123201290792621, guid: 973e668181dd413409442d769ae2bbb4,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967294
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703123201406597148, guid: 973e668181dd413409442d769ae2bbb4,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703123201406597148, guid: 973e668181dd413409442d769ae2bbb4,
+        type: 3}
+      propertyPath: m_Drag
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 973e668181dd413409442d769ae2bbb4, type: 3}
