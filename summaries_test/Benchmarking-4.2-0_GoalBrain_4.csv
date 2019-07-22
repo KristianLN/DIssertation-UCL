@@ -1,0 +1,10 @@
+Brain name,Time to update policy,Time since start of training,Time for last experience collection,Number of experiences used for training,Mean return
+GoalBrain_4,7.514,122.020,97.110,20481,-1.018
+GoalBrain_4,6.313,235.490,92.120,20515,-1.025
+GoalBrain_4,6.284,346.734,90.104,20537,-1.025
+GoalBrain_4,6.199,456.329,88.853,20482,-1.008
+GoalBrain_4,6.402,566.596,89.164,20575,-1.001
+GoalBrain_4,7.228,675.295,87.251,20551,-0.982
+GoalBrain_4,7.512,801.538,101.416,20537,-0.946
+GoalBrain_4,6.432,923.440,98.694,20481,-0.895
+GoalBrain_4,6.590,1038.391,93.214,20500,-0.849

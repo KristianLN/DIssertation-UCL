@@ -1,0 +1,7 @@
+Brain name,Time to update policy,Time since start of training,Time for last experience collection,Number of experiences used for training,Mean return
+AvoidBrain,3.292,28.737,21.058,4162,-1.055
+AvoidBrain,3.376,51.210,17.654,4099,-1.022
+AvoidBrain,3.365,74.851,18.737,4151,-1.007
+AvoidBrain,2.958,97.423,18.138,4100,-0.961
+AvoidBrain,4.026,120.686,17.739,4149,-0.921
+AvoidBrain,3.396,143.551,18.013,4112,-0.875

@@ -1,0 +1,114 @@
+default:
+    trainer: ppo
+    batch_size: 1024
+    beta: 5.0e-3
+    buffer_size: 10240
+    epsilon: 0.2
+    gamma: 0.99
+    hidden_units: 128
+    lambd: 0.95
+    learning_rate: 3.0e-4
+    max_steps: 2.0e5 # 5.0e4
+    memory_size: 256
+    normalize: false
+    num_epoch: 3
+    num_layers: 2
+    time_horizon: 64
+    sequence_length: 64
+    summary_freq: 1000
+    use_recurrent: false
+    use_curiosity: false
+    curiosity_strength: 0.01
+    curiosity_enc_size: 128
+
+GoalBrain_4_def:
+    trainer: ppo
+    batch_size: 256
+    beta: 5.0e-3
+    buffer_size: 4096 #Something 10000
+    epsilon: 0.2
+    gamma: 0.99
+    hidden_units: 256
+    lambd: 0.95
+    learning_rate: 3.0e-4
+    max_steps: 2.0e5
+    memory_size: 256
+    normalize: false
+    num_epoch: 3 # Could perhaps be 4
+    num_layers: 2
+    time_horizon: 64 # Could be larger
+    sequence_length: 64
+    summary_freq: 1000
+    use_recurrent: false
+    use_curiosity: false
+    curiosity_strength: 0.01
+    curiosity_enc_size: 128
+
+GoalBrain_4_1:
+    trainer: ppo
+    batch_size: 1024
+    beta: 1.0e-2
+    buffer_size: 5120
+    epsilon: 0.2
+    gamma: 0.99
+    hidden_units: 256
+    lambd: 0.925
+    learning_rate: 3.0e-4
+    max_steps: 1.0e6
+    memory_size: 256
+    normalize: true
+    num_epoch: 6 # Could perhaps be 5
+    num_layers: 2
+    time_horizon: 128 # Could be larger
+    sequence_length: 64
+    summary_freq: 2000
+    use_recurrent: false
+    use_curiosity: true
+    curiosity_strength: 0.02
+    curiosity_enc_size: 256
+
+3DBallLearning:
+    trainer: ppo
+    batch_size: 512
+    beta: 5.0e-3
+    buffer_size: 4096 #Something 10000
+    epsilon: 0.2
+    gamma: 0.99
+    hidden_units: 128
+    lambd: 0.95
+    learning_rate: 3.0e-4
+    max_steps: 5.0e5
+    memory_size: 256
+    normalize: false
+    num_epoch: 3 # Could perhaps be 4
+    num_layers: 2
+    time_horizon: 64 # Could be larger
+    sequence_length: 64
+    summary_freq: 1000
+    use_recurrent: false
+    use_curiosity: false
+    curiosity_strength: 0.01
+    curiosity_enc_size: 128
+
+PushBlockLearning:
+    trainer: ppo
+    batch_size: 512
+    beta: 5.0e-3
+    buffer_size: 4096 #Something 10000
+    epsilon: 0.2
+    gamma: 0.99
+    hidden_units: 128
+    lambd: 0.95
+    learning_rate: 3.0e-4
+    max_steps: 5.0e5
+    memory_size: 256
+    normalize: false
+    num_epoch: 3 # Could perhaps be 4
+    num_layers: 2
+    time_horizon: 64 # Could be larger
+    sequence_length: 64
+    summary_freq: 1000
+    use_recurrent: false
+    use_curiosity: false
+    curiosity_strength: 0.01
+    curiosity_enc_size: 128

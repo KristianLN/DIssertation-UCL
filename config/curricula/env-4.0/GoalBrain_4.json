@@ -1,0 +1,14 @@
+{
+    "measure" : "reward",
+    "thresholds" : [0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7,0.7],
+    "min_lesson_length": 125,
+    "signal_smoothing" : true,
+    "parameters" :
+    {
+        "NumberOfMovingSensors" : [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 5.0, 5.0, 10.0],
+        "NumberOfSensors" : [0.0, 0.0, 0.0, 10.0, 10.0, 10.0, 0.0, 0.0, 0.0],
+        "NumberOfSensorClouds" : [0.0, 0.0, 0.0, 1.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+        "Radius": [0.0, 0.0, 0.0, 10.0, 10.0, 20.0, 20.0,20.0, 20.0],
+        "ObstaclesToAdd" : [1.0, 2.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    }
+}

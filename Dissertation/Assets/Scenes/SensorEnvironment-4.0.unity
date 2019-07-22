@@ -174,7 +174,7 @@ MonoBehaviour:
     width: 1000
     height: 500
     qualityLevel: 1
-    timeScale: 20
+    timeScale: 60
     targetFrameRate: -1
   inferenceConfiguration:
     width: 1280
@@ -186,14 +186,14 @@ MonoBehaviour:
     resetParameters:
     - key: NumberOfMovingSensors
       value: 0
-    - key: NumberOfSensors
-      value: 0
     - key: NumberOfSensorClouds
-      value: 0
+      value: 2
+    - key: NumberOfSensors
+      value: 20
     - key: Radius
-      value: 0
+      value: 10
     - key: ObstaclesToAdd
-      value: 0
+      value: 5
     - key: NoiseProb
       value: 0
   extendX: 0
@@ -600,7 +600,7 @@ PrefabInstance:
     - target: {fileID: 4375349284798792134, guid: 973e668181dd413409442d769ae2bbb4,
         type: 3}
       propertyPath: speed
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4375349284798792134, guid: 973e668181dd413409442d769ae2bbb4,
         type: 3}
@@ -641,6 +641,57 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Drag
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703123201406597148, guid: 973e668181dd413409442d769ae2bbb4,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6043447339266835947, guid: 973e668181dd413409442d769ae2bbb4,
+        type: 3}
+      propertyPath: nameOfFile.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6043447339266835947, guid: 973e668181dd413409442d769ae2bbb4,
+        type: 3}
+      propertyPath: speed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6043447339266835947, guid: 973e668181dd413409442d769ae2bbb4,
+        type: 3}
+      propertyPath: brain
+      value: 
+      objectReference: {fileID: 11400000, guid: 7225497244bb2354ca25dfb559386852,
+        type: 2}
+    - target: {fileID: 6043447339266835947, guid: 973e668181dd413409442d769ae2bbb4,
+        type: 3}
+      propertyPath: verbose
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6043447339266835947, guid: 973e668181dd413409442d769ae2bbb4,
+        type: 3}
+      propertyPath: agentParameters.onDemandDecision
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6043447339266835947, guid: 973e668181dd413409442d769ae2bbb4,
+        type: 3}
+      propertyPath: nameOfFile.Array.data[0]
+      value: posCount.txt
+      objectReference: {fileID: 0}
+    - target: {fileID: 6043447339266835947, guid: 973e668181dd413409442d769ae2bbb4,
+        type: 3}
+      propertyPath: nameOfFile.Array.data[1]
+      value: pedCount.txt
+      objectReference: {fileID: 0}
+    - target: {fileID: 6043447339266835947, guid: 973e668181dd413409442d769ae2bbb4,
+        type: 3}
+      propertyPath: nameOfFile.Array.data[2]
+      value: sensorCloudCount.txt
+      objectReference: {fileID: 0}
+    - target: {fileID: 6043447339266835947, guid: 973e668181dd413409442d769ae2bbb4,
+        type: 3}
+      propertyPath: nameOfFile.Array.data[3]
+      value: StepsToGoal.txt
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 973e668181dd413409442d769ae2bbb4, type: 3}

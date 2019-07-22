@@ -61,7 +61,7 @@ public class AcademyScript_4 : Academy
       for (var x = 0; x < resetParameters["NumberOfSensors"];x++)
       {
         Vector3 sensorPosition = Random.insideUnitSphere * resetParameters["Radius"] + randomPosition;
-        sensorPosition.y = heightOfMovingObjects;//1.5f
+        sensorPosition.y = heightOfMovingObjects;
         var newSensor = Instantiate(sensor,sensorPosition,Quaternion.identity);
         newSensor.transform.parent = parentTransform;
       }
@@ -152,7 +152,6 @@ public class AcademyScript_4 : Academy
         }
       }
       // If the number of clouds going forward is less that the previous number, it is necessary to remove a "CrowdedArea" object
-      // Debug.Log("Current number of areas are: " + keepTrack);
       if (resetParameters["NumberOfSensorClouds"]<keepTrack)
       {
         float crowdedAreasToDestroy = keepTrack - resetParameters["NumberOfSensorClouds"];
@@ -160,32 +159,13 @@ public class AcademyScript_4 : Academy
         for (var i = 0; i < crowdedAreasToDestroy;i++)
         {
           Destroy(environment.transform.Find("CrowdedArea").gameObject);
-          // if (child.tag == "CrowdedArea" && keepTrack < crowdedAreasToDestroy)
-          // {
-          //   Destroy(child);
-          //   keepTrack += 1;
-          // }
+
         }
       } else if (resetParameters["NumberOfSensorClouds"]>keepTrack)
       {
         crowdedAreasToAdd = resetParameters["NumberOfSensorClouds"] - keepTrack;
       }
-
-      // if (resetParameters["NumberOfSensorClouds"]<previousClouds)
-      // {
-      //   float crowdedAreasToDestroy = previousClouds - resetParameters["NumberOfSensorClouds"];
-      //   int keepTrack = 0;
-      //   foreach (Transform child in environment.transform)
-      //   {
-      //     if (child.tag == "CrowdedArea" && keepTrack < crowdedAreasToDestroy)
-      //     {
-      //       Destroy(child);
-      //       keepTrack += 1;
-      //     }
-      //   }
-      //
-      // }
-
+      // Time to add objects.
       addMovingSensors(extendX,extendZ,environment.transform.position,environment.transform);
       addSensorClouds(extendX,extendZ,environment.transform.position,environment.transform,crowdedAreasToAdd);
       enableWalls(lB,uB);
