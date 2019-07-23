@@ -76,8 +76,8 @@ def eventToCSV(file,tags,end, folder = None,description = False):
         elif (event.step != 0):
             # Store the data.
             data = [[] for tag in np.arange(len(list(tags.keys()))+1)]
-        # Storing the step.
-        if ((tags != None) and (event.step > 0)):
+            # Storing the step.
+        if tags != None:
             data[0].append(event.step)
 
             # Storing the values of interest.
@@ -102,7 +102,7 @@ def eventToCSV(file,tags,end, folder = None,description = False):
 ##############################################################################################
 ## Let's process
 
-if ((len(sys.argv) == 1) or (sys.argv[1] == "None")):
+if ((len(sys.argv) == 1) or (sys.argv[1] == None)):
     folder = None
     summaryFiles = os.listdir()
     output_dir = "csv_output"
@@ -119,7 +119,7 @@ else:
 
 # If tags are provided process those, or we will extract from the data.
 if len(sys.argv) >= 3:
-    clean = re.split(",",re.sub("[:]",",",re.sub("[{}]","",sys.argv[2])))
+    clean = re.split(",",re.sub("[:]",",",re.sub("[{}]","",sys.argv[1])))
 
     tag_names = {}
 
