@@ -1,0 +1,8 @@
+Tags and their place (row) in the csv file:
+
+Environment/Cumulative Reward: 0
+Environment/Episode Length: 1
+Environment/Lesson: 2
+Policy/Entropy: 3
+Policy/Learning Rate: 4
+Policy/Value Estimate: 5

@@ -38,6 +38,10 @@ public class AgentScript_4_1 : Agent
     private int sensorsInThisArea;
     List<GameObject> sensors = new List<GameObject>();
     List<GameObject> crowdedAreas = new List<GameObject>();
+    // Crowded Areas
+    bool countSteps = false;
+    int localSteps_act = 0;
+    int localSteps_obs = 0;
     // Drawing trails
     private GameObject[] trails;
     public float NumberOfTrails;
@@ -171,6 +175,7 @@ public class AgentScript_4_1 : Agent
     {
       // Storing the default brain, which is necessary is a two-brain-structure is desired.
       firstBrain = brain;
+
       // Storing our agent for later use
       agent = this.GetComponent<Agent>();
       // Get scripts from other objects.
@@ -213,6 +218,10 @@ public class AgentScript_4_1 : Agent
       // Adding the distance to the observations received.
       // distance = Vector3.Distance(center,transform.position);
       // AddVectorObs(distance);
+      if (countSteps)
+      {
+        localSteps_obs += 1;
+      }
     }
     public override void AgentAction(float[] vectorAction,string textAction)
     {
@@ -228,6 +237,10 @@ public class AgentScript_4_1 : Agent
       // Move
       // rbd.AddForce(transform.forward * speed);
       rbd.velocity = transform.forward * speed;
+      if (countSteps)
+      {
+        localSteps_act += 1;
+      }
       // Time penalty
       AddReward(-0.0005f);
 
@@ -425,23 +438,35 @@ public class AgentScript_4_1 : Agent
           exportData(path+nameOfFile[3],"1"+", "+GetStepCount()+", "+DifficultArea(firstChild.transform.position)+"\n");
         }
         Done();
-
       }
-    }
-    void OnTriggerEnter(Collider collider)//private
-    {
-      if (collider.gameObject.CompareTag("Sensor"))//without gameObject
+      if (collision.gameObject.CompareTag("Sensor"))//without gameObject
       {
         AddReward(-1.0f);//-0.1f|-0.001f
         sensorCollisionsGlobal += 1;
         // sensorCollisionsLocal += 1;
+        if (verbose)
+        {
+          exportData(path+nameOfFile[2],sensorCollisionsGlobal+", 0\n");
+        }
         Done();
-        // if (verbose)
-        // {
-        //   exportData(path+nameOfFile[2],countingSessions+", 1\n");
-        // }
-      } else if (collider.gameObject.CompareTag("CrowdedArea"))//without gameObject
+      }
+    }
+    void OnTriggerEnter(Collider collider)//private
+    {
+      // if (collider.gameObject.CompareTag("Sensor"))//without gameObject
+      // {
+      //   AddReward(-1.0f);//-0.1f|-0.001f
+      //   sensorCollisionsGlobal += 1;
+      //   // sensorCollisionsLocal += 1;
+      //   if (verbose)
+      //   {
+      //     exportData(path+nameOfFile[2],sensorCollisionsGlobal+", 0\n");
+      //   }
+      //   Done();
+      // } else
+      if (collider.gameObject.CompareTag("CrowdedArea"))//without gameObject
       {
+        countSteps = true;
         Collider[] potentialCollisions = Physics.OverlapSphere(collider.gameObject.transform.position,(int)academyScript.resetParameters["Radius"]);
         if (academyScript.resetParameters["NoiseProb"] > Random.Range(0.0f,1.0f))
         {
@@ -455,19 +480,27 @@ public class AgentScript_4_1 : Agent
         // sensorCollisionsLocal = 0;
       }
     }
-    // void OnTriggerExit(Collider collider)//private
-    // {
-    //   if (collider.gameObject.CompareTag("CrowdedArea"))//without gameObject
-    //   {
-    //     if (academyScript.resetParameters["NoiseProb"] > Random.Range(0.0f,1.0f))
-    //     {
-    //       AddReward(-0.1f * (sensorCollisionsLocal + Random.Range(0,sensorCollisionsLocal)));//-0.001f
-    //     } else
-    //     {
-    //       AddReward(-0.1f * sensorCollisionsLocal);//-0.001f
-    //     }
-    //   }
-    // }
+    void OnTriggerExit(Collider collider)//private
+    {
+      if (collider.gameObject.CompareTag("CrowdedArea"))//without gameObject
+      {
+        // if (academyScript.resetParameters["NoiseProb"] > Random.Range(0.0f,1.0f))
+        // {
+        //   AddReward(-0.1f * (sensorCollisionsLocal + Random.Range(0,sensorCollisionsLocal)));//-0.001f
+        // } else
+        // {
+        //   AddReward(-0.1f * sensorCollisionsLocal);//-0.001f
+        // }
+
+        countSteps = false;
+        if (verbose)
+        {
+          exportData(path+nameOfFile[4],localSteps_act+","+localSteps_obs+"\n");
+        }
+        localSteps_act = 0;
+        localSteps_obs = 0;
+      }
+    }
     // Switching brains
     public void FixedUpdate()
     {

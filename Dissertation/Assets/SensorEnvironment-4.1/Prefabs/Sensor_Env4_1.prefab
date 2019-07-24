@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1662613730507024887}
   - component: {fileID: 8239503771256044430}
   m_Layer: 8
-  m_Name: Sensor
+  m_Name: Sensor_Env4_1
   m_TagString: Sensor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,7 +87,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3182417458015587267}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5

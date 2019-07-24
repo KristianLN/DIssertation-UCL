@@ -440,7 +440,7 @@ public class AgentScript_4 : Agent
         // }
       } else if (collider.gameObject.CompareTag("CrowdedArea"))//without gameObject
       {
-        AddReward(-0.5f);
+        // AddReward(-0.5f);
         sensorCollisionsLocal = 0;
       }
     }
