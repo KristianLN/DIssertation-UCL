@@ -1,0 +1,292 @@
+% Encoding: UTF-8
+
+@Article{DBLP:journals/corr/abs-1809-02627,
+  author        = {Arthur Juliani and Vincent{-}Pierre Berges and Esh Vckay and Yuan Gao and Hunter Henry and Marwan Mattar and Danny Lange},
+  title         = {Unity: {A} General Platform for Intelligent Agents},
+  journal       = {CoRR},
+  year          = {2018},
+  volume        = {abs/1809.02627},
+  eprint        = {1809.02627},
+  url           = {http://arxiv.org/abs/1809.02627},
+  archiveprefix = {arXiv},
+  bibsource     = {dblp computer science bibliography, https://dblp.org},
+  biburl        = {https://dblp.org/rec/bib/journals/corr/abs-1809-02627},
+  timestamp     = {Fri, 05 Oct 2018 11:34:52 +0200},
+}
+
+@Misc{rlblogpost,
+  author       = {Irpan, Alex},
+  title        = {Deep Reinforcement Learning Doesn't Work Yet},
+  year         = {2018},
+  howpublished = {\url{https://www.alexirpan.com/2018/02/14/rl-hard.html}},
+}
+
+@Online{TBOTU,
+  author = {Arthur Juliani and Deric Pang and Jeffrey Shih and Joe Ward},
+  editor = {GitHub},
+  title  = {Using TensorBoard to Observe Training},
+  year   = {2018},
+  url    = {https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Using-Tensorboard.md},
+}
+
+@Online{TOP5DR,
+  author = {Tom Merrit},
+  editor = {TechRepublic},
+  title  = {Top 5 Delivery Robots},
+  year   = {2019},
+  url    = {https://www.techrepublic.com/article/top-5-delivery-robots/},
+}
+
+@Online{AMVSSS,
+  author = {Greg Nichols},
+  editor = {ZDNet},
+  title  = {Delivery Wars: Amazon's new delivery robot vs Starship's college munchie robot},
+  year   = {2019},
+  url    = {https://www.zdnet.com/article/amazons-new-delivery-robot-vs-starships-college-munchie-robot/},
+}
+
+@Online{FEADR,
+  author = {FedEx},
+  editor = {FedEx Newsroom},
+  title  = {Delivering the Future: FedEx Unveils Autonomous Delivery Robot.},
+  year   = {2019},
+  url    = {https://about.van.fedex.com/newsroom/thefuturefedex/},
+}
+
+@Online{SSADR,
+  author = {Starship},
+  editor = {Starship/About},
+  title  = {The Self-Driving Delivery Robot.},
+  year   = {2019},
+  url    = {https://www.starship.xyz/business/},
+}
+
+@Online{ASADR,
+  author = {Sean Scott},
+  editor = {The Amazon blog dayone},
+  title  = {Meet Scout},
+  year   = {2019},
+  url    = {https://blog.aboutamazon.com/transportation/meet-scout},
+}
+
+@Article{DBLP:journals/corr/abs-1808-00177,
+  author        = {OpenAI and Marcin Andrychowicz and Bowen Baker and Maciek Chociej and Rafal J{\'{o}}zefowicz and Bob McGrew and Jakub W. Pachocki and Jakub Pachocki and Arthur Petron and Matthias Plappert and Glenn Powell and Alex Ray and Jonas Schneider and Szymon Sidor and Josh Tobin and Peter Welinder and Lilian Weng and Wojciech Zaremba},
+  title         = {Learning Dexterous In-Hand Manipulation},
+  journal       = {CoRR},
+  year          = {2018},
+  volume        = {abs/1808.00177},
+  eprint        = {1808.00177},
+  url           = {http://arxiv.org/abs/1808.00177},
+  archiveprefix = {arXiv},
+  bibsource     = {dblp computer science bibliography, https://dblp.org},
+  biburl        = {https://dblp.org/rec/bib/journals/corr/abs-1808-00177},
+  timestamp     = {Thu, 14 Feb 2019 11:14:23 +0100},
+}
+
+@Article{DBLP:journals/corr/SadeghiL16,
+  author        = {Fereshteh Sadeghi and Sergey Levine},
+  title         = {(CAD){\textdollar}{\^{}}2{\textdollar}RL: Real Single-Image Flight without a Single Real Image},
+  journal       = {CoRR},
+  year          = {2016},
+  volume        = {abs/1611.04201},
+  eprint        = {1611.04201},
+  url           = {http://arxiv.org/abs/1611.04201},
+  archiveprefix = {arXiv},
+  bibsource     = {dblp computer science bibliography, https://dblp.org},
+  biburl        = {https://dblp.org/rec/bib/journals/corr/SadeghiL16},
+  timestamp     = {Mon, 13 Aug 2018 16:46:31 +0200},
+}
+
+@Online{FTORG,
+  author = {Ervin Teng and Esh Vckay and Jonathan Harper and Yuan Gao},
+  editor = {Unity Blog},
+  title  = {Faster training on real games},
+  year   = {2019},
+  date   = {2019-04-15},
+  url    = {https://blogs.unity3d.com/2019/04/15/unity-ml-agents-toolkit-v0-8-faster-training-on-real-games/},
+}
+
+@Online{TMLA,
+  author = {Arthur Juliani and Deric Peng and Vincent-Pierre Berges and Yuan Gao and Marwan Mattar and Jeffrey Shih and Joe Ward and Esh Vckay and Mantas Puida},
+  editor = {GitHub/Unity-Technologies},
+  title  = {Training ML-Agents},
+  year   = {2019},
+  date   = {2019-04-12},
+  url    = {https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Training-ML-Agents.md},
+}
+
+@Article{MariaBauer2009,
+  author  = {Maria Bauer, Andrea and Klasing, Klaas and Lidoris, Georgios and Mühlbauer, Quirin and Rohrmüller, Florian and Sosnowski, Stefan and Xu, Tingting and Kühnlenz, Kolja and Wollherr, Dirk and Buss, Martin},
+  title   = {The Autonomous City Explorer: Towards Natural Human-Robot Interaction in Urban Environments},
+  journal = {I. J. Social Robotics},
+  year    = {2009},
+  volume  = {1},
+  month   = {04},
+  pages   = {127-140},
+  doi     = {10.1007/s12369-009-0011-9},
+}
+
+@InProceedings{Kuemmerle2013,
+  author        = {Kümmerle, Rainer and Ruhnke, Michael and Steder, Bastian and Stachniss, Cyrill and Burgard, Wolfram},
+  title         = {A navigation system for robots operating in crowded urban environments},
+  year          = {2013},
+  month         = {05},
+  isbn          = {978-1-4673-5641-1},
+  pages         = {3225-3232},
+  doi           = {10.1109/ICRA.2013.6631026},
+  __markedentry = {[Krist:]},
+  journal       = {Proceedings - IEEE International Conference on Robotics and Automation},
+}
+
+@InProceedings{Lidoris2009,
+  author        = {Lidoris, Georgios and Rohrmüller, Florian and Wollherr, Dirk and Buss, Martin},
+  title         = {The Autonomous City Explorer (ACE) project — mobile robot navigation in highly populated urban environments},
+  year          = {2009},
+  month         = {05},
+  pages         = {1416-1422},
+  doi           = {10.1109/ROBOT.2009.5152534},
+  __markedentry = {[Krist:6]},
+}
+
+@Article{Kahn2017UncertaintyAwareRL,
+  author  = {Gregory Kahn and Adam Villaflor and Vitchyr Pong and Pieter Abbeel and Sergey Levine},
+  title   = {Uncertainty-Aware Reinforcement Learning for Collision Avoidance},
+  journal = {ArXiv},
+  year    = {2017},
+  volume  = {abs/1702.01182},
+}
+
+@Article{DBLP:journals/corr/abs-1804-00168,
+  author        = {Piotr Mirowski and Matthew Koichi Grimes and Mateusz Malinowski and Karl Moritz Hermann and Keith Anderson and Denis Teplyashin and Karen Simonyan and Koray Kavukcuoglu and Andrew Zisserman and Raia Hadsell},
+  title         = {Learning to Navigate in Cities Without a Map},
+  journal       = {CoRR},
+  year          = {2018},
+  volume        = {abs/1804.00168},
+  eprint        = {1804.00168},
+  url           = {http://arxiv.org/abs/1804.00168},
+  archiveprefix = {arXiv},
+  bibsource     = {dblp computer science bibliography, https://dblp.org},
+  biburl        = {https://dblp.org/rec/bib/journals/corr/abs-1804-00168},
+  timestamp     = {Mon, 13 Aug 2018 16:48:08 +0200},
+}
+
+@InProceedings{Watkins92q-learning,
+  author    = {Christopher J. C. H. Watkins and Peter Dayan},
+  title     = {Q-learning},
+  booktitle = {Machine Learning},
+  year      = {1992},
+  pages     = {279--292},
+}
+
+@InProceedings{Bengio:2009:CL:1553374.1553380,
+  author    = {Bengio, Yoshua and Louradour, J{\'e}r\^{o}me and Collobert, Ronan and Weston, Jason},
+  title     = {Curriculum Learning},
+  booktitle = {Proceedings of the 26th Annual International Conference on Machine Learning},
+  year      = {2009},
+  series    = {ICML '09},
+  publisher = {ACM},
+  location  = {Montreal, Quebec, Canada},
+  isbn      = {978-1-60558-516-1},
+  pages     = {41--48},
+  doi       = {10.1145/1553374.1553380},
+  url       = {http://doi.acm.org/10.1145/1553374.1553380},
+  acmid     = {1553380},
+  address   = {New York, NY, USA},
+  numpages  = {8},
+}
+
+@Online{PPODRL,
+  author = {John Schulman and Oleg Klimov and Filip Wolski and Prafulla Dhariwal and Alec Radford},
+  editor = {Open-AI-blog},
+  title  = {Proximal Policy Optimization},
+  year   = {2017},
+  date   = {2017-07-20},
+  url    = {https://openai.com/blog/openai-baselines-ppo/#ppo},
+}
+
+@Article{DBLP:journals/corr/SchulmanWDRK17,
+  author        = {John Schulman and Filip Wolski and Prafulla Dhariwal and Alec Radford and Oleg Klimov},
+  title         = {Proximal Policy Optimization Algorithms},
+  journal       = {CoRR},
+  year          = {2017},
+  volume        = {abs/1707.06347},
+  eprint        = {1707.06347},
+  url           = {http://arxiv.org/abs/1707.06347},
+  archiveprefix = {arXiv},
+  bibsource     = {dblp computer science bibliography, https://dblp.org},
+  biburl        = {https://dblp.org/rec/bib/journals/corr/SchulmanWDRK17},
+  timestamp     = {Mon, 13 Aug 2018 16:47:34 +0200},
+}
+
+@Book{Sutton1998,
+  author    = {Sutton, Richard S. and Barto, Andrew G.},
+  title     = {Reinforcement Learning: An Introduction},
+  year      = {2018},
+  edition   = {Second},
+  publisher = {The MIT Press},
+  url       = {http://incompleteideas.net/book/the-book-2nd.html},
+  added-at  = {2019-07-13T10:11:53.000+0200},
+  biburl    = {https://www.bibsonomy.org/bibtex/2f46601cf8b13d39d1378af0d79438b12/lanteunis},
+  interhash = {ac6b144aaec1819919a2fba9f705c852},
+  intrahash = {f46601cf8b13d39d1378af0d79438b12},
+  timestamp = {2019-07-13T10:11:53.000+0200},
+}
+
+@Online{RLUCLC,
+  author = {David Silver},
+  title  = {Reinforcement Learning},
+  year   = {2015},
+  url    = {http://www0.cs.ucl.ac.uk/staff/d.silver/web/Teaching.html},
+}
+
+@Online{AKDRL,
+  author = {Andrej Karpathy},
+  editor = {GitHub Blog},
+  title  = {Deep Reinforcement Learning: Pong from Pixels},
+  year   = {2016},
+  date   = {2016-05-31},
+  url    = {http://karpathy.github.io/2016/05/31/rl/},
+}
+
+@Article{mnih2013playing,
+  author    = {Mnih, Volodymyr and Kavukcuoglu, Koray and Silver, David and Graves, Alex and Antonoglou, Ioannis and Wierstra, Daan and Riedmiller, Martin},
+  title     = {Playing atari with deep reinforcement learning},
+  journal   = {arXiv preprint arXiv:1312.5602},
+  year      = {2013},
+  url       = {https://arxiv.org/pdf/1312.5602.pdf},
+  added-at  = {2017-12-07T19:44:53.000+0100},
+  biburl    = {https://www.bibsonomy.org/bibtex/24140efabf4cab720d020e0e68f1451f6/lukasw},
+  interhash = {78966703f649bae69a08a6a23a4e8879},
+  intrahash = {4140efabf4cab720d020e0e68f1451f6},
+  keywords  = {atari final},
+  timestamp = {2017-12-07T19:44:53.000+0100},
+}
+
+@PhdThesis{Sutton:1984:TCA:911176,
+  author    = {Sutton, Richard Stuart},
+  title     = {Temporal Credit Assignment in Reinforcement Learning},
+  year      = {1984},
+  note      = {AAI8410337},
+  publisher = {University of Massachusetts Amherst},
+}
+
+@Article{Samuel:1959:SML:1661923.1661924,
+  author     = {Samuel, A. L.},
+  title      = {Some Studies in Machine Learning Using the Game of Checkers},
+  journal    = {IBM J. Res. Dev.},
+  year       = {1959},
+  volume     = {3},
+  number     = {3},
+  month      = jul,
+  pages      = {210--229},
+  issn       = {0018-8646},
+  doi        = {10.1147/rd.33.0210},
+  url        = {http://dx.doi.org/10.1147/rd.33.0210},
+  acmid      = {1661924},
+  address    = {Riverton, NJ, USA},
+  issue_date = {July 1959},
+  numpages   = {20},
+  publisher  = {IBM Corp.},
+}
+
+@Comment{jabref-meta: databaseType:biblatex;}
