@@ -8,7 +8,7 @@ using System.Text;
 
 public class targetPlacing_4_2 : MonoBehaviour
 {
-    public float numberOfAngles = 8;
+    public float numberOfAngles = 4;
     private float angle = 0;
     private float x;
     private float z;

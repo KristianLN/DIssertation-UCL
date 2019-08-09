@@ -31,6 +31,8 @@ public class AgentScript_4_2 : Agent
     private GameObject[] allSensors;
     private Vector3 center;
     private GameObject environment;
+    float extendX;
+    float extendZ;
     private float distance;
     Vector3 randomPosition;
     private int numberOfSensors;
@@ -80,6 +82,9 @@ public class AgentScript_4_2 : Agent
     float range = 5;
     float x,z;
     int layerMask;
+    int count = 0;
+    int count_up = 0;
+    int count_fix_up = 0;
 
     /////////////////////////////////// Functions ////////////////////////////////////
 
@@ -117,17 +122,26 @@ public class AgentScript_4_2 : Agent
     {
       File.AppendAllText(pathToFile,contentToWrite);
     }
-    public int DifficultArea(Vector3 targetPosition)
+    public int DifficultArea()
     {
-      float absX = Mathf.Abs(targetPosition.x);
-      float absZ = Mathf.Abs(targetPosition.z);
-      if ((absZ > 30f && absZ < 40f) && (absX > 0f && absX < 15f))
+
+      // Debug.Log("Bounds: "+firstChild.transform.GetChild(2).GetComponent<Collider>().bounds);
+      // Debug.Log("Extents: " + firstChild.transform.GetChild(2).GetComponent<Collider>().bounds.extents);
+      // Debug.Log(firstChild.transform.GetChild(2).GetComponent<Collider>().bounds);
+      // Debug.Log(firstChild.transform.GetChild(2).GetComponent<Collider>().bounds.extents);
+
+      if (firstChild.transform.GetChild(1).GetComponent<Collider>().bounds.Contains(firstChild.transform.GetChild(0).position))
+      {
+
+        difficult = 1;
+      } else if (firstChild.transform.GetChild(2).GetComponent<Collider>().bounds.Contains(firstChild.transform.GetChild(0).position))
       {
         difficult = 1;
       } else
       {
         difficult = 0;
       }
+
       return difficult;
     }
     public bool checkForCollision()
@@ -207,19 +221,21 @@ public class AgentScript_4_2 : Agent
       }
 
       environment = GameObject.FindWithTag("Ground");
+      extendX = environment.transform.localScale.x;
+      extendZ = environment.transform.localScale.z;
       movementHeight = academyScript.heightOfMovingObjects;
       material = new Material(Shader.Find("Sprites/Default"));
     }
     public override void CollectObservations()
     {
+      layerMask = ~(1 << LayerMask.NameToLayer ("Ignore Raycast"));
+      // count += 1;
       float rayDistance = 50f;
       float[] rayAngles = {10f,20f,30f,40f,50f,60f,70f,80f,90f,100f,110f,120f,130f,140f,150f,160f,170f,180f};
       string[] detectableObjcts = {"Wall","Goal","Obstacle","Pedestrian","CrowdedArea"};// "Sensor"
 
       AddVectorObs(rayPer.Perceive(rayDistance,rayAngles,detectableObjcts,0f,0f));
-      // Adding the distance to the observations received.
-      // distance = Vector3.Distance(center,transform.position);
-      // AddVectorObs(distance);
+
       if (countSlowsteps)
       {
         slowSteps_obs += 1;
@@ -227,35 +243,52 @@ public class AgentScript_4_2 : Agent
     }
     public override void AgentAction(float[] vectorAction,string textAction)
     {
+      count += 1;
+      AddReward(stepPenalty);
+      MoveAgent(vectorAction);
+
+      if (count>=(int)4000f)//(int)4000f
+      {
+        // Getting the steps
+        // exportData(path+nameOfFile[3],"0"+", "+GetStepCount()+", "+DifficultArea()+"\n");
+        // Getting the steps
+        exportData(path+nameOfFile[6],"0"+", "+count+", "+DifficultArea()+"\n");
+        // Getting the steps
+        // exportData(path+nameOfFile[6],"0"+", "+count_up+", "+DifficultArea()+"\n");
+        // Getting the steps
+        // exportData(path+nameOfFile[7],"0"+", "+count_fix_up+", "+DifficultArea()+"\n");
+      }
+
+    }
+    public void MoveAgent(float[] action)
+    {
       Vector3 rotateDir = Vector3.zero;
       if(brain.brainParameters.vectorActionSpaceType == SpaceType.continuous)
       {
-        rotateDir = transform.up * Mathf.Clamp(vectorAction[0],-1f,1f);
+        // rotateDir = transform.up * Mathf.Clamp(vectorAction[0],-1f,1f);
+        // rotateDir = transform.up * Mathf.Clamp(vectorAction[1],-1f,1f);
+        rotateDir = transform.up * Mathf.Clamp(action[0],-1f,1f);
       }
 
       // Rotate
       transform.Rotate(rotateDir,Time.deltaTime * 150f);
 
       // Move
-      // rbd.AddForce(transform.forward * speed);
-      rbd.velocity = transform.forward * speed;
-      // Time penalty
-      AddReward(stepPenalty);
+      rbd.AddForce(transform.forward * speed, ForceMode.VelocityChange);
 
       if (countSlowsteps)
       {
         slowSteps_act += 1;
       }
-      // if (distance < radius * 2)
-      // {
-      //   AddReward(-0.5f);
-      // }
     }
     public override void AgentReset()
     {
       // Because of the two-brains-set-up
       if (resetLocations)
       {
+        count = 0;
+        // count_up = 0;
+        count_fix_up = 0;
         // Incrementing the counter
         countingSessions += 1;
         // Reset sensor collision tracker
@@ -277,17 +310,11 @@ public class AgentScript_4_2 : Agent
 
           foreach (Transform child in firstChild.transform)
           {
-            // if (child.tag == "Sensor")
-            // {
-            //   sensors.Add(child.gameObject);
-            // }
             if (child.tag == "CrowdedArea")
             {
               crowdedAreas.Add(child.gameObject);
             }
           }
-          // Determining how many sensors are supposed to be in each cloud.
-          // numberOfSensors = sensors.Count / (int)academyScript.resetParameters["NumberOfSensorClouds"];//NumberofSensorClouds
           // Updating the position of the clouds.
           for (int j = 0; j < academyScript.resetParameters["NumberOfSensorClouds"];j++)//NumberofSensorClouds
           {
@@ -297,29 +324,18 @@ public class AgentScript_4_2 : Agent
 
             // Ensuring that the sensors appears in the correct area.
             randomPosition = randomPosition + firstChild.transform.position;
-            // Adding the correct amount of sensors in each cloud.
-            // for(int i = hold; i < (hold + numberOfSensors);i++)
-            // {
-            //   Vector3 sensorPosition = Random.insideUnitSphere * academyScript.resetParameters["Radius"] + randomPosition;
-            //   sensorPosition.y = movementHeight; //1.5f
-            //   sensors[i].transform.position = sensorPosition;
-            // }
+
             // Ensuring that the crowdedArea obejct is placed in the center of the spawning area for the sensors within the particular cloud.
             areaType = Random.Range(0,densities.Length);
             crowdedAreas[j].transform.position = randomPosition;
             crowdedAreas[j].GetComponent<AreaInfo>().density = densities[areaType];
             crowdedAreas[j].GetComponent<Renderer>().material = crowdedAreas[j].GetComponent<AreaInfo>().materials[areaType];
-            // hold += numberOfSensors;
           }
-          // hold = 0;
         }
         // Change location of target
         targetScript.resetTarget();
+        // Debug.Log(DifficultArea());
       }
-
-      // // Calculate the new center
-      // center = GetCenter();
-      //
       // Updating the trails
       if (drawTrails)
       {
@@ -381,11 +397,10 @@ public class AgentScript_4_2 : Agent
       }
     }
     // Collision detection
-    void OnCollisionEnter(Collision collision)//public
+    void OnCollisionEnter(Collision collision)
     {
-      if (collision.gameObject.CompareTag("Wall"))//Collider
+      if (collision.gameObject.CompareTag("Wall"))
       {
-        // markCollision();
         AddReward(-1f);
         if (verbose)
         {
@@ -394,7 +409,13 @@ public class AgentScript_4_2 : Agent
           // Tracking collisions with sensors
           exportData(path+nameOfFile[2],sensorCollisionsGlobal+", 0\n");//countingSessions+", "+
           // Getting the steps
-          exportData(path+nameOfFile[3],"0"+", "+GetStepCount()+", "+DifficultArea(firstChild.transform.position)+"\n");
+          exportData(path+nameOfFile[3],"0"+", "+GetStepCount()+", "+DifficultArea()+"\n");
+          // Getting the steps
+          exportData(path+nameOfFile[4],"0"+", "+count+", "+DifficultArea()+"\n");
+          // Getting the steps
+          exportData(path+nameOfFile[6],"0"+", "+count_up+", "+DifficultArea()+"\n");
+          // Getting the steps
+          exportData(path+nameOfFile[7],"0"+", "+count_fix_up+", "+DifficultArea()+"\n");
         }
         Done();
       }
@@ -409,12 +430,18 @@ public class AgentScript_4_2 : Agent
           // Tracking collisions with sensors
           exportData(path+nameOfFile[2],sensorCollisionsGlobal+", 0\n");//countingSessions+", "+
           // Getting the steps
-          exportData(path+nameOfFile[3],"0"+", "+GetStepCount()+", "+DifficultArea(firstChild.transform.position)+"\n");
+          exportData(path+nameOfFile[3],"0"+", "+GetStepCount()+", "+DifficultArea()+"\n");
+          // Getting the steps
+          exportData(path+nameOfFile[4],"0"+", "+count+", "+DifficultArea()+"\n");
+          // Getting the steps
+          exportData(path+nameOfFile[6],"0"+", "+count_up+", "+DifficultArea()+"\n");
+          // Getting the steps
+          exportData(path+nameOfFile[7],"0"+", "+count_fix_up+", "+DifficultArea()+"\n");
         }
         Done();
       }
 
-      if ( collision.gameObject.CompareTag("Pedestrian"))//collider
+      if ( collision.gameObject.CompareTag("Pedestrian"))
       {
         AddReward(-1f);
         if (verbose)
@@ -424,14 +451,20 @@ public class AgentScript_4_2 : Agent
           // Tracking collisions with sensors
           exportData(path+nameOfFile[2],sensorCollisionsGlobal+", 0\n");//countingSessions+", "+
           // Getting the steps
-          exportData(path+nameOfFile[3],"0"+", "+GetStepCount()+", "+DifficultArea(firstChild.transform.position)+"\n");
+          exportData(path+nameOfFile[3],"0"+", "+GetStepCount()+", "+DifficultArea()+"\n");
+          // Getting the steps
+          exportData(path+nameOfFile[4],"0"+", "+count+", "+DifficultArea()+"\n");
+          // Getting the steps
+          exportData(path+nameOfFile[6],"0"+", "+count_up+", "+DifficultArea()+"\n");
+          // Getting the steps
+          exportData(path+nameOfFile[7],"0"+", "+count_fix_up+", "+DifficultArea()+"\n");
         }
         Done();
       }
 
-      if (collision.gameObject.CompareTag("Goal"))//collider
+      if (collision.gameObject.CompareTag("Goal"))
       {
-        AddReward(1f);//5f
+        AddReward(1f);
         if (verbose)
         {
           // Tracking collision with pedestrians.
@@ -439,13 +472,19 @@ public class AgentScript_4_2 : Agent
           // Tracking collisions with sensors
           exportData(path+nameOfFile[2],sensorCollisionsGlobal+", 1\n");//countingSessions+", "+
           // Getting the steps
-          exportData(path+nameOfFile[3],"1"+", "+GetStepCount()+", "+DifficultArea(firstChild.transform.position)+"\n");
+          exportData(path+nameOfFile[3],"1"+", "+GetStepCount()+", "+DifficultArea()+"\n");
+          // Getting the steps
+          exportData(path+nameOfFile[4],"1"+", "+count+", "+DifficultArea()+"\n");
+          // Getting the steps
+          exportData(path+nameOfFile[6],"1"+", "+count_up+", "+DifficultArea()+"\n");
+          // Getting the steps
+          exportData(path+nameOfFile[7],"1"+", "+count_fix_up+", "+DifficultArea()+"\n");
         }
         Done();
 
       }
     }
-    void OnTriggerEnter(Collider collider)//private
+    void OnTriggerEnter(Collider collider)
     {
       // if (collider.gameObject.CompareTag("Sensor"))//without gameObject
       // {
@@ -476,7 +515,7 @@ public class AgentScript_4_2 : Agent
         // agent.GetComponent<AgentScript_4_2>().speed = 5f;
       }
     }
-    void OnTriggerExit(Collider collider)//private
+    void OnTriggerExit(Collider collider)
     {
       if (collider.gameObject.CompareTag("CrowdedArea"))//without gameObject
       {
@@ -490,7 +529,7 @@ public class AgentScript_4_2 : Agent
         countSlowsteps = false;
         if (verbose)
         {
-          exportData(path+nameOfFile[4],slowSteps_act+","+slowSteps_obs+"\n");
+          exportData(path+nameOfFile[5],slowSteps_act+","+slowSteps_obs+"\n");
         }
         slowSteps_act = 0;
         slowSteps_obs = 0;
@@ -503,6 +542,7 @@ public class AgentScript_4_2 : Agent
     // Switching brains
     public void FixedUpdate()
     {
+      count_fix_up += 1;
       if (secondBrain != null)
       {
         if (checkForCollision())
@@ -524,6 +564,33 @@ public class AgentScript_4_2 : Agent
           resetLocations = true;
         }
       }
+      if (count_fix_up>=(int)4000f)//(int)4000f
+      {
+        // Getting the steps
+        exportData(path+nameOfFile[3],"0"+", "+GetStepCount()+", "+DifficultArea()+"\n");
+        // Getting the steps
+        exportData(path+nameOfFile[4],"0"+", "+count+", "+DifficultArea()+"\n");
+        // Getting the steps
+        // exportData(path+nameOfFile[6],"0"+", "+count_up+", "+DifficultArea()+"\n");
+        // Getting the steps
+        exportData(path+nameOfFile[7],"0"+", "+count_fix_up+", "+DifficultArea()+"\n");
+      }
+    }
+    public void Update()
+    {
+      // count_up += 1;
+      // if (count_up==(int)4000f)//(int)4000f
+      // {
+      //   // Getting the steps
+      //   exportData(path+nameOfFile[3],"0"+", "+GetStepCount()+", "+DifficultArea()+"\n");
+      //   // Getting the steps
+      //   exportData(path+nameOfFile[4],"0"+", "+count+", "+DifficultArea()+"\n");
+      //   // Getting the steps
+      //   exportData(path+nameOfFile[6],"0"+", "+count_up+", "+DifficultArea()+"\n");
+      //   // Getting the steps
+      //   exportData(path+nameOfFile[7],"0"+", "+count_fix_up+", "+DifficultArea()+"\n");
+      // }
+
     }
     ///////////////////////////////////////////////////
 }

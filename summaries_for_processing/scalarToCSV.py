@@ -69,7 +69,7 @@ def eventToCSV(file,tags,end, folder = None,description = False):
     # Extracting the data.
     for event in tf.train.summary_iterator(filePath):
 
-        if (((event.step > 0) and (event.step >= 2000)) and (tags == None)):
+        if (((event.step > 0) and (event.step <= 2000)) and (tags == None)):
 
             tags = np.unique([value.tag for value in event.summary.value])
             # print(tags)
@@ -77,10 +77,10 @@ def eventToCSV(file,tags,end, folder = None,description = False):
 
             # Store the data.
             data = [[] for tag in np.arange(len(list(tags.keys()))+1)]
-        elif ((event.step > 0) and (event.step >= 2000)):
+        elif ((event.step > 0) and (event.step <= 2000)):
             # Store the data.
             data = [[] for tag in np.arange(len(list(tags.keys()))+1)]
-        # print(tags)
+        
         # Storing the step.
         if event.step > 1000:
             data[0].append(event.step)

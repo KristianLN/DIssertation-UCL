@@ -60,33 +60,28 @@ public class AcademyScript_4_2 : Academy
                              Random.Range(resetParameters["Radius"] - zScale,zScale - resetParameters["Radius"]));
 
       randomPosition = randomPosition + translateVector;
-
-      // for (var x = 0; x < resetParameters["NumberOfSensors"];x++)
-      // {
-      //   Vector3 sensorPosition = Random.insideUnitSphere * resetParameters["Radius"] + randomPosition;
-      //   sensorPosition.y = heightOfMovingObjects;
-      //   var newSensor = Instantiate(sensor,sensorPosition,Quaternion.identity);
-      //   newSensor.transform.parent = parentTransform;
-      // }
-
-      // crowdedAreas[j].transform.position = randomPosition;
-      // crowdedAreas[j].GetComponent<AreaInfo>().density = densities[Random.Range(0,densities.Length)];
-
     }
 
     if (areasToAdd != 0)
     {
-      // float updatedNumberOfClouds = Mathf.Abs(resetParameters["NumberOfSensorClouds"] - previousClouds);
-
       for (var i = 0; i < areasToAdd;i++)
       {
         areaType = Random.Range(0,densities.Length);
         var newCrowdedArea = Instantiate(crowdedArea,randomPosition,Quaternion.identity);
         newCrowdedArea.transform.parent = parentTransform;
-        newCrowdedArea.GetComponent<SphereCollider>().radius = resetParameters["Radius"];
+        // Explanation on what's going on below:
+        // In order to correcly set the size of the crowded area, and the belonging collider, it is necessary to alter the scale of the object.
+        // The scale of a child (the object) follows the scale of its parent (the environment), which is why the scale of the object is set as fractions
+        // of the scale of the environment. The scale is stored as the distance from 0 to the end of the enviroment, in both positive and negative direction,
+        // implying that the scale is half of the actual size of the environment. That's why the stored scales are multiplied by 2 below.
+        newCrowdedArea.transform.localScale = new Vector3(resetParameters["Radius"] / (xScale*2f),
+                                                          resetParameters["Radius"],
+                                                          resetParameters["Radius"] / (zScale*2f));
+        //newCrowdedArea.GetComponent<SphereCollider>().radius = resetParameters["Radius"];
+        // For visualisation
+
         newCrowdedArea.GetComponent<AreaInfo>().density = densities[areaType];
         newCrowdedArea.GetComponent<Renderer>().material = newCrowdedArea.GetComponent<AreaInfo>().materials[areaType];
-        //newCrowdedArea.transform.localScale = new Vector3 (resetParameters["Radius"],resetParameters["Radius"],resetParameters["Radius"]);
       }
     }
   }
@@ -121,17 +116,13 @@ public class AcademyScript_4_2 : Academy
   {
     // Enabling training environments
     trainingAreas = GameObject.FindGameObjectsWithTag("Area");
-    // Debug.Log(trainingAreas.Length);
     for (var i = 0; i < (trainingAreas.Length - (int)resetParameters["NumberOfAreas"]);i++)
     {
       trainingAreas[i].SetActive(false);
-      // obstacles[i].GetComponent<BoxCollider>().enabled = false;
     }
 
     densities = GameObject.FindWithTag("Agent").GetComponent<AgentScript_4_2>().densities;
     environments = GameObject.FindGameObjectsWithTag("Ground");
-    // extendX = (environments[0].transform.localScale.x) / 2;// The first element in the environments array are used, because all environments are identical, and it therefore doesn't matter.
-    // extendZ = (environments[0].transform.localScale.z) / 2;
 
     previousMovingSensors = (int)resetParameters["NumberOfMovingSensors"];
     // previousSensors = (int)resetParameters["NumberOfSensors"];
@@ -159,11 +150,6 @@ public class AcademyScript_4_2 : Academy
   {
     lB = 0;
     uB = incrementer;
-    // Enabling training environments
-    // for (var i = 0; i < (int)resetParameters["NumberOfAreas"];i++)
-    // {
-    //   trainingAreas[i].SetActive(true);
-    // }
 
     environments = GameObject.FindGameObjectsWithTag("Ground");
     extendX = (environments[0].transform.localScale.x) / 2;// The first element in the environments array are used, because all environments are identical, and it therefore doesn't matter.
