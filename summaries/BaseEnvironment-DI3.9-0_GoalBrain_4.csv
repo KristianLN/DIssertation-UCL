@@ -1,2 +1,0 @@
-Brain name,Time to update policy,Time since start of training,Time for last experience collection,Number of experiences used for training,Mean return
-GoalBrain_4,5.824,57.658,43.445,10301,-1.030
