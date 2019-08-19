@@ -1,0 +1,1153 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass scrbook
+\begin_preamble
+% in case somebody want to have the label "Equation"
+%\renewcommand{\eqref}[1]{Equation~(\negthinspace\autoref{#1})}
+
+% that links to image floats jumps to the beginning
+% of the float and not to its caption
+\usepackage[figure]{hypcap}
+
+% the pages of the TOC is numbered roman
+% and a pdf-bookmark for the TOC is added
+\let\myTOC\tableofcontents
+\renewcommand\tableofcontents{%
+  \frontmatter
+  \pdfbookmark[1]{\contentsname}{}
+  \myTOC
+  \mainmatter }
+
+% makes caption labels bold
+% for more info about these settings, see
+% https://ctan.org/tex-archive/macros/latex/contrib/koma-script/doc/scrguien.pdf
+\setkomafont{captionlabel}{\bfseries}
+\setcapindent{1em}
+
+% enables calculations
+\usepackage{calc}
+
+% fancy page header/footer settings
+% for more information see section 9 of
+% ftp://www.ctan.org/pub/tex-archive/macros/latex2e/contrib/fancyhdr/fancyhdr.pdf
+\renewcommand{\chaptermark}[1]{\markboth{#1}{#1}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+
+% increases the bottom float placement fraction
+\renewcommand{\bottomfraction}{0.5}
+
+% avoids that floats are placed above its sections
+\let\mySection\section\renewcommand{\section}{\suppressfloats[t]\mySection}
+
+% increases link area for cross-references and autoname them
+% if you change the document language to e.g. French
+% you must change "extrasenglish" to "extrasfrench"
+% if you uncomment the following lines, you cannot use the reference version Ref+Text in LyX
+%\AtBeginDocument{%
+% \renewcommand{\ref}[1]{\autoref{#1}}
+%}
+%\def\refnamechanges{%
+% \renewcommand*{\equationautorefname}[1]{}
+% \renewcommand{\sectionautorefname}{sec.\negthinspace}
+% \renewcommand{\subsectionautorefname}{sec.\negthinspace}
+% \renewcommand{\subsubsectionautorefname}{sec.\negthinspace}
+% \renewcommand{\figureautorefname}{Fig.\negthinspace}
+% \renewcommand{\tableautorefname}{Tab.\negthinspace}
+%}
+%\@ifpackageloaded{babel}{\addto\extrasenglish{\refnamechanges}}{\refnamechanges}
+\end_preamble
+\options intoc,bibliography=totoc,index=totoc,BCOR10mm,captions=tableheading,titlepage
+\use_default_options true
+\master Dissertation.lyx
+\begin_modules
+customHeadersFooters
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding utf8
+\fontencoding global
+\font_roman "lmodern" "default"
+\font_sans "lmss" "default"
+\font_typewriter "lmtt" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures false
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command bibtex
+\index_command default
+\float_placement h
+\paperfontsize 12
+\spacing double
+\use_hyperref true
+\pdf_title "Your title"
+\pdf_author "Your name"
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder true
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle false
+\pdf_quoted_options "pdfpagelayout=OneColumn, pdfnewwindow=true, pdfstartview=XYZ, plainpages=false"
+\papersize a4paper
+\use_geometry false
+\use_package amsmath 2
+\use_package amssymb 2
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_minted 0
+\branch Standalone
+\selected 1
+\filename_suffix 0
+\color #ff0000
+\end_branch
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation skip
+\defskip medskip
+\is_math_indent 1
+\math_indentation default
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 2
+\papersides 2
+\paperpagestyle fancy
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Left Header
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+chaptername
+\end_layout
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+thechapter
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+rightmark
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Enable page headers and add the chapter to the header line.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Right Header
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+leftmark
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Left Footer
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+thepage
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Center Footer
+
+\end_layout
+
+\begin_layout Right Footer
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+thepage
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+Technical Details
+\end_layout
+
+\begin_layout Standard
+The first part of this appendix is devoted to the technical aspect of the
+ study, implying a full treatment of the elements of the environment and
+ their configuration.
+\end_layout
+
+\begin_layout Section
+Developing digital environments in Unity
+\end_layout
+
+\begin_layout Standard
+Every application build with Unity is made of 
+\shape italic
+Scenes
+\shape default
+, 
+\shape italic
+GameObject’s
+\shape default
+, 
+\shape italic
+components
+\shape default
+ and 
+\shape italic
+scripts
+\shape default
+.
+ An application can contain an arbitrary number of scenes, and the application
+ shown in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:A-scene-in"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+contains one, namely 
+\shape italic
+SensorEnvironment-4.2
+\shape default
+.
+ Every scene contains GameObject’s, in which components and scripts are
+ attached, to sustain any form of behaviour imaginable.
+ Components enables the use of all the built-in functionalities in the Unity
+ Engine, and scripts provides the researcher with the option to take full
+ control.
+ 
+\end_layout
+
+\begin_layout Standard
+Developing an environment, formally known as a 
+\shape italic
+Scene
+\shape default
+ in Unity, to facilitate the possibilities within the ML-agents toolkit
+ requires some standard objects; an actual 
+\shape italic
+environment
+\shape default
+ to explore, an 
+\shape italic
+academy
+\shape default
+, an 
+\shape italic
+agent
+\shape default
+ and a 
+\shape italic
+target
+\shape default
+.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:A-scene-in"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is an example of how everything could be organised within a scene.
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+A scene in Unity containing the components of the ML-Agents toolkit
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:A-scene-in"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\paragraph_spacing single
+\noindent
+\align center
+
+\shape italic
+\size footnotesize
+\begin_inset Graphics
+	filename C:/Users/Krist/Desktop/Kristian/Privat/Ansøgninger/Udveksling/University College London/Being there/Dissertation/Picture/Set-up_in_action.PNG
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\paragraph_spacing single
+\noindent
+\align center
+
+\shape italic
+\size footnotesize
+The scene contains all available elements within the environment.
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+One thing to note from figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:A-scene-in"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is that all necessary elements are contained in a prefab named 
+\shape italic
+Area_EnvX
+\shape default
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+X referrers to the current version of the implementation.
+\end_layout
+
+\end_inset
+
+.
+ Prefabs are pre-defined GameObject’s, and the use of prefabs are a neat
+ way of altering similar objects simultaneously.
+ For the environment in question, containing all necessary elements in a
+ prefab, is a way to utilise a parallelised set-up, allowing for faster
+ training.
+ The following describes key components of the entire environment, divided
+ into the four categories made up by the basic objects required by the ML-Agents
+ toolkit.
+ All components left out of the following description can be found in the
+ appendix, to ensure reproducibility.
+ 
+\end_layout
+
+\begin_layout Subsection
+Environment
+\end_layout
+
+\begin_layout Standard
+The walkable area is labelled 
+\shape italic
+ground
+\shape default
+ in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:A-scene-in"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, and it serves two important purposes.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Firstly, it defines the extend of the area through its scale, seen in figure
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:The-ground-object"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ The extend of the area is used to ensure that random placing, through scripting
+, of objects happens within the bounds of the traceable area.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Secondly, it serves as a container for the objects belonging to this training
+ area
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Made up of the 
+\shape italic
+Area
+\shape default
+ prefab.
+\end_layout
+
+\end_inset
+
+.
+ Initialising new GameObject’s as children of another GameObject is a way
+ to ensure interaction with intended GameObject’s.
+ It allows the researcher to write generic scripts and not instances specific
+ scripts, which are in general good practice, and especially desirable when
+ working with parallelised set-ups.
+ 
+\end_layout
+
+\begin_layout Subsubsection*
+Tags 
+\end_layout
+
+\begin_layout Standard
+Every GameObject within the training area is tagged, as seen in the right
+ side of figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:The-ground-object"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Tags is an elegant way to differentiate GameObject’s from each other, especiall
+y useful in association with collision detection, collecting observations
+ on the state of the environment and random placing of GameObject’s.
+ 
+\end_layout
+
+\begin_layout Subsubsection*
+Layers 
+\end_layout
+
+\begin_layout Standard
+Assigning different GameObject’s to different layers is used to either include
+ or exclude certain GameObject’s from some sort of detection.
+ This is useful in the two-brain set-up, ensuring that one brain handles
+ avoidance of dynamic obstacles and one brain takes care of the general
+ navigation towards the target.
+ 
+\end_layout
+
+\begin_layout Subsubsection*
+Static Objects
+\end_layout
+
+\begin_layout Standard
+To the right of the GameObject’s name is the ability to mark a GameObject
+ as static, which is used in connection with NavMesh agents.
+ Static GameObject’s are part of mesh in which a NavMesh agent can navigate
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "NavMesh"
+literal "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Subsubsection*
+Geometry of a GameObject 
+\end_layout
+
+\begin_layout Standard
+Any object having a shape contains a Mesh filter, defining the geometry
+ of the object, and a Mesh renderer, which ensures rendering of the object
+ at the position specified in the transform component.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:The-ground-object"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ shows that the 
+\shape italic
+ground
+\shape default
+ element is a plane, having a size of 
+\begin_inset Formula $80\times80\times1$
+\end_inset
+
+, positioned at 
+\begin_inset Formula $(0,0)$
+\end_inset
+
+.
+ The height (size in the y direction) of the 
+\shape italic
+ground
+\shape default
+ element is not as such important, if it is above 0, to sustain the plane
+ rendering.
+ 
+\end_layout
+
+\begin_layout Standard
+Within the bounded 
+\shape italic
+ground
+\shape default
+, not necessarily as child objects, is six types of objects placed, two
+ of them elaborated in individual sections below, and the other four are
+ 
+\shape italic
+walls
+\shape default
+, 
+\shape italic
+obstacles
+\shape default
+, 
+\shape italic
+pedestrians
+\shape default
+ and 
+\shape italic
+crowded areas
+\shape default
+.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Walls & Obstacles
+\end_layout
+
+\begin_layout Standard
+The walls as well as obstacles are, as GameObject’s, identical to the 
+\shape italic
+ground
+\shape default
+ GameObject, with a different tag along with the obviously different size
+ and position.
+ The walls and obstacles have different materials, to indicate that they
+ represent something different.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+The ground object
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:The-ground-object"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename C:/Users/Krist/Desktop/Kristian/Privat/Ansøgninger/Udveksling/University College London/Being there/Dissertation/Picture/Ground_in_action.PNG
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Pedestrians
+\end_layout
+
+\begin_layout Standard
+The pedestrian GameObject is a prefab, which is attached to the academy
+ from where it is initialised.
+ The RL agent reset upon collision with them, as it is unacceptable for
+ ADR’s to collide with pedestrians.
+ Figure 16 shows the components attached to the pedestrian prefab, of which
+ four are interesting to elaborate on.
+ 
+\end_layout
+
+\begin_layout Subsubsection*
+Collider 
+\end_layout
+
+\begin_layout Standard
+The collider together with the rigidbody component, is what that enables
+ collision detection between the object and another object, with a collider
+ and rigidbody component attached as well.
+ The settings in the collider is irrelevant, as they are standard settings
+ matching the scale of the GameObject.
+ 
+\end_layout
+
+\begin_layout Subsubsection*
+Rigidbody 
+\end_layout
+
+\begin_layout Standard
+The rigidbody is the component that enables the physics engine to take control
+ of the movement of the GameObject.
+ The mass of the GameObject is specified in kilograms and is set equal to
+ a reasonable average value for a male.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+The pedestrian prefab
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:The-pedestrian-prefab"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename C:/Users/Krist/Desktop/Kristian/Privat/Ansøgninger/Udveksling/University College London/Being there/Dissertation/Picture/Pedestrain.PNG
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+RB: Drag 
+\end_layout
+
+\begin_layout Standard
+The drag is a force working in the opposite direction to the movement of
+ the object, specifying at what pace the movement of the object is decreased.
+ The value for the drag of the pedestrian prefab is calculated using 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:A1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, to ensure realistic behaviour in the simulation, because the default value
+ is zero which is not in accordance with realistic behaviour.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+drag\,=\,1/2\cdotρ\cdot v^{2}\cdot C_{d}\cdot A\label{eq:A1}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $ρ$
+\end_inset
+
+ is density 
+\begin_inset Formula $(kg/m^{3})$
+\end_inset
+
+ of the fluid that the object passes through, air in this case here, 
+\begin_inset Formula $v$
+\end_inset
+
+ is the speed 
+\begin_inset Formula $(m/s)$
+\end_inset
+
+ at which the object moves, 
+\begin_inset Formula $C_{d}$
+\end_inset
+
+ is the drag coefficient (unit less) and 
+\begin_inset Formula $A$
+\end_inset
+
+ is the cross sectional area related to the movement, which is the area
+ of the object normal to the direction of the movement.
+ Table 5 shows the values used, and the calculated drag.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Drag
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Drag"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tabular}{c c c}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+& Value & Unit
+\backslash
+
+\backslash
+ [0.5ex]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline 
+\end_layout
+
+\begin_layout Plain Layout
+
+Density*,$
+\backslash
+rho$: & 1.225 & $kg/m^2$
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Speed, $v$: & 1 & $m/s$
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Drag Coefficient, $C_{d}$**: & 1.3 & Unitless
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Cross Sectional Area, $A$: & 3.142 & $m^2$
+\backslash
+
+\backslash
+[1ex]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+multi
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tabular}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The 
+\shape italic
+angular drag
+\shape default
+ is how much a rotation is slowed down, and it is kept at standard value,
+ because the default value is within a realistic order.
+ 
+\end_layout
+
+\begin_layout Standard
+The rigidbody is marked as being
+\shape italic
+ kinematic
+\shape default
+, which implies that the object isn’t influenced by any forces.
+ Why have the rigidbody attached then? Because it ensures better collision
+ properties having both the collider and the rigidbody attached to an object,
+ and all movement is handled by the NavMesh agent component below.
+ 
+\end_layout
+
+\begin_layout Subsubsection*
+Nav Mesh Agent 
+\end_layout
+
+\begin_layout Standard
+The Nav Mesh Agent component is what turns an empty GameObject into a Nav
+ Mesh agent.
+ At least initially, is every parameter herein kept default, except speed
+ and angular speed.
+ The speed of the agent is set equal to 
+\begin_inset Formula $1\:m/s$
+\end_inset
+
+, the same as the ML agent, which is roughly equal to a speed of 
+\begin_inset Formula $3.5\:km/t$
+\end_inset
+
+ – the average chilled walking speed.
+ The angular speed is set equal to 
+\begin_inset Formula $150$
+\end_inset
+
+, a bit above the default value of 
+\begin_inset Formula $120$
+\end_inset
+
+, as it is equal to the angular speed used in the ML agent.
+ 
+\end_layout
+
+\begin_layout Subsubsection*
+Walking around 
+\end_layout
+
+\begin_layout Standard
+The final component is a custom script, written to ensure that the pedestrian
+ walks around the training area continuously doing an episode.
+ The script has two public variables, the radius and frequency.
+ The radius is the distance from the agent, that a new target point is draw
+ within.
+ One target point is drawn within the frequency specified, and there should
+ therefore strike a balance between the radius and the time, such that the
+ agent has time to travel that distance within the specified time.
+ 
+\end_layout
+
+\begin_layout Section
+The next section
+\end_layout
+
+\begin_layout Standard
+\begin_inset Branch Standalone
+inverted 0
+status open
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+The contents of this branch is only output if this chapter is processed
+ on its own, i.
+\begin_inset space \thinspace{}
+\end_inset
+
+e., not from the master.
+ This allows you to have a bibliography and a nomenclature if you only want
+ to output this chapter.
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset include
+LatexCommand include
+filename "Bibliography.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

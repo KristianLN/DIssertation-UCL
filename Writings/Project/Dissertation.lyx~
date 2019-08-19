@@ -68,7 +68,7 @@ customHeadersFooters
 \maintain_unincluded_children false
 \language english
 \language_package default
-\inputencoding auto
+\inputencoding utf8
 \fontencoding global
 \font_roman "lmodern" "default"
 \font_sans "lmss" "default"
@@ -186,7 +186,7 @@ customHeadersFooters
 \quotes_style english
 \dynamic_quotes 0
 \papercolumns 1
-\papersides 1
+\papersides 2
 \paperpagestyle fancy
 \tracking_changes false
 \output_changes false

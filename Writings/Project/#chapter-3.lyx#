@@ -1,0 +1,1998 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass scrbook
+\begin_preamble
+% in case somebody want to have the label "Equation"
+%\renewcommand{\eqref}[1]{Equation~(\negthinspace\autoref{#1})}
+
+% that links to image floats jumps to the beginning
+% of the float and not to its caption
+\usepackage[figure]{hypcap}
+
+% the pages of the TOC is numbered roman
+% and a pdf-bookmark for the TOC is added
+\let\myTOC\tableofcontents
+\renewcommand\tableofcontents{%
+  \frontmatter
+  \pdfbookmark[1]{\contentsname}{}
+  \myTOC
+  \mainmatter }
+
+% makes caption labels bold
+% for more info about these settings, see
+% https://ctan.org/tex-archive/macros/latex/contrib/koma-script/doc/scrguien.pdf
+\setkomafont{captionlabel}{\bfseries}
+\setcapindent{1em}
+
+% enables calculations
+\usepackage{calc}
+
+% fancy page header/footer settings
+% for more information see section 9 of
+% ftp://www.ctan.org/pub/tex-archive/macros/latex2e/contrib/fancyhdr/fancyhdr.pdf
+\renewcommand{\chaptermark}[1]{\markboth{#1}{#1}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+
+% increases the bottom float placement fraction
+\renewcommand{\bottomfraction}{0.5}
+
+% avoids that floats are placed above its sections
+\let\mySection\section\renewcommand{\section}{\suppressfloats[t]\mySection}
+
+% increases link area for cross-references and autoname them
+% if you change the document language to e.g. French
+% you must change "extrasenglish" to "extrasfrench"
+% if you uncomment the following lines, you cannot use the reference version Ref+Text in LyX
+%\AtBeginDocument{%
+% \renewcommand{\ref}[1]{\autoref{#1}}
+%}
+%\def\refnamechanges{%
+% \renewcommand*{\equationautorefname}[1]{}
+% \renewcommand{\sectionautorefname}{sec.\negthinspace}
+% \renewcommand{\subsectionautorefname}{sec.\negthinspace}
+% \renewcommand{\subsubsectionautorefname}{sec.\negthinspace}
+% \renewcommand{\figureautorefname}{Fig.\negthinspace}
+% \renewcommand{\tableautorefname}{Tab.\negthinspace}
+%}
+%\@ifpackageloaded{babel}{\addto\extrasenglish{\refnamechanges}}{\refnamechanges}
+\end_preamble
+\options intoc,bibliography=totoc,index=totoc,BCOR10mm,captions=tableheading,titlepage
+\use_default_options true
+\master Dissertation.lyx
+\begin_modules
+customHeadersFooters
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding utf8
+\fontencoding global
+\font_roman "lmodern" "default"
+\font_sans "lmss" "default"
+\font_typewriter "lmtt" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures false
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command bibtex
+\index_command default
+\float_placement h
+\paperfontsize 12
+\spacing double
+\use_hyperref true
+\pdf_title "Your title"
+\pdf_author "Your name"
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder true
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle false
+\pdf_quoted_options "pdfpagelayout=OneColumn, pdfnewwindow=true, pdfstartview=XYZ, plainpages=false"
+\papersize a4paper
+\use_geometry false
+\use_package amsmath 2
+\use_package amssymb 2
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_minted 0
+\branch Standalone
+\selected 1
+\filename_suffix 0
+\color #ff0000
+\end_branch
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation skip
+\defskip medskip
+\is_math_indent 1
+\math_indentation default
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 2
+\paperpagestyle fancy
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Left Header
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+chaptername
+\end_layout
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+thechapter
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+rightmark
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Enable page headers and add the chapter to the header line.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Right Header
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+leftmark
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Left Footer
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+thepage
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Center Footer
+
+\end_layout
+
+\begin_layout Right Footer
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+thepage
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+Methodology
+\end_layout
+
+\begin_layout Standard
+Coming off the literature review, three points are worth to have in mind;
+ 
+\end_layout
+
+\begin_layout Itemize
+Scalable RL, through the recent advances in DL, have accomplished promising
+ results in other areas, from raw visual observations.
+\end_layout
+
+\begin_layout Itemize
+Robotic navigation possesses four main challenges; mapping, traversability
+ analysis, localisation and planning.
+ 
+\end_layout
+
+\begin_layout Itemize
+The use of DRL for robotic navigation in UE’s has so far been concern with
+ avoiding static obstacles, using both visual and sensor observations.
+ 
+\end_layout
+
+\begin_layout Standard
+This section outlines methods used to address the objectives of this research,
+ and how they are investigated.
+ 
+\end_layout
+
+\begin_layout Standard
+There are three objectives, as mentioned in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:The-next-section"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, namely; 
+\end_layout
+
+\begin_layout Itemize
+To investigate the ability of DRL to tackle the most common challenges of
+ CUE’s.
+ 
+\end_layout
+
+\begin_layout Itemize
+To explore ways to ease learning of the robotic agent.
+ 
+\end_layout
+
+\begin_layout Itemize
+To investigate how uncertainty about the observed environment affects the
+ performance of the robotic agent.
+ 
+\end_layout
+
+\begin_layout Standard
+The objectives of this study are mainly related to the challenge of traversabili
+ty analysis and localisation in robotic navigation.
+ Mapping of the environment is a consequence of the agent learning and planning
+ is not considered in this study.
+ 
+\end_layout
+
+\begin_layout Standard
+This study simulates a robotic agent, learning an environment which possesses
+ some of the core challenges found in UE’s, which are static, semi-static
+ and dynamic obstacles.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The robotic agent represents an ADR, and the environment represents an area
+ which is less congested with traffic, like an area of pedestrian streets
+ or a campus university.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The current state of ADR’s is briefly outlined in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Autonomous-delivery-robots"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ to, in affiliation with the insights obtained from the literature review,
+ address the challenges that the simulated environment needs to possess.
+ 
+\begin_inset Newline newline
+\end_inset
+
+To evaluate the suitability of DRL, to tackle the core challenges, a simulated
+ environment is needed.
+ The framework is developed in Unity, and a justification for choosing Unity
+ is presented in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Unity-as"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The simulated environment, and its content, is outlined with an eye for
+ the objectives, and a more detailed description is found in appendix.
+ 
+\end_layout
+
+\begin_layout Standard
+Robotic agents of varying complexity are compared, to evaluate the effect
+ of different inputs on the quality of the decision making of the robot.
+ Their performance is evaluated on their 
+\shape italic
+average cumulative reward
+\shape default
+ (ACR),
+\shape italic
+ average episode length
+\shape default
+ (AEL) and their ability to avoid obstacles.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The reason for evaluating different robotic agents is because more sophisticated
+ agents comes with a higher computational cost, which is a concern when
+ real-time decision are needed, as is the case with deployed ADR’s.
+ 
+\end_layout
+
+\begin_layout Standard
+Finally, the different robotic agents are compared on their ability to handle
+ uncertainty in the observed environment, elaborated in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Uncertainty"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Section
+Autonomous Delivery Tobots Today
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Autonomous-delivery-robots"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+An increasing number of companies are putting they attention on autonomous
+ delivery robots 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "FEADR,ASADR"
+literal "false"
+
+\end_inset
+
+, to meet increasing customer expectations of companies to ride the technology
+ weaves, to enable low-cost-low-emission products.
+ Starship, founded by two of the Skype co-founders, are regarded the leader
+ in the ADR race, with their fleet of ADR’s having logged over 100.000 kilometres
+ and more than 25.000 deliveries under the wheels.
+ The fleet has been deployed in pilot areas of cities like London, New York
+ and Washington DC 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "AMVSSS,TOP5DR"
+literal "false"
+
+\end_inset
+
+, and the fleet has gained enough experience to surpass the need for any
+ handholding 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "AMVSSS"
+literal "false"
+
+\end_inset
+
+.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Their newest launch is autonomous delivery of food and beverages at George
+ Mason University, Maryland.
+ The partnership is to accommodate the rising need for smart solutions in
+ a high-paced-high-expectation environment, where nutrition sometimes is
+ overlooked 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "AMVSSS"
+literal "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+The technology underlying the ADR’s of Starship is proprietary, yet 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "NNPRS"
+literal "false"
+
+\end_inset
+
+ reveals that neural networks does play a role in localisation and traversabilit
+y analysis of their ADR’s.
+ 
+\end_layout
+
+\begin_layout Standard
+The specifications of 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ASADR,FEADR,SSADR"
+literal "false"
+
+\end_inset
+
+ serves as input to the development of the robotic agent, to ensure realism
+ in the simulations, together with realistic physical settings, elaborated
+ in coming section.
+ 
+\end_layout
+
+\begin_layout Standard
+Common for the areas of deployment of today’s ADR’s is that they are areas
+ dominated by pedestrians, and crowds are likely to emerge.
+ The core challenges are static and dynamic obstacles, as well as a combination
+ of the two, elaborated in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Environment"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Having outlined the stage of which this research is conducted, in terms
+ of a bounded pedestrian dominated area, and the challenges that such an
+ area possess, it is time to access how this can be done in a safely manner.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Unity, a state-of-art game development platform and the simulation engine
+ for this study, provides a framework in which interaction between agents
+ can be safely investigated under realistic physical settings.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Utilising Unity enables this study to investigate how RL-agents handles
+ some of the challenges faced by the current generation of ADR’s, in a safe
+ and realistic, yet simplified, setting.
+ 
+\end_layout
+
+\begin_layout Section
+Unity – as a Simulation Engine for Research in DRL
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Unity-as"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Unity is a game engine, that enables the use of sensor and visual input
+ while providing the possibility of realistic physical rendering, which
+ makes it an interesting application to conduct research on artificial intellige
+nce (AI) on 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "DBLP:journals/corr/SadeghiL16,DBLP:journals/corr/abs-1809-02627,DBLP:journals/corr/abs-1808-00177"
+literal "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+The underlying engine runs in de-synchronized fashion, implying low latency
+ and distributed computing.
+ This is important when developing software used for real-time decisions,
+ as it is needed in ADR’s.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Additionally, Unity provides various features to support reduced simulation
+ time, such as the ability to run simulations at least 100 times faster
+ than real time, while still maintain physics and frame rendering, and the
+ option to deploy concurrent environments.
+ Limiting simulation time as much as possible, without harming the performance,
+ is important when working with complex environment, agents and methods.
+ Depending on the setting, some applications requires millions of double-digit
+ observations to converge to the optimal outcome 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "hessel2017rainbow"
+literal "false"
+
+\end_inset
+
+.
+ 
+\begin_inset Newline newline
+\end_inset
+
+These computational features are appealing for this study, because part
+ of the objectives in this study seeks to investigates the effect of using
+ visual input in agents as well as parallelised training, which are two
+ aspects that are computational demanding.
+ 
+\end_layout
+
+\begin_layout Standard
+Unity is a serious candidate for modelling the complex dynamics of urban
+ environments, via the ability to replicate real-life physical complexity,
+ and thereby enabling realistic movement patterns as well as interaction
+ between objects.
+ This is essential if the objective is to generalise the results to the
+ real-world, as higher similarity between the digital environment and real
+ world increases the likelihood for generalisation.
+ 
+\end_layout
+
+\begin_layout Standard
+It is not a direct objective of this study to generalise the results obtained
+ to the real world, but it is hoped that this study can serve as a humble
+ baseline for further research.
+ 
+\end_layout
+
+\begin_layout Standard
+The analysis in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:Analysis"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ proceeds by examining four slightly different robotic agents’ ability to
+ handle the challenges of the simulated environment, with and without any
+ aids as well as under uncertainty about the observations received.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The analysis address all three objectives, and it is intended to do it in
+ a diversified way, by examining different robotic agents.
+ 
+\end_layout
+
+\begin_layout Standard
+The following section describes the elements of the simulated environment,
+ and how they help to address the objectives of this study.
+ 
+\end_layout
+
+\begin_layout Section
+The Environment
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:The-environment"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The simulated environment is intended to capture the core dynamics of pedestrian
+s-dominated areas, which implies that the simulated environment contains,
+ besides the robotic agent, four elements; static obstacles, dynamic obstacles,
+ crowded areas and a target.
+ Each these are described in turn below, but a brief overview looks the
+ following;
+\end_layout
+
+\begin_layout Standard
+
+\shape italic
+Environment:
+\shape default
+ Pedestrian-dominated area, as an area of pedestrian streets or a campus
+ university.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\shape italic
+Robotic agent:
+\shape default
+ An RL-based goal-seeking ADR.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\shape italic
+Static obstacles:
+\shape default
+ They represents everything static in the built environment, such as building,
+ bins, mailboxes or even boundaries of pilot areas.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\shape italic
+Dynamic obstacles:
+\shape default
+ They represent pedestrians, sharing the walkable area with the robotic
+ agent.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\shape italic
+Crowded areas:
+\shape default
+ They simulate areas with a higher probability of potential collisions,
+ which requires increased effort of the robotic agent to pass through.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\shape italic
+Target:
+\shape default
+ It represents the delivery point of the ADR.
+ 
+\end_layout
+
+\begin_layout Standard
+A full technical description of the environment is found in appendix, covering
+ configurations of each element, training, training hyperparameters and
+ the use of TensorBoard to observe training.
+ 
+\end_layout
+
+\begin_layout Subsection
+Environment
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Environment"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The environment under investigation is limited to reflect the core dynamics
+ of pedestrian-dominated areas, and an example of a state in the environment
+ is seen from figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:The-Environment"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\begin_inset Newline newline
+\end_inset
+
+A city example could be the area around Carnaby Street in Soho, London.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The simulated environment possesses difficult areas, located between the
+ top/bottom static obstacle and the nearest wall, and it is difficult because
+ it is narrower that the area between any two static obstacles.
+ The difficult areas could represent varying street sizes in a city area.
+ 
+\begin_inset Newline newline
+\end_inset
+
+They present an interesting challenge, because they can help shed light
+ on the effect of the spatial ordering of objects on learning.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+The Environment
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:The-Environment"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename C:/Users/Krist/Desktop/Kristian/Privat/Ansøgninger/Udveksling/University College London/Being there/Dissertation/Picture/FullEnvironment.PNG
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+
+\shape italic
+\size footnotesize
+The environment contains one moving pedestrians (light green), three crowded
+ areas with varying density (red (high), orange (medium), green (light)),
+ the target (dark green square) and the five static obstacles.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Simulating these somewhat simplified urban areas, i.e.
+ pedestrian-dominated areas, is justified by the current state at which
+ ADR’s are today, i.e.
+ still being in an early stage and facing challenges by the unpredictability
+ of the real world 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "AMVSSS"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Robotic Agents
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Robotic-Agents"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The robotic agents represent ADR’s, and comprehensive technical description
+ is available in appendix.
+ The agents are RL-based agents powered by the ML-Agents toolkit by Unity.
+ The toolkit embeds the DRL in the agent, by linking a Python API to Unity.
+ For more detail, see 
+\color red
+appendix
+\color inherit
+.
+ 
+\end_layout
+
+\begin_layout Standard
+The performance of four different agents, with increasing complexity, are
+ tested; 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+Agent-1: Pure sensor observations.
+ 
+\end_layout
+
+\begin_layout Standard
+The agent is equipped with 18 sensors, spanning 180 degrees in front of
+ the agent, with a length of 50 metres.
+ The effect of the length of span of the sensors is not investigated, and
+ it is chosen arbitrary.
+ The sensor returns the normalised distance to the detected object, with
+ the distance normalised by the length of the sensor ray, 50 meters here.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The use of sensor observations resembles with the use of LIDAR sensors on
+ real robots 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Georgiev:2004:LMM:2211637.2211690,Lidoris2009,Kuemmerle2013"
+literal "false"
+
+\end_inset
+
+.
+ 
+\begin_inset Newline newline
+\end_inset
+
+This agent has as such no idea about the location of the target and needs
+ to search for it.
+ It can seem unrealistic, in terms of an ADR, but it provides a possibility
+ to evaluate the effect of knowing the distance to the target.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+\begin_inset CommandInset label
+LatexCommand label
+name "Agent-2:-In-addition"
+
+\end_inset
+
+Agent-2: In addition to sensor observations, this agent is equipped with
+ information on crowded areas nearby.
+\end_layout
+
+\begin_layout Standard
+The agent is provided with the density and the normalised distance to crowded
+ areas with a radius of 25 meters.
+ This resembles with the use of radar information, and the idea stems 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "NNPRS"
+literal "false"
+
+\end_inset
+
+.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The distance is normalised by the radius of the radar.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+Agent-3: In addition to sensor observations and information on crowded areas
+ nearby, this agent is provided with the distance to the target.
+ 
+\end_layout
+
+\begin_layout Standard
+The distance to the target is normalised by the length of the diagonal of
+ the environment, as that is the maximum theoretical distance possible between
+ the agent and the target.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+Agent-4: Sensor observations, Crowded-area information, distance to target
+ and greyscale image observations.
+ 
+\end_layout
+
+\begin_layout Standard
+The choice of using greyscale images, with a size of 84x84, is motivated
+ by 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "mnih2013playing"
+literal "false"
+
+\end_inset
+
+, to limit the computational expense of using image observations.
+ 
+\end_layout
+
+\begin_layout Standard
+All distances are normalised, to ensure better convergence properties of
+ the policy net.
+ 
+\end_layout
+
+\begin_layout Standard
+The action space of the agents consists of a single action, namely degrees
+ to turn, implying that they are moved forward with a constant speed.
+ An interesting topic for future research is extending the action space
+ of the agents.
+ 
+\end_layout
+
+\begin_layout Standard
+Investigating agents with varying complexity enables evaluation of the robustnes
+s of each agent, as well as the computational costs of the increasing complexity.
+ The former is especially interesting when evaluating the effect of uncertainty,
+ as is one of the objectives of this study.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Uncertainty
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Uncertainty"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Uncertainty is introduced to the environment by adding Gaussian noise, 
+\begin_inset Formula $x\sim N(0,1)$
+\end_inset
+
+, to the sensor observations received by the agent, when the agents gets
+ within 15 meters of a crowded area.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The uncertainty captures the uncertainty surrounding the actual presence
+ of detected sensors, inaccuracy as a result of challenging weather conditions,
+ or the use of cheap hardware to limit the cost of the ADR.
+ 
+\begin_inset Newline newline
+\end_inset
+
+An example could be inaccuracy of the sensors from being covered by dust
+ or snow.
+ 
+\end_layout
+
+\begin_layout Standard
+The Gaussian noise is generated by performing a 
+\shape italic
+Box-Muller transformation
+\shape default
+ of a two-dimensional continuous uniform distribution, seen in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:5"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, outputting a two-dimensional bivariate normal distribution 
+\begin_inset CommandInset citation
+LatexCommand cite
+after "Tabel 6.1"
+key "GiveHoet12"
+literal "false"
+
+\end_inset
+
+.
+ One of the Gaussian variables are chosen with an equal probability.
+\end_layout
+
+\begin_layout Subsubsection*
+\paragraph_spacing other 0.5
+\noindent
+
+\shape italic
+\size footnotesize
+Box-Muller transformation
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing other 0.5
+\noindent
+\align center
+
+\shape italic
+If 
+\begin_inset Formula $U_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $U_{2}$
+\end_inset
+
+ are uniformly and independent distributed, between 0 and 1, then
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing other 0.5
+\noindent
+\align center
+
+\shape italic
+\begin_inset Formula 
+\begin{equation}
+X_{1}\,=\,μ+σ\sqrt{-2logU_{1}}cos(2\pi U_{2})\:\Lambda\:X_{2}\,=\,μ+σ\sqrt{-2logU_{1}}sin(2\pi U_{2})\label{eq:5}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing other 0.5
+\noindent
+\align center
+
+\shape italic
+are independent 
+\begin_inset Formula $N(\mu,\sigma)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Rewards
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Rewards"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Rewards are the fundamental driver of learning, irrespectively of the agent
+ being real or artificial.
+ Rewards occur with varying frequency, yet often distant, and they come
+ in two types; extrinsic and intrinsic.
+ 
+\end_layout
+
+\begin_layout Standard
+All characteristics of rewards, referred to as the reward function in RL
+ literature, shapes the learned policy function.
+ Headless treatment of the reward function results in poor policies, while
+ careful design of the reward function enables generalisable high-quality
+ policies.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+
+\series bold
+Extrinsic
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Extrinsic"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Extrinsic rewards come from outside the agent, and thereby emitted by the
+ environment.
+ 
+\end_layout
+
+\begin_layout Standard
+The environment emits a reward of 
+\begin_inset Formula $-1$
+\end_inset
+
+ if the agent collides with static obstacles, walls or pedestrians, in hope
+ to disincentive behaviour resulting in these collisions.
+ Differently, collisions with the target are rewarded with 
+\begin_inset Formula $+1$
+\end_inset
+
+, to incentive goal-seeking behaviour.
+ 
+\end_layout
+
+\begin_layout Standard
+To motivate smarter decisions, and thereby quicker learning, the agent is
+ penalised, 
+\begin_inset Formula $-0.0005$
+\end_inset
+
+, for every step in the environment.
+ The goal is to obtain a policy which provides the agent with navigational
+ abilities, exhibiting characteristics that resembles with shortest-path-optimis
+ation using 
+\begin_inset Formula $A^{*}$
+\end_inset
+
+ search, used in traditional robotic navigation research 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "MariaBauer2009,Trulls2011,Kuemmerle2013"
+literal "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+A subobjective of this study is to learn the agent, that crowded areas require
+ more effort to navigate through.
+ To do so, the agent is penalised for every step in the crowded area, proportion
+ally to the density of the area, see section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Crowded-areas"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+
+\series bold
+Intrinsic
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Intrinsic"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Intrinsic rewards are internal rewards, encouraging curiosity-driven exploration.
+ 
+\end_layout
+
+\begin_layout Standard
+A full treatment is given by 
+\begin_inset CommandInset citation
+LatexCommand nocite
+key "DBLP:journals/corr/PathakAED17,SSRC"
+literal "false"
+
+\end_inset
+
+, but the overall idea is to use two nets to predict the next action and
+ observation respectively and compare the predicted values to the observed
+ values.
+ The difference is the intrinsic reward, and the bigger the difference,
+ the bigger the reward.
+ 
+\end_layout
+
+\begin_layout Standard
+The agents of this study are trained with curiosity-driven exploration,
+ seen from 
+\color red
+figure 13
+\color inherit
+, because of the sparse nature of rewards associated with navigational tasks.
+ 
+\end_layout
+
+\begin_layout Subsection
+
+\series bold
+Pedestrians
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Pedestrians"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The pedestrians are 
+\shape italic
+NavMesh agents
+\shape default
+ 
+\begin_inset CommandInset citation
+LatexCommand nocite
+key "NavMesh"
+literal "false"
+
+\end_inset
+
+, which is Unity’s build-in AI class, useful for spatial queries, as pathfinding.
+ NavMesh agents can interact with other NavMesh agents, as well as avoid
+ other moving obstacles, enabling a layer of social interaction with relative
+ ease.
+ 
+\end_layout
+
+\begin_layout Standard
+The behaviour of the pedestrians is that they every 
+\begin_inset Formula $10$
+\end_inset
+
+ seconds draw a feasible random point within 
+\begin_inset Formula $50$
+\end_inset
+
+ meters radius and move to that point.
+ The time interval and radius can be set by the researcher through the custom
+ script attached to the pedestrians, and the numbers are chosen because
+ they fit well with the environment.
+ 
+\begin_inset Newline newline
+\end_inset
+
+A feasible point, is a point which lies within the environment.
+ Unfeasible points are possible because the points are drawn from within
+ a circle, with the position of the pedestrian as origin and the radius
+ specified by the researcher.
+ 
+\begin_inset Newline newline
+\end_inset
+
+If the pedestrian is near a border of the environment, unfeasible points
+ can be drawn.
+ 
+\begin_inset Newline newline
+\end_inset
+
+However, points are repeatedly drawn until a feasible point is drawn.
+ In practice, that implies that the pedestrian from time to time stops for
+ a very short duration, which is in accordance with typical human behaviour.
+ 
+\end_layout
+
+\begin_layout Subsection
+
+\series bold
+Crowded areas
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Crowded-areas"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The crowded areas represent an area with an increased number of challenges,
+ which could be a public square or an area on a pedestrian street, where
+ some entertainment unfolds.
+ The common factor is that there are large number of pedestrians in a relatively
+ small area, which complicates the traversability analysis tremendously.
+ 
+\end_layout
+
+\begin_layout Standard
+The idea of crowded areas in the environment originated from a currently
+ missing feature in the ML-Agents toolkit.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The initial idea was to have just static and dynamic obstacles present in
+ the environment, yet having some areas with a higher concentration of dynamic
+ obstacles (sort of equivalent to the crowded areas).
+ Within this environment was at least two robotic agents meant to be deployed,
+ a standard robotic agent with any of the configurations used in this study
+ and a hierarchical robotic agent.
+ The use of a hierarchical agent is inspired by 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "YHRLDE"
+literal "false"
+
+\end_inset
+
+, and the study was intended to investigate the benefit of the hierarchical
+ structure compared to a regular agent with the use of DRL, instead of RL
+ as in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "YHRLDE"
+literal "false"
+
+\end_inset
+
+.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Unfortunately, it is currently not possible to training two agents, in the
+ way needed by the implementation
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+The actions of the first agent (high-level agent) is input to the next agent
+ (low-level), which chooses an action.
+ The high-level agent rewards the low-level agent, based on the low-level
+ agent' ability to follow the direction of the action specified by high-level
+ agent.
+\end_layout
+
+\end_inset
+
+ of 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "YHRLDE"
+literal "false"
+
+\end_inset
+
+.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The idea of including crowded areas arose as an alternative.
+ The idea is that if the high-level agent can learn to avoid the crowded
+ areas, the need for the low-level agent decreases.
+ Aspects of the initial idea could serve interesting applications for future
+ work.
+ 
+\end_layout
+
+\begin_layout Standard
+The robotic agent can pass through the crowded area, but a significant amount
+ of additional effort is required
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Reflecting the work that would have been done by the low-level agent.
+\end_layout
+
+\end_inset
+
+, potentially making it beneficial to avoid interaction.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The robotic agent is penalised stepwise with the density of the entered
+ area, representing the increased cost, either computationally or stepwise,
+ of passing through.
+ In this way, are the density used to shape the reward function, in such
+ a way that the robotic agent is incentivised to go around if possible.
+ 
+\end_layout
+
+\begin_layout Standard
+The crowded area is represented as a circle, and the size, as well as the
+ density, of the area is two parameters which determines the complexity
+ of the overall environment.
+ 
+\end_layout
+
+\begin_layout Standard
+The attainable density values are based on empirical population density
+ estimates, per square meter, for 2019 from London, see table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Population-densities,-London."
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Population-density,-Boroughs,"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ & 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Population-density,-Wards,"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The empirical data is used because it brings contrast to all the simulated
+ data in this study.
+ It is not as such the actual levels of the densities that shape the reward
+ function, but the fact that they are significantly different, in between
+ and to the regular step penalty.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The actual value of an area is randomly drawn from the list of possible
+ values, and the density as well as the location of the area is changed
+ every time a new episode begins.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Population densities, London.
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Population-densities,-London."
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tabular}{c c}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+Area & Density
+\backslash
+
+\backslash
+ [0.5ex]
+\end_layout
+
+\begin_layout Plain Layout
+
+%heading
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+Ward, Maximum & 0.0289
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Boroughs, Maximum & 0.0164
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Overall & 0.0058
+\backslash
+
+\backslash
+ [1ex]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tabular}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Population density, Boroughs, London
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Population-density,-Boroughs,"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename C:/Users/Krist/Desktop/Kristian/Privat/Ansøgninger/Udveksling/University College London/Being there/Dissertation/Graphs/pop_dens_london_borougs.jpg
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+
+\shape italic
+\size footnotesize
+"Contains National Statistics data © Crown copyright and database right
+ [2015]" and "Contains Ordnance Survey data © Crown copyright and database
+ right [2015]"
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The loss of data in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Population-density,-Wards,"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ occurs because the population density data comes without boundaries, and
+ the data needs to be merged onto a shapefile containing the boundaries.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The population-density csv file and the boundaries shapefile has two columns
+ in common, on which the merge can be performed, namely the name of the
+ ward or the GSS code.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The similarity of the two files, based on the two columns are around 
+\begin_inset Formula $85\%$
+\end_inset
+
+ and 
+\begin_inset Formula $71\%$
+\end_inset
+
+ respectively
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+See 
+\shape italic
+Population_density_graphs.ipynb
+\shape default
+ in the accompanying code file.
+\end_layout
+
+\end_inset
+
+.
+ Furthermore, a combination of the two columns increases the similarity
+ from 
+\begin_inset Formula $85.2\%$
+\end_inset
+
+ to 
+\begin_inset Formula $85.6\%$
+\end_inset
+
+, which isn’t that much of an improvement.
+ The loss of wards is accepted, in lack of ideas to improve the similarity.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Population density, Wards, London 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Population-density,-Wards,"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename C:/Users/Krist/Desktop/Kristian/Privat/Ansøgninger/Udveksling/University College London/Being there/Dissertation/Graphs/pop_dens_london_wards.jpg
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+
+\shape italic
+\size footnotesize
+"Contains National Statistics data © Crown copyright and database right
+ [2015]" and "Contains Ordnance Survey data © Crown copyright and database
+ right [2015]"
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Target
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Target"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The target is an important element of the environment, as it is the sparse
+ positive reward signal, which the agent searches for.
+ In this study, the target is a cube randomly positioned in the environment
+ at the beginning of every episode
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+See 
+\color red
+appendix
+\color inherit
+ for more technical detail.
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Continuously changing the position of the target increases the likelihood
+ of the learning to generalise to unseen environments.
+ Furthermore, the target is not allowed to be located within a static object,
+ which simulates the idea about locating a position outside a building for
+ delivery by the ADR.
+ 
+\begin_inset Newline newline
+\end_inset
+
+As irrelevant as the geometry of the target is, as relevant is the size,
+ relative to the environment.
+ The relative size of the target affects how easily the target is located
+ and can be thought of as the difference in locating a building on a street
+ compared to a specific brick on a specific building.
+ The size of the target is fixed here, at a relative size of 
+\begin_inset Formula $3.75\%$
+\end_inset
+
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Equivalent to a size of 3 meters.
+\end_layout
+
+\end_inset
+
+, chosen arbitrary and the effect of the relative size of the target could
+ be a topic for future investigation.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Branch Standalone
+inverted 0
+status open
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+The contents of this branch is only output if this chapter is processed
+ on its own, i.
+\begin_inset space \thinspace{}
+\end_inset
+
+e., not from the master.
+ This allows you to have a bibliography and a nomenclature if you only want
+ to output this chapter.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "Bibliography.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

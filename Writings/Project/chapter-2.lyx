@@ -62,14 +62,14 @@
 \end_preamble
 \options intoc,bibliography=totoc,index=totoc,BCOR10mm,captions=tableheading,titlepage
 \use_default_options true
-\master ../../../../../../../../../../../Program Files (x86)/LyX 2.3/Resources/examples/thesis/thesis.lyx
+\master Dissertation.lyx
 \begin_modules
 customHeadersFooters
 \end_modules
 \maintain_unincluded_children false
 \language english
 \language_package default
-\inputencoding auto
+\inputencoding utf8
 \fontencoding global
 \font_roman "lmodern" "default"
 \font_sans "lmss" "default"
@@ -90,7 +90,7 @@ customHeadersFooters
 \index_command default
 \float_placement h
 \paperfontsize 12
-\spacing single
+\spacing double
 \use_hyperref true
 \pdf_title "Your title"
 \pdf_author "Your name"
@@ -118,7 +118,7 @@ customHeadersFooters
 \use_package undertilde 1
 \cite_engine basic
 \cite_engine_type default
-\biblio_style plain
+\biblio_style unsrt
 \use_bibtopic false
 \use_indices false
 \paperorientation portrait
@@ -305,54 +305,1365 @@ thepage
 Literature Review
 \end_layout
 
-\begin_layout Section
-Reinforcement Learning
-\end_layout
-
 \begin_layout Standard
-bla bla bla bla bla bla bla bla bla bla bla bla bla PPS
-\begin_inset CommandInset nomenclature
-LatexCommand nomenclature
-symbol "PPS"
-description "Polyphenylene sulfide"
-literal "false"
+The following proceeds by first reviewing RL, the emergence of DRL and 
+\shape italic
+the
+\begin_inset Foot
+status open
 
-\end_inset
-
- bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
- bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
- bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
- bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
- bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
- bla bla bla bla bla bla bla, see 
+\begin_layout Plain Layout
+A reference to the fact that this class of methods is the most used today
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Rich1921,Marq1963"
-literal "true"
+key "AKDRL"
+literal "false"
 
 \end_inset
 
 .
 \end_layout
 
-\begin_layout Subsection
+\end_inset
+
+
+\shape default
+ class of DRL algorithms, before reviewing the literature on robotic navigation
+ in urban environments and the use of RL as well as DRL in this context.
+ The order of the review is to provide some base knowledge of the chosen
+ method, before reviewing the field of application surrounding this study.
+\end_layout
+
+\begin_layout Section
+Reinforcement Learning
+\end_layout
+
+\begin_layout Standard
+Perhaps the most important discovery within RL is 
+\shape italic
+temporal-difference learning
+\shape default
+ (TD), originating from animal learning psychology.
+ TD was originally acknowledged in RL context by 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "MMTRSBM,Samuel:1959:SML:1661923.1661924"
+literal "false"
+
+\end_inset
+
+, and proposed in known format today by 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Sutton:1984:TCA:911176,Anderson:1986:LPS:896903"
+literal "false"
+
+\end_inset
+
+.
+ TD methods leverage on both 
+\shape italic
+dynamic programming
+\shape default
+ (DP) and 
+\shape italic
+Monte Carlo methods
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+see 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Sutton2018"
+literal "false"
+
+\end_inset
+
+ for a description of both methods.
+\end_layout
+
+\end_inset
+
+
+\shape default
+ (MC), by using bootstrapping as DP, making TD online, and sampling as MC,
+ making them model-free.
+ Different TD methods for control tasks exists, some being 
+\shape italic
+SARSA
+\shape default
+, 
+\shape italic
+Q-learning
+\shape default
+ and 
+\shape italic
+Expected SARSA
+\shape default
+, and they differ by the way they handle the estimate of the objective function
+ in future states.
+ 
+\end_layout
+
+\begin_layout Standard
+The following focuses on Q-learning, see 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Sutton2018"
+literal "false"
+
+\end_inset
+
+ for a review of the other two.
+ 
+\end_layout
+
+\begin_layout Standard
+Q-learning is an 
+\shape italic
+off-policy
+\shape default
+ learning method, which mean that the actual action is drawn from a 
+\shape italic
+behaviour
+\shape default
+ policy, 
+\begin_inset Formula $μ$
+\end_inset
+
+, which is compared to an alternative successor action, drawn from the target
+ policy, 
+\begin_inset Formula $π$
+\end_inset
+
+.
+ Off-policy learning methods are useful because they allow one to re-use
+ experience from old policies, as we will see is useful, and to learn about
+ the optimal policy while following an exploratory policy.
+ 
+\end_layout
+
+\begin_layout Standard
+Given the two actions, 
+\begin_inset Formula $A_{t+1}\simμ(A_{t}|S_{t})$
+\end_inset
+
+ and 
+\begin_inset Formula $A'\simπ(A_{t}|S_{t})$
+\end_inset
+
+, the online update of the state action-value function is done according
+ to 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Q(S_{t},A_{t})\:\text{←}\:Q(S_{t},A_{t})+α(R_{t+1}+γQ(S_{t+1},A')-Q(S_{t},A_{t}))\label{eq:1}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Both policies are improved, with the target being updated greedily
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+A greedy policy is a policy, that chooses the action resulting in the maximum
+ outcome.
+\end_layout
+
+\end_inset
+
+ and the behaviour 
+\begin_inset Formula $ϵ$
+\end_inset
+
+-greedy
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+A 
+\begin_inset Formula $ϵ$
+\end_inset
+
+-greedy policy is a policy, which with probability 
+\begin_inset Formula $ϵ$
+\end_inset
+
+ chooses a random action and with probability 
+\begin_inset Formula $1-ϵ$
+\end_inset
+
+ chooses the greedy action.
+\end_layout
+
+\end_inset
+
+, both w.r.t.
+ 
+\begin_inset Formula $Q(s,a)$
+\end_inset
+
+, which simplifies the target as seen from 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing single
+\noindent
+\begin_inset Formula 
+\begin{align}
+R_{t+1}+γQ(S_{t+1},A')\nonumber \\
+=R_{t+1}+\gamma Q(S_{t+1},\tbinom{\arg\max}{a'}Q(S_{t+1},a'))\nonumber \\
+=R_{t+1}+\tbinom{\max}{a'}\gamma Q(S_{t+1},a')\:\text{→}\nonumber \\
+Q(S_{t},A_{t})\:\text{←}\:Q(S_{t},A_{t})+α(R_{t+1}+γ\tbinom{\max}{a'}Q(S_{t+1},a')-Q(S_{t},A_{t}))\label{eq:2}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The substituted expression is just the current estimate of the optimal future
+ value.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Q-learning algorithm
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Q-learning-algorithm"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename C:/Users/Krist/Desktop/Kristian/Privat/Ansøgninger/Udveksling/University College London/Being there/Dissertation/Picture/Qlearning.PNG
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+
+\shape italic
+\size footnotesize
+Credit: 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Sutton2018"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Q-learning converges to the optimal policy and action-value function, with
+ probability 1, under the assumption that all states are visited infinite
+ number of times
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+See 
+\begin_inset CommandInset citation
+LatexCommand cite
+after "Chapter 9, Section 4"
+key "Sutton2018"
+literal "false"
+
+\end_inset
+
+ for a full description.
+\end_layout
+
+\end_inset
+
+, illustrated in (3).
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Q(s,a)\:\text{→}\:q^{*}(s,a)\;for\;\#\;of\;episodes\:\text{→}\:\infty\label{eq:3}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The Q-learning algorithm showed in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Q-learning-algorithm"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ can seem too simple to work on real-life large-scale control problems.
+ However, it illustrates the high-level idea, about improve an estimate
+ in online fashion – which is essential before covering the policy gradient
+ methods.
+ Q-learning is in practical purposes couple with some minor tricks, as 
+\shape italic
+batch updates
+\shape default
+, 
+\shape italic
+eligibility traces
+\shape default
+ and 
+\shape italic
+function approximation
+\shape default
+ for more efficient scalable learning.
+ Batch updates will be explained in a section to come, but the interested
+ reader should consult 
+\begin_inset CommandInset citation
+LatexCommand cite
+after "Chapter 12"
+key "Sutton2018"
+literal "false"
+
+\end_inset
+
+ for a description of eligibility traces.
+ 
+\end_layout
+
+\begin_layout Standard
+Doing convergence of 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:3"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, the function on the left-side is a so-called approximate state action-value
+ function, which in the simple case is a look-up table with size 
+\begin_inset Formula $(S\cdot A)\,x\,(S\cdot A)$
+\end_inset
+
+.
+ 
+\begin_inset Newline newline
+\end_inset
+
+In real-life applications, such a table is often impossible to store in
+ memory.
+ To ensure scalability, function approximations are used, implying the look-up
+ table is replaced with a parameterised function, which could be a linear
+ combination of features, a neural network or something third.
+ The full description of function approximations are covered in 
+\begin_inset CommandInset citation
+LatexCommand cite
+after "Chapter 9,10 & 11"
+key "Sutton2018"
+literal "false"
+
+\end_inset
+
+, but note that the function approximation changes the state action-value
+ function from 
+\begin_inset Formula $q(s,a)$
+\end_inset
+
+ to 
+\begin_inset Formula $q(s,a,w)$
+\end_inset
+
+, and updating the weights in the correct direction improves the approximate
+ state action-value function in the desired direction.
+ 
+\end_layout
+
+\begin_layout Standard
+Before moving on to policy gradient methods, which are mostly used in the
+ industry today 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "AKDRL"
+literal "false"
+
+\end_inset
+
+, it is worth to look at what drove the transition to deep RL.
+ 
+\end_layout
+
+\begin_layout Standard
+Today’s choice of function approximators are most often neural networks
+ (nets), and the deep part of DRL referrers to the structure of the net.
+ A deep net consists of many layers, enabling learning of complex high-dimension
+al non-linear functions, as each layer learns different aspects of the data
+ passed through 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "DBLP:journals/nature/LeCunBH15"
+literal "false"
+
+\end_inset
+
+.
+ 
+\shape italic
+DL
+\shape default
+, which is the high-level designation for variations of deep nets, belongs
+ to the class of general-purpose learning procedures 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "DBLP:journals/nature/LeCunBH15"
+literal "false"
+
+\end_inset
+
+.
+ General-purpose learning procedures can learn good feature representations
+ directly from the data, avoiding the need for hand-crafted, often non-generalis
+able, features and at the same time managing the 
+\shape italic
+selectivity-invariance dilemma
+\shape default
+ (SID).
+ SID in feature engineering is the ability of features to produces representatio
+n that are selective to aspects of the image that are essential for discriminati
+on, but that are invariant to irrelevant aspects such as the pose of the
+ animal 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "DBLP:journals/nature/LeCunBH15"
+literal "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Some of the most important advances in DL, leading to DRL, is; 
+\end_layout
+
+\begin_layout Itemize
+The adaption of the rectified linear unit (ReLU) activation function as
+ the standard.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Activation functions are used to squeeze the output of neurons to a bounded
+ range, typically 
+\begin_inset Formula $[0,1]$
+\end_inset
+
+.
+ ReLU, 
+\begin_inset Formula $max(0,z)$
+\end_inset
+
+, bounds the outcome to 
+\begin_inset Formula $[0,∞[$
+\end_inset
+
+, which has shown to provide much faster training of deep nets 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Nair:2010:RLU:3104322.3104425,Krizhevsky2012,DBLP:journals/nature/LeCunBH15"
+literal "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Itemize
+Increased GPU power and the possibility of parallelised GPU training.
+ 
+\begin_inset Newline newline
+\end_inset
+
+More powerful GPU’s allows increasing storage of data in memory, and parallel
+ GPU implementations of deep nets allow for faster training and handling
+ of larger amounts of data than ever before 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Krizhevsky2012,DBLP:journals/nature/LeCunBH15"
+literal "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Itemize
+The raise of convolutional nets (ConvNet).
+ 
+\begin_inset Newline newline
+\end_inset
+
+ConvNets are built with an eye for processing data in the form of multiple
+ arrays, and the typical architecture
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+See 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "DBLP:journals/nature/LeCunBH15"
+literal "false"
+
+\end_inset
+
+ for a detailed description, of the architecture and each of the components.
+\end_layout
+
+\end_inset
+
+ consists of local connections, shared weights, pooling and many layers
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "DBLP:journals/nature/LeCunBH15"
+literal "false"
+
+\end_inset
+
+.
+ ConvNets has been shown to training faster and exhibit greater generalisation
+ ability than stacked nets of fully connected layers 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "DBLP:journals/nature/LeCunBH15"
+literal "false"
+
+\end_inset
+
+.
+ The trend is to combine different types of nets in the final deep net,
+ as seen in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Krizhevsky2012,Sermanet:2013:PDU:2514950.2516194,mnih2013playing"
+literal "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+These advances along with the use of 
+\shape italic
+experience replay
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $N$
+\end_inset
+
+ previous observations are stored, over many episodes, from which 
+\begin_inset Formula $T$
+\end_inset
+
+ experiences are randomly sampled from, note 
+\begin_inset Formula $T\ll N$
+\end_inset
+
+.
+ Updates are done on the sampled experiences, and the agent chooses an action
+ according to an 
+\begin_inset Formula $ϵ$
+\end_inset
+
+-greedy policy, i.e.
+ off-line learning, 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "mnih2015humanlevel"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\shape default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lin:1992:RLR:168871"
+literal "false"
+
+\end_inset
+
+, made the difference for the first successful deployment of a DRL model,
+ to learn a control policy directly from high-dimensional sensory input
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "mnih2013playing"
+literal "false"
+
+\end_inset
+
+.
+ The agent of 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "mnih2013playing"
+literal "false"
+
+\end_inset
+
+ learned to play 7 ATARI games, with no adjustment between the games, and
+ surpassed previous implementations on six of the games while obtained above
+ human-expert level on three of them.
+ The work of 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "mnih2013playing"
+literal "false"
+
+\end_inset
+
+ motivated two other important papers, 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "mnih2015humanlevel"
+literal "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Silver_2016"
+literal "false"
+
+\end_inset
+
+.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "mnih2015humanlevel"
+literal "false"
+
+\end_inset
+
+ extend the work of 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "mnih2013playing"
+literal "false"
+
+\end_inset
+
+ to 49 ATARI games, beating all previous implementations, obtaining the
+ level of a profession human game-tester across all 49 games and achieving
+ above human performance on 23 games 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "mnih2015humanlevel"
+literal "false"
+
+\end_inset
+
+.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Silver_2016"
+literal "false"
+
+\end_inset
+
+, deploying a combination of deep nets and a tree search algorithm, obtained
+ master level
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset citation
+LatexCommand cite
+after "Page 5"
+key "Silver_2016"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+ in the boardgame GO, which was regarded as one of the grand challenges,
+ because of its enormous state space consisting of 
+\begin_inset Formula $250^{150}$
+\end_inset
+
+ possible moves.
+ 
+\end_layout
+
+\begin_layout Standard
+Having reviewed a traditional RL method, as well as the key innovations
+ leading to DRL, including a few key applications, it is now time to review
+ a class of DRL methods.
+ This class is called 
+\shape italic
+policy gradient (PG) methods
+\shape default
+, and the method used in this study, 
+\shape italic
+PPO
+\shape default
+, belongs to this class.
+ 
+\end_layout
+
+\begin_layout Section
 Deep Reinforcement Learning
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Standard
+This section starts out with a simplified example from 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "AKDRL"
+literal "false"
+
+\end_inset
+
+, because the example gives a good intuitive idea about how PG methods work.
+ After this example follows a review of the method used in this study.
+ 
+\end_layout
+
+\begin_layout Subsection
 Policy Gradient Methods
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Standard
+Modern PG methods seeks to learn a parameterised policy function to select
+ actions, with some approximating a value function as well, to aid the learning
+ process.
+ The latter class are referred to as 
+\shape italic
+Actor-Critic
+\shape default
+ methods, and the method used in this study belongs to this class.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The objective of PG methods is to learn the policy parameters based on the
+ gradient
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+The first derivative of a function.
+\end_layout
+
+\end_inset
+
+ of some scalar performance measure, with respect to the policy parameters
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Sutton2018"
+literal "false"
+
+\end_inset
+
+.
+ To do that, the parameters of the approximated policy function, most often
+ the weights in a net, are adjusted according to the reward signal 
+\begin_inset Formula $J(θ)$
+\end_inset
+
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+The reward signal is a function of the policy parameters 
+\begin_inset Formula $θ$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+.
+ How must to adjust, and so how to update the policy, is determined by the
+ gradient of the scalar signal
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fn:Back"
+
+\end_inset
+
+See 
+\begin_inset CommandInset citation
+LatexCommand cite
+after "P. 436, 2nd paragraph towards the bottom"
+key "DBLP:journals/nature/LeCunBH15"
+literal "false"
+
+\end_inset
+
+ for a straightforward explanation.
+\end_layout
+
+\end_inset
+
+ and called backpropagation
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Training of nets using gradient of the objective function, see 
+\begin_inset CommandInset citation
+LatexCommand cite
+after "Chapter 7"
+key "Rojas:1996:NNS:235222"
+literal "false"
+
+\end_inset
+
+ and footnote 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fn:Back"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+, seen from 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:4"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+θ_{t+1}=θ_{t}+α(\hat{\text{∇}J(θ_{t})})\label{eq:4}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+With 
+\begin_inset Formula $α$
+\end_inset
+
+ being the learning rate and 
+\begin_inset Formula $∇J(θ_{t})$
+\end_inset
+
+ the gradient of the reward function.
+ 
+\end_layout
+
+\begin_layout Standard
+The task in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "AKDRL"
+literal "false"
+
+\end_inset
+
+ is to learn an agent to play the ATARI game of Pong, from nothing more
+ than the pixels from the emulator
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+A piece of software, integrating The Arcade Learning Environment 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Bellemare:2015:ALE:2832747.2832830"
+literal "false"
+
+\end_inset
+
+ and the preferred script editor of the researcher.
+\end_layout
+
+\end_inset
+
+, using a basic PG.
+ 
+\end_layout
+
+\begin_layout Standard
+The structure is as follows; we receive an image, of size 
+\begin_inset Formula $210x160x3$
+\end_inset
+
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Height, width and RGB channels.
+\end_layout
+
+\end_inset
+
+, and get to decide whether to move up or down.
+ After every action, the agent is rewarded; 
+\begin_inset Formula $+1$
+\end_inset
+
+ if the ball went past the opponent, 
+\begin_inset Formula $-1$
+\end_inset
+
+ if the ball went past us and 0 otherwise.
+ The objective is to beat the opponent, and so maximising the reward.
+ 
+\end_layout
+
+\begin_layout Standard
+(Karpathy, 2016) approximate the policy function with a net, and adjust
+ the weights based on the actions taken.
+ Say an episode consists of 200 steps, implying 200 actions to be taken.
+ If just 101 of the actions are good actions, the outcome will be a reward
+ of +1.
+ Overtime, as we adjust the weights in favour of the good actions, the share
+ of good actions within one episode increases, implying that the total number
+ of episodes leading to a positive reward increase.
+ 
+\end_layout
+
+\begin_layout Subsection
 Proximal Policy Optimisation
+\end_layout
+
+\begin_layout Standard
+PPO is the embedded DRL algorithm in the ML-Agents toolkit, and it has been
+ shown to outperform far more complex PG methods while being more general
+ and having better sampling complexity 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "DBLP:journals/corr/SchulmanWDRK17"
+literal "false"
+
+\end_inset
+
+.
+ 
+\begin_inset Newline newline
+\end_inset
+
+PPO optimises a surrogate objective function, based on sampled experience
+ (batch updates), from which the policy is updated, and an action is chosen
+ from the updated policy.
+ Simple and effective
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+See appendix for detailed technical explanation.
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+With the theory outlined, it is now time to review the field of application
+ for this study.
+ 
 \end_layout
 
 \begin_layout Section
 Robotic Navigation in Urban Environments
 \end_layout
 
+\begin_layout Standard
+Besides limiting this part of the literature review to consider robotic
+ navigation in urban environments (UE), it is also restricted to only consider
+ navigation in unknown environments as it resembles to the model-free DRL
+ approach studied in this study.
+ 
+\begin_inset Newline newline
+\end_inset
+
+This part of the literature review is divided into two parts; the traditional
+ literature, which does not include the use of RL, and the DRL-based literature.
+ 
+\end_layout
+
+\begin_layout Standard
+Robotic navigation in UE’s comes with a lot of challenges.
+ The four main challenges surrounding robotic navigation in UE’s are mapping,
+ traversability analysis, localisation and planning.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Mapping concerns obtaining a high-level idea about the area om deployment.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Traversability analysis uncovers the potential challenges of the environment.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Localisation provides a belief about the relative position of the robot
+ and the challenges uncovered by the traversability analysis.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Planning seeks to determine the optimal route, from the current position
+ to the target, given the three other components.
+ 
+\end_layout
+
+\begin_layout Standard
+Common for all the papers examined on the traditional literature, is that
+ each of the four challenges are handled by separate systems, within the
+ robot.
+ 
+\end_layout
+
+\begin_layout Standard
+The consensus way to handle mapping appears to be using particle filters,
+ often using a SLAM
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+See 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lidoris2009"
+literal "false"
+
+\end_inset
+
+ for a description.
+\end_layout
+
+\end_inset
+
+ module 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Georgiev:2004:LMM:2211637.2211690,Lidoris2009,MariaBauer2009,Trulls2011,Kuemmerle2013"
+literal "false"
+
+\end_inset
+
+.
+ This approach implies computing an occupancy grid; however, it can be troubleso
+me in terms of memory to store large scale occupancy grid, which is something
+ to consider design-wise.
+ 
+\end_layout
+
+\begin_layout Standard
+Localisation is done in different ways; 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lidoris2009,MariaBauer2009,Kuemmerle2013"
+literal "false"
+
+\end_inset
+
+ uses sampled based methods, as Monte Carlo Localisation.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Georgiev:2004:LMM:2211637.2211690"
+literal "false"
+
+\end_inset
+
+ uses a combination of GPS coordinates, odometry and visual image processing
+ for localisation and 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Trulls2011"
+literal "false"
+
+\end_inset
+
+ uses an online particle filter implementation based on a 3D geometric model
+ of the environment.
+ 
+\end_layout
+
+\begin_layout Standard
+Traversability analysis is usually done using a combination of horizontal
+ and vertical lasers, to measure distance to objects, and potentially changing
+ positions (needed to locate dynamic obstacles as pedestrians) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lidoris2009,MariaBauer2009,Trulls2011,Kuemmerle2013"
+literal "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Planning is done differently; 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lidoris2009,MariaBauer2009,Trulls2011"
+literal "false"
+
+\end_inset
+
+ use the A* algorithm to calculate the shortest path through the crowded
+ area.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Kuemmerle2013"
+literal "false"
+
+\end_inset
+
+ uses a hierarchical set-up, which consists of three planners, a high-level
+ agent planning the overall go-to-route, an intermediate-level agent which
+ calculates waypoints and a low-level agent calculating the velocity of
+ the robot based on the waypoints.
+ 
+\end_layout
+
+\begin_layout Standard
+The take-aways from the presented literature review is that robotic navigation
+ is a field which has been subject for much research.
+ Some challenges are handled consensually while others are subject for experimen
+tation of novel methods.
+ 
+\end_layout
+
 \begin_layout Subsection
 Robotic Navigation in Urban Environments using Reinforcement Learning
+\end_layout
+
+\begin_layout Standard
+The literature on the use of DRL in the specific field of robotic navigation
+ in UE’s is currently sparse, but it is an area with growing interest from
+ the research community 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "TGDNL"
+literal "false"
+
+\end_inset
+
+.
+ The implication is that no papers exists, at least to the knowledge of
+ the author, which handles all four challenges, mentioned in the previous
+ section, directly.
+ 
+\end_layout
+
+\begin_layout Standard
+One paper from DeepMind by 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "DBLP:journals/corr/abs-1804-00168"
+literal "false"
+
+\end_inset
+
+ presents an agent, which can navigate through a simulated city based in
+ visual input – and transfer its knowledge to other cities.
+ However, their agent operates with discrete actions and the environment
+ possesses only static obstacles.
+ Their agent uses two interesting additions to the traditional DRL architecture;
+ A method named Long Short-Term Memory 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Hochreiter:1997:LSM:1246443.1246450"
+literal "false"
+
+\end_inset
+
+ to incorporate memory in the agent, and the use of CL, enabling the agent
+ to be introduced to increasing complexity of the environment doing training.
+ 
+\end_layout
+
+\begin_layout Standard
+Another paper from OpenAI by 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Kahn2017UncertaintyAwareRL"
+literal "false"
+
+\end_inset
+
+ focuses on obstacle avoidance using DRL, and they incorporate uncertainty-aware
+ness in the agent, for safer navigation.
+ The short comings of this article, compared to the traditional literature,
+ is that they only consider static obstacles.
+ Furthermore, they use a model-based DRL model.
+ 
+\end_layout
+
+\begin_layout Standard
+The final paper considered here, is a paper by 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "TGDNL"
+literal "false"
+
+\end_inset
+
+ which uses a hierarchical agent to perform goal-directed navigation while
+ being adaptive to changes in the environment.
+ The high-level agent handles the goal orientation and the low-level agent
+ takes care of changes in the environment.
+ They train in a simulated environment and show that the agent generalises
+ to the real world.
+ 
+\end_layout
+
+\begin_layout Standard
+All the papers deliver promising insights, but two of them are especially
+ interesting, in terms of this study; 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "DBLP:journals/corr/abs-1804-00168"
+literal "false"
+
+\end_inset
+
+ uses CL successfully for navigation, and 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "TGDNL"
+literal "false"
+
+\end_inset
+
+ trains an agent, the low-level one, to be able to deal with changes in
+ the environment, which also is able to transfer to the real world.
+ 
 \end_layout
 
 \begin_layout Standard

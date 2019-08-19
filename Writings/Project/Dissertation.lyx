@@ -12,7 +12,11 @@
 % that links to image floats jumps to the beginning
 % of the float and not to its caption
 \usepackage[figure]{hypcap}
-
+\usepackage{array,multirow,graphicx}
+% define "struts", as suggested by Claudio Beccari in
+%    a piece in TeX and TUG News, Vol. 2, 1993.
+\newcommand\Tstrut{\rule{0pt}{2.6ex}}         % = `top' strut was 2.6
+\newcommand\Bstrut{\rule[-0.9ex]{0pt}{0pt}}   % = `bottom' strut
 % the pages of the TOC is numbered roman
 % and a pdf-bookmark for the TOC is added
 \let\myTOC\tableofcontents
@@ -68,7 +72,7 @@ customHeadersFooters
 \maintain_unincluded_children false
 \language english
 \language_package default
-\inputencoding auto
+\inputencoding utf8
 \fontencoding global
 \font_roman "lmodern" "default"
 \font_sans "lmss" "default"
@@ -186,7 +190,7 @@ customHeadersFooters
 \quotes_style english
 \dynamic_quotes 0
 \papercolumns 1
-\papersides 1
+\papersides 2
 \paperpagestyle fancy
 \tracking_changes false
 \output_changes false

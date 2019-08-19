@@ -100,6 +100,10 @@
 
 \begin_body
 
+\begin_layout Chapter*
+Notation
+\end_layout
+
 \begin_layout Standard
 \begin_inset ERT
 status open
@@ -114,10 +118,6 @@ thispagestyle{empty}
 \end_inset
 
 
-\end_layout
-
-\begin_layout Chapter*
-Notation
 \end_layout
 
 \begin_layout Standard

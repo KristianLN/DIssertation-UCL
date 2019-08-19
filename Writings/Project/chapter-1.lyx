@@ -62,14 +62,14 @@
 \end_preamble
 \options intoc,bibliography=totoc,index=totoc,BCOR10mm,captions=tableheading,titlepage
 \use_default_options true
-\master ../../../../../../../../../../../Program Files (x86)/LyX 2.3/Resources/examples/thesis/thesis.lyx
+\master Dissertation.lyx
 \begin_modules
 customHeadersFooters
 \end_modules
 \maintain_unincluded_children false
 \language english
 \language_package default
-\inputencoding auto
+\inputencoding utf8
 \fontencoding global
 \font_roman "lmodern" "default"
 \font_sans "lmss" "default"
@@ -90,7 +90,7 @@ customHeadersFooters
 \index_command default
 \float_placement h
 \paperfontsize 12
-\spacing single
+\spacing double
 \use_hyperref true
 \pdf_title "Your title"
 \pdf_author "Your name"
@@ -305,161 +305,317 @@ thepage
 Introduction
 \end_layout
 
-\begin_layout Section
-Theoretical Background
-\end_layout
-
 \begin_layout Standard
-bla bla bla bla bla bla bla bla blf
-\end_layout
-
-\begin_layout Standard
-d
-\end_layout
-
-\begin_layout Standard
-d
-\end_layout
-
-\begin_layout Standard
-d
-\end_layout
-
-\begin_layout Standard
-d
-\end_layout
-
-\begin_layout Standard
-d
-\end_layout
-
-\begin_layout Standard
-d
-\end_layout
-
-\begin_layout Standard
-d
-\end_layout
-
-\begin_layout Standard
-d
-\end_layout
-
-\begin_layout Standard
-d
-\end_layout
-
-\begin_layout Standard
-d
-\end_layout
-
-\begin_layout Standard
-d
-\end_layout
-
-\begin_layout Standard
-d
-\end_layout
-
-\begin_layout Standard
-d
-\end_layout
-
-\begin_layout Standard
-d
-\end_layout
-
-\begin_layout Standard
-d
-\end_layout
-
-\begin_layout Standard
-d
-\end_layout
-
-\begin_layout Standard
-d
-\end_layout
-
-\begin_layout Standard
-d
-\end_layout
-
-\begin_layout Standard
-d
-\end_layout
-
-\begin_layout Standard
-d
-\end_layout
-
-\begin_layout Standard
-d
-\end_layout
-
-\begin_layout Standard
-d
-\end_layout
-
-\begin_layout Standard
-d
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
-
-\begin_layout Standard
-a bla bla, see 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sec:The-next-section"
-
-\end_inset
-
-.
- Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
- bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
- bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
- bla bla bla bla bla bla bla bla bla bla bla DLC-coatings
-\begin_inset CommandInset nomenclature
-LatexCommand nomenclature
-symbol "DLC"
-description "diamond-like carbon"
+The topic for this dissertation is robotic navigation in simulated urban
+ environments, and the purpose of the study is to explore the use of deep
+ reinforcement learning (DRL) in this context.
+ Deep learning (DL) is an area with growing attention within urban analytics,
+ as urban infrastructure is being transformed by the advances in artificial
+ intelligence and robotics.
+ This motivates exploring DL, through DRL, on a use case, with increasing
+ focus from some of the world’s biggest corporations 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "AMVSSS,FEADR,ASADR"
 literal "false"
 
 \end_inset
 
- bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
- bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla,
- see 
+.
+ That case of study of this research is DRL’s ability to deal with some
+ of the challenges faced by robotic citizens, the autonomous delivery robots
+ (ADR’s).
+ 
+\end_layout
+
+\begin_layout Standard
+Urban environments are complex dynamics of interactions between objects,
+ and navigation herein requires an ability to explore, foresee, adapt and
+ plan.
+ Successful prior work on robotic navigation in crowded urban environments
+ (CUE’s) rely on the use of particle filters, for building a probabilistic
+ map of the environment to handle planning, and a combination of human interacti
+on as well as goal-directed exploration for exploration and adaption of/to
+ the environment 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Fowl1928"
-literal "true"
+key "Lidoris2009,Kuemmerle2013"
+literal "false"
 
 \end_inset
 
 .
  
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "eq:Integral-sine"
+\begin_inset Newline newline
+\end_inset
+
+The need for human interaction limits the autonomous degree of the robot,
+ potentially limiting the usages of the robot to a certain time period doing
+ the day.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Recent advances in DL, implying the rise of DRL, could present a way for
+ a robot to improve spatial awareness.
+ Thereby circumventing the need for human interaction and allowing the robot
+ to operate at any time.
+ The first work on DRL for robotic navigation and obstacles avoidance have
+ seen the daylight 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Kahn2017UncertaintyAwareRL,DBLP:journals/corr/abs-1804-00168,TGDNL"
+literal "false"
 
 \end_inset
 
- is the definition of the integral sine function.
-\begin_inset Formula 
-\begin{equation}
-\int\frac{\sin(x)}{x}\,\mathrm{d}x=\mathrm{Si}(x)\label{eq:Integral-sine}
-\end{equation}
+.
+ 
+\begin_inset Newline newline
+\end_inset
+
+All three are bound to tackle static obstacles, and so do not address a
+ major challenge of CUE’s, namely dynamic obstacles.
+ 
+\end_layout
+
+\begin_layout Standard
+Therefore, the motivation and context of this study is to obtain insights
+ on how a model-free DRL approach with continuous actions and partial observabil
+ity, tackles the challenges of a simulated ADR navigating a crowded environment
+ with static and dynamic obstacles.
+ The study sheds light on two additional aspects; the effect of uncertainty
+ about the observed environment, and how different training strategies can
+ aid the learning process.
+ 
+\end_layout
+
+\begin_layout Section
+Theoretical Background
+\end_layout
+
+\begin_layout Standard
+The fundamental aspects of robotic navigation can be boiled down to learning
+ and planning, which is also the fundamentals of reinforcement learning
+ (RL) through the tasks of control and prediction.
+ Control tasks are concerned with learning the best policy, while prediction
+ tasks evaluate the policy at hand.
+ 
+\end_layout
+
+\begin_layout Standard
+Traditional RL literature distinguish between model-based and model-free
+ algorithms, where model-based algorithms rely on planning and model-free
+ algorithms rely on learning 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Sutton2018"
+literal "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+This study is mainly a control task, on obtaining an optimal policy for
+ locating a target while avoiding obstacles, and not about planning the
+ optimal route to the target given a policy.
+ 
+\end_layout
+
+\begin_layout Standard
+\noindent
+The RL algorithm used in this study is called Proximal Policy Optimization
+ (PPO) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "PPODRL,DBLP:journals/corr/SchulmanWDRK17"
+literal "false"
+
+\end_inset
+
+, which belongs to class of policy gradient methods.
+ This class of methods essentially extends traditional model-free control
+ algorithms, as Q-learning 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Watkins92q-learning"
+literal "false"
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Watkins92q-learning"
+literal "false"
+
+\end_inset
+
+, into large scale real-world applications.
+ 
+\end_layout
+
+\begin_layout Subsection
+The Reinforcement Learning Problem
+\end_layout
+
+\begin_layout Standard
+The traditional RL set-up consists of an agent (the RL system) and environment
+ in which it operates, see figure 1.
+ Every RL problem is about solving the Markov Decision Process (MDP), in
+ the sense of optimizing some objective function given the MDP, as the MDP
+ fully characterise problem.
+ This objective function can either be a policy function, value function
+ or the advantage function (difference between the policy and value function),
+ depending of the problem and algorithm.
+ 
+\end_layout
+
+\begin_layout Standard
+The decision process is a Markov decision process because all history of
+ the environment is captured in the most recent value; 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Markov Decision Process
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Markov-Decision-Process"
 
 \end_inset
 
 
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename C:/Users/Krist/Desktop/Kristian/Privat/Ansøgninger/Udveksling/University College London/Being there/Dissertation/Picture/MDP.PNG
+	rotateOrigin center
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+
+\shape italic
+\size footnotesize
+Credit: 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Sutton2018"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Any MDP is made up by a set of actions, 
+\begin_inset Formula $a\in A(s)$
+\end_inset
+
+, a set of states, 
+\begin_inset Formula $s\in S$
+\end_inset
+
+, a set of rewards, 
+\begin_inset Formula $r\in R$
+\end_inset
+
+, and sometimes explicitly, yet rarely in practice, a set of state transition
+ probabilities.
+ The latter won’t be elaborated any further, as they are only relevant for
+ smaller finite
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+All sets of the MDP are finite.
+\end_layout
+
+\end_inset
+
+ MDP’s, which occurs rarely in practice, at least in any interesting application
+s.
+ 
+\end_layout
+
+\begin_layout Standard
+The order in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Markov-Decision-Process"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+: The agent observes the initial environment and takes an action at time
+ t, transitioning the environment to state t +1 and emitting a reward to
+ agent.
+ Based on the new observed state and the reward obtained, the agent chooses
+ a new action, and this cycle repeat until the terminal state.
+ An important thing to mention is that the reward does not say directly
+ how good the action was, but how the good the resulting state is.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The reward signal is often sparse, meaning the agent only receives a reward
+ at the terminal state, i.e.
+ at the end of an episode.
+ If the terminal state is good, the agent receives a large positive reward,
+ if bad, a large negative reward, and zero in all states
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+This is a modified truth, as it is common practice to reward the agent with
+ a minor negative reward after each state (also called step), to incentive
+ fast learning.
+ 
+\end_layout
+
+\end_inset
+
+ leading up to the terminal state.
+ 
+\end_layout
+
 \begin_layout Section
+\noindent
 Purpose of the Study
 \begin_inset CommandInset label
 LatexCommand label
@@ -468,6 +624,54 @@ name "sec:The-next-section"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+This research aims at addressing the challenges that are surrounding the
+ application of DRL for navigation and obstacle avoidance tasks in CUE’s.
+ The implication hereof is that the conducted research is mainly methodological.
+ This research should be regarded as a preliminary study, to be further
+ extended to generalise to the real world, because of the complex nature
+ of urban environments, and especially crowded areas.
+ This study outlines the basis for filling the gap on DRL for dynamic obstacle
+ avoidance, as this, to the knowledge of the author at the time of writing,
+ is yet to be explored.
+ This study was at the same time an opportunity to explore Unity and the
+ toolkit ML-Agents by 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "DBLP:journals/corr/abs-1809-02627"
+literal "false"
+
+\end_inset
+
+ for conducting DRL research, under realistic physical settings.
+ 
+\end_layout
+
+\begin_layout Standard
+The intention of this study is not to promote DRL to replace existing methods
+ in traditional robotic navigation, but hopefully to aid these, to achieve
+ smarter and safer cities in the future.
+ 
+\end_layout
+
+\begin_layout Standard
+The first objective of this study is to address the challenges emerging
+ when using DRL for navigation and obstacles avoidance in dynamic environments.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The second objective of the study is to address ways to tackle these challenges
+ and promote meaningful learning in the agent.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The final objective is to address how uncertainty around the observed environmen
+t affects the learning taking place.
+ 
 \end_layout
 
 \begin_layout Section
@@ -481,6 +685,60 @@ name "sec:The-next-section-1"
 
 \end_layout
 
+\begin_layout Standard
+This study contributes to the continuing development of DRL for robotic
+ navigation in urban environments, by addressing some of the challenges
+ still present and test novel design methods of the training phase.
+ Addressing the ongoing challenges, hopefully enables focused future research
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "rlblogpost"
+literal "false"
+
+\end_inset
+
+, avoiding rediscovering of known results.
+ Most prior research in this area has been concerned with developing novel
+ methods to tackle the challenges at hand, potentially neglecting the design
+ of the training phase.
+ Design of the training phase has previously been shown to have a significant
+ effect 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Bengio:2009:CL:1553374.1553380,DBLP:journals/corr/abs-1804-00168"
+literal "false"
+
+\end_inset
+
+.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Two ways to design the training phase are curriculum and imitation learning
+ (CL and IL respectively), where the latter is widely adopted in prior research
+ on robotic navigation 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Kahn2017UncertaintyAwareRL,TGDNL"
+literal "false"
+
+\end_inset
+
+.
+ The former appears overlooked in the context of robotic navigation, especially
+ in the specific context of robotic navigation in CUE’s using DRL.
+ 
+\end_layout
+
+\begin_layout Standard
+This study use CL in the training phase, and therefore addresses how the
+ use of CL can aid to manage some of the challenges of robotic navigation
+ in CUE’s using DRL.
+ 
+\end_layout
+
 \begin_layout Section
 Scope of the Study
 \begin_inset CommandInset label
@@ -490,6 +748,53 @@ name "sec:The-next-section-2"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+The study explores state-of-the-art methods and serves as a framework to
+ evaluate the current state of the field of DRL for robotic navigation in
+ CUE’s through simulation.
+ Simulation is done under realistic physical settings, intending to smoot
+ the future generalisation to real-world applications.
+ The aim is that even though the study is limited to simulation, it could
+ serve as a baseline for future real-world applications.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The investigated DRL algorithm is based on what is available in the ML-Agents
+ toolkit, and this algorithm is the state-of-the-art for continuous control
+ tasks 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "PPODRL"
+literal "false"
+
+\end_inset
+
+.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The literature review is not intended to be complete on RL/DRL nor robotic
+ navigation.
+ It serves to present the current state of the field, by the most important
+ and latest contributions relevant for robotic navigation in CUE’s using
+ DRL, in order to address the objectives of the study.
+ Furthermore, fundamental concepts in RL, as well as key innovations leading
+ to DRL, and the class of the method used in this study are outlined.
+ That limits the literature review to viewing some concepts of model-free
+ control, see 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Sutton2018"
+literal "false"
+
+\end_inset
+
+ for an extensive coverage of RL.
+ 
 \end_layout
 
 \begin_layout Standard

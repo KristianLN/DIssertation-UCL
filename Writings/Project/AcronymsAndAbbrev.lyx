@@ -14,7 +14,7 @@
 \end_preamble
 \options intoc,bibliography=totoc,index=totoc,BCOR10mm,captions=tableheading,titlepage
 \use_default_options true
-\master ../../../../../../../../../../../Program Files (x86)/LyX 2.3/Resources/examples/thesis/thesis.lyx
+\master Dissertation.lyx
 \maintain_unincluded_children false
 \language english
 \language_package default
@@ -89,7 +89,7 @@
 \quotes_style english
 \dynamic_quotes 0
 \papercolumns 1
-\papersides 2
+\papersides 1
 \paperpagestyle plain
 \tracking_changes false
 \output_changes false
