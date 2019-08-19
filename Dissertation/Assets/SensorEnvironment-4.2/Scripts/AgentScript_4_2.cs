@@ -47,6 +47,7 @@ public class AgentScript_4_2 : Agent
     int slowSteps_act = 0;
     int slowSteps_obs = 0;
     bool countSlowsteps = false;
+    int CrowdedAreaCollisions = 0;
     // Drawing trails
     private GameObject[] trails;
     public float NumberOfTrails;
@@ -61,10 +62,11 @@ public class AgentScript_4_2 : Agent
     // Exporting draw
     public string[] nameOfFile;
     // If training in the editor; Assets/Exported_Data
-    private string path = "Assets/Exported_Data/";
+    private string path; //= "Assets/Exported_Data/";
     private string content;
     // Set to false if running multiple environments
     public bool verbose;
+    public bool maxStepInvoked;
     // Reset target
     GameObject parentObject;
     GameObject firstChild;
@@ -81,11 +83,20 @@ public class AgentScript_4_2 : Agent
     int numberOfAngles = 8;
     float range = 5;
     float x,z;
-    int layerMask;
-    int count = 0;
-    int count_up = 0;
     int count_fix_up = 0;
-
+    int layerMask;
+    // Reward shaping
+    float priorDistance;
+    float distanceToTarget;
+    public bool rewardShaping;
+    // Uncertainty
+    public bool uncertainty;
+    float maxLength;
+    public float distMean;
+    public float distStd;
+    // Vector3 endPosition;
+    // RaycastHit hit;
+    // private float[] subList;
     /////////////////////////////////// Functions ////////////////////////////////////
 
     public Vector3 GetCenter()
@@ -124,12 +135,6 @@ public class AgentScript_4_2 : Agent
     }
     public int DifficultArea()
     {
-
-      // Debug.Log("Bounds: "+firstChild.transform.GetChild(2).GetComponent<Collider>().bounds);
-      // Debug.Log("Extents: " + firstChild.transform.GetChild(2).GetComponent<Collider>().bounds.extents);
-      // Debug.Log(firstChild.transform.GetChild(2).GetComponent<Collider>().bounds);
-      // Debug.Log(firstChild.transform.GetChild(2).GetComponent<Collider>().bounds.extents);
-
       if (firstChild.transform.GetChild(1).GetComponent<Collider>().bounds.Contains(firstChild.transform.GetChild(0).position))
       {
 
@@ -144,12 +149,12 @@ public class AgentScript_4_2 : Agent
 
       return difficult;
     }
-    public bool checkForCollision()
+    public bool checkForCollision(int angles, int range, string coverage = "full",int maskEnd = 8)
     {
-      layerMask = 1 << 8;
+      layerMask = 1 << maskEnd;
       angle = 0;
       hitOccured = false;
-      for(var i = 0; i < numberOfAngles;i++)
+      for(var i = 0; i < angles;i++)
       {
         RaycastHit hit;
 
@@ -157,15 +162,78 @@ public class AgentScript_4_2 : Agent
         z = transform.position.z + range*Mathf.Sin(angle);
 
         Vector3 dir = new Vector3(x,movementHeight,z);
-        // Debug.DrawLine(transform.position,dir,Color.red,1.0f);
+
         if (Physics.Raycast(transform.position,dir, out hit, range,layerMask))
         {
+
           hitOccured = true;
+          // Debug.DrawLine(transform.position,dir,Color.red);
+        }
+        if (coverage == "full")
+        {
+          angle += 2*Mathf.PI / numberOfAngles;
+        } else if (coverage == "half")
+        {
+          angle += Mathf.PI / numberOfAngles;
         }
 
-        angle += 2*Mathf.PI / numberOfAngles;
       }
       return hitOccured;
+    }
+    public List<float> CrowdedAreaInfo(float radius, float noise)
+    {
+      Collider[] collidersInSight = Physics.OverlapSphere(this.transform.position,radius);
+      List<float> importantInfo = new List<float>();
+
+      foreach (Collider collider in collidersInSight)
+      {
+        if (collider.tag == "CrowdedArea")
+        {
+          importantInfo.Add(collider.gameObject.GetComponent<AreaInfo>().density);
+
+          float dist = Vector3.Distance(collider.gameObject.transform.position,this.transform.position);
+          // Calculating the distance to the edge of the crowdedArea instead of the center.
+          float distEdge = dist - environment.transform.localScale.x*collider.gameObject.transform.localScale.x;
+          float normDistEdge = (distEdge + noise)/ radius;
+          // if (distEdge < 0)
+          // {
+          //   distEdge = 0f;
+          // }
+          importantInfo.Add(normDistEdge);
+        }
+      }
+      if ((1 < importantInfo.Count) && (importantInfo.Count < 4))
+      {
+        // for ( var i = 0; i <= (4 - importantInfo.Count);i++)
+        // {
+        //   importantInfo.Add(radius);
+        // }
+        importantInfo.Add(0f);
+        importantInfo.Add(1f);
+      } else if (importantInfo.Count == 0)
+      {
+        importantInfo.Add(0f);
+        importantInfo.Add(1f);
+        importantInfo.Add(0f);
+        importantInfo.Add(1f);
+      }
+      return importantInfo;
+    }
+    public bool checkForCrowdedArea(float radius)
+    {
+      Collider[] collidersInSight = Physics.OverlapSphere(this.transform.position,radius);
+
+      bool crowdedArea = false;
+
+      foreach (Collider collider in collidersInSight)
+      {
+        if (collider.tag == "CrowdedArea")
+        {
+          crowdedArea = true;
+        }
+      }
+
+      return crowdedArea;
     }
     void markCollision()
     {
@@ -186,6 +254,27 @@ public class AgentScript_4_2 : Agent
         markingAngle += 2*Mathf.PI / 8;
       }
     }
+    public float gaussianNoise(float mean, float std)
+    {
+      List<float> Xuni = new List<float>();
+      List<float> Znorm = new List<float>();
+
+      for (int i = 0; i < 2; i++)
+      {
+        Xuni.Add(Random.value);
+      }
+
+      Znorm.Add((mean + std*Mathf.Sqrt(-2 * Mathf.Log(Xuni[0])) * Mathf.Cos(2 * Mathf.PI * Xuni[1])));
+      Znorm.Add((mean + std*Mathf.Sqrt(-2 * Mathf.Log(Xuni[0])) * Mathf.Sin(2 * Mathf.PI * Xuni[1])));
+
+      if (Random.value > 0.5)
+      {
+        return Znorm[0];
+      } else
+      {
+        return Znorm[1];
+      }
+    }
     //////////////////////////////////////////////////////////////////////////////////
     // Agent-script specific functions
     public override void InitializeAgent()
@@ -196,9 +285,16 @@ public class AgentScript_4_2 : Agent
       agent = this.GetComponent<Agent>();
       // Get scripts from other objects.
       academyScript = GameObject.FindWithTag("Academy").GetComponent<AcademyScript_4_2>();
+      path = GameObject.FindWithTag("Academy").GetComponent<AcademyScript_4_2>().pathForStorage;
       parentObject = this.transform.parent.gameObject;
       firstChild = parentObject.transform.GetChild(0).gameObject;
       targetScript = firstChild.transform.GetChild(0).GetComponent<targetPlacing_4_2>();
+      // Getting the distance to the target, for reward shaping.
+      if (rewardShaping)
+      {
+        // distanceToTarget = Vector3.Distance(firstChild.transform.GetChild(0).transform.position,this.transform.position);
+        priorDistance = Vector3.Distance(firstChild.transform.GetChild(0).transform.position,this.transform.position);
+      }
       // Getting the number of areas
       numberOfAreas = GameObject.FindGameObjectsWithTag("Area").Length;
 
@@ -223,42 +319,79 @@ public class AgentScript_4_2 : Agent
       environment = GameObject.FindWithTag("Ground");
       extendX = environment.transform.localScale.x;
       extendZ = environment.transform.localScale.z;
+      maxLength = Mathf.Sqrt(Mathf.Pow(extendX,2) + Mathf.Pow(extendZ,2));
       movementHeight = academyScript.heightOfMovingObjects;
       material = new Material(Shader.Find("Sprites/Default"));
     }
     public override void CollectObservations()
     {
-      layerMask = ~(1 << LayerMask.NameToLayer ("Ignore Raycast"));
-      // count += 1;
       float rayDistance = 50f;
       float[] rayAngles = {10f,20f,30f,40f,50f,60f,70f,80f,90f,100f,110f,120f,130f,140f,150f,160f,170f,180f};
       string[] detectableObjcts = {"Wall","Goal","Obstacle","Pedestrian","CrowdedArea"};// "Sensor"
 
-      AddVectorObs(rayPer.Perceive(rayDistance,rayAngles,detectableObjcts,0f,0f));
-
-      if (countSlowsteps)
+      if (uncertainty)
       {
-        slowSteps_obs += 1;
+        if (checkForCrowdedArea(15f))
+        {
+          float noise = gaussianNoise(distMean,distStd);
+          exportData(path+parentObject.name+"_"+nameOfFile[4],noise+"\n");
+          AddVectorObs(rayPer.PerceiveUncertainty(rayDistance,rayAngles,detectableObjcts,0f,0f,noise));
+          // Adding some more information (Density and distance) on the crowdedAreas.
+          AddVectorObs(CrowdedAreaInfo(25f,noise));
+          // // Adding the distance to the target as an observation
+          float distTarget = Vector3.Distance(firstChild.transform.GetChild(0).transform.position,this.transform.position);
+          float normDistTarget = (distTarget + noise) / maxLength;
+          AddVectorObs(normDistTarget);
+        } else
+        {
+          // float noise = gaussianNoise(0f,1f);
+
+          AddVectorObs(rayPer.PerceiveUncertainty(rayDistance,rayAngles,detectableObjcts,0f,0f,0f));
+          // Adding some more information (Density and distance) on the crowdedAreas.
+          AddVectorObs(CrowdedAreaInfo(25f,0f));
+          // // Adding the distance to the target as an observation
+          float distTarget = Vector3.Distance(firstChild.transform.GetChild(0).transform.position,this.transform.position);
+          float normDistTarget = distTarget / maxLength;
+          AddVectorObs(normDistTarget);
+        }
+      } else
+      {
+        AddVectorObs(rayPer.Perceive(rayDistance,rayAngles,detectableObjcts,0f,0f));
+        // Adding some more information (Density and distance) on the crowdedAreas.
+        // AddVectorObs(CrowdedAreaInfo(25f,0f));
+        // // Adding the distance to the target as an observation
+        // float distTarget = Vector3.Distance(firstChild.transform.GetChild(0).transform.position,this.transform.position);
+        // float normDistTarget = distTarget / maxLength;
+        // AddVectorObs(normDistTarget);
       }
     }
     public override void AgentAction(float[] vectorAction,string textAction)
     {
-      count += 1;
-      AddReward(stepPenalty);
-      MoveAgent(vectorAction);
-
-      if (count>=(int)4000f)//(int)4000f
+      if (rewardShaping)
       {
-        // Getting the steps
-        // exportData(path+nameOfFile[3],"0"+", "+GetStepCount()+", "+DifficultArea()+"\n");
-        // Getting the steps
-        exportData(path+nameOfFile[6],"0"+", "+count+", "+DifficultArea()+"\n");
-        // Getting the steps
-        // exportData(path+nameOfFile[6],"0"+", "+count_up+", "+DifficultArea()+"\n");
-        // Getting the steps
-        // exportData(path+nameOfFile[7],"0"+", "+count_fix_up+", "+DifficultArea()+"\n");
+        // Calculate the current distance to the target
+        distanceToTarget = Vector3.Distance(firstChild.transform.GetChild(0).transform.position,this.transform.position);
+        // If the distance to the target increases, give the step penalty.
+        // It is equivalent to give a step penalty all the time, and rewarding
+        // the agent with equal sized reward if the agent takes step towards the target.
+        if (distanceToTarget > priorDistance)
+        {
+          AddReward(stepPenalty);
+        }
+      } else
+      {
+        AddReward(stepPenalty);
       }
 
+      // Debug.Log(distanceToTarget);
+      // AddReward(stepPenalty);
+      MoveAgent(vectorAction);
+
+      // Count steps in the crowded areas.
+      if (countSlowsteps)
+      {
+        slowSteps_obs += 1;
+      }
     }
     public void MoveAgent(float[] action)
     {
@@ -286,9 +419,11 @@ public class AgentScript_4_2 : Agent
       // Because of the two-brains-set-up
       if (resetLocations)
       {
-        count = 0;
+        // count = 0;
         // count_up = 0;
         count_fix_up = 0;
+        // Resetting the crowded areas collision counter
+        CrowdedAreaCollisions = 0;
         // Incrementing the counter
         countingSessions += 1;
         // Reset sensor collision tracker
@@ -405,17 +540,15 @@ public class AgentScript_4_2 : Agent
         if (verbose)
         {
           // Tracking collision with pedestrians.
-          exportData(path+nameOfFile[1],"0\n");
+          exportData(path+parentObject.name+"_"+nameOfFile[0],"0\n");
           // Tracking collisions with sensors
-          exportData(path+nameOfFile[2],sensorCollisionsGlobal+", 0\n");//countingSessions+", "+
+          // exportData(path+parentObject.name+"_"+nameOfFile[2],sensorCollisionsGlobal+", 0\n");
+          // // Getting the steps
+          // exportData(path+parentObject.name+"_"+nameOfFile[3],"0"+", "+GetStepCount()+", "+DifficultArea()+"\n");
           // Getting the steps
-          exportData(path+nameOfFile[3],"0"+", "+GetStepCount()+", "+DifficultArea()+"\n");
-          // Getting the steps
-          exportData(path+nameOfFile[4],"0"+", "+count+", "+DifficultArea()+"\n");
-          // Getting the steps
-          exportData(path+nameOfFile[6],"0"+", "+count_up+", "+DifficultArea()+"\n");
-          // Getting the steps
-          exportData(path+nameOfFile[7],"0"+", "+count_fix_up+", "+DifficultArea()+"\n");
+          exportData(path+parentObject.name+"_"+nameOfFile[1],"0"+", "+count_fix_up+", "+DifficultArea()+"\n");
+          // Getting the crowded areas collisions
+          exportData(path+parentObject.name+"_"+nameOfFile[3],"0"+", "+CrowdedAreaCollisions+"\n");
         }
         Done();
       }
@@ -426,17 +559,15 @@ public class AgentScript_4_2 : Agent
         if (verbose)
         {
           // Tracking collision with pedestrians.
-          exportData(path+nameOfFile[1],"0\n");
+          exportData(path+parentObject.name+"_"+nameOfFile[0],"0\n");
           // Tracking collisions with sensors
-          exportData(path+nameOfFile[2],sensorCollisionsGlobal+", 0\n");//countingSessions+", "+
+          // exportData(path+parentObject.name+"_"+nameOfFile[2],sensorCollisionsGlobal+", 0\n");
+          // // Getting the steps
+          // exportData(path+parentObject.name+"_"+nameOfFile[3],"0"+", "+GetStepCount()+", "+DifficultArea()+"\n");
           // Getting the steps
-          exportData(path+nameOfFile[3],"0"+", "+GetStepCount()+", "+DifficultArea()+"\n");
-          // Getting the steps
-          exportData(path+nameOfFile[4],"0"+", "+count+", "+DifficultArea()+"\n");
-          // Getting the steps
-          exportData(path+nameOfFile[6],"0"+", "+count_up+", "+DifficultArea()+"\n");
-          // Getting the steps
-          exportData(path+nameOfFile[7],"0"+", "+count_fix_up+", "+DifficultArea()+"\n");
+          exportData(path+parentObject.name+"_"+nameOfFile[1],"0"+", "+count_fix_up+", "+DifficultArea()+"\n");
+          // Getting the crowded areas collisions
+          exportData(path+parentObject.name+"_"+nameOfFile[3],"0"+", "+CrowdedAreaCollisions+"\n");
         }
         Done();
       }
@@ -447,17 +578,15 @@ public class AgentScript_4_2 : Agent
         if (verbose)
         {
           // Tracking collision with pedestrians.
-          exportData(path+nameOfFile[1],"1\n");
+          exportData(path+parentObject.name+"_"+nameOfFile[0],"1\n");
           // Tracking collisions with sensors
-          exportData(path+nameOfFile[2],sensorCollisionsGlobal+", 0\n");//countingSessions+", "+
+          // exportData(path+parentObject.name+"_"+nameOfFile[2],sensorCollisionsGlobal+", 0\n");
+          // // Getting the steps
+          // exportData(path+parentObject.name+"_"+nameOfFile[3],"0"+", "+GetStepCount()+", "+DifficultArea()+"\n");
           // Getting the steps
-          exportData(path+nameOfFile[3],"0"+", "+GetStepCount()+", "+DifficultArea()+"\n");
-          // Getting the steps
-          exportData(path+nameOfFile[4],"0"+", "+count+", "+DifficultArea()+"\n");
-          // Getting the steps
-          exportData(path+nameOfFile[6],"0"+", "+count_up+", "+DifficultArea()+"\n");
-          // Getting the steps
-          exportData(path+nameOfFile[7],"0"+", "+count_fix_up+", "+DifficultArea()+"\n");
+          exportData(path+parentObject.name+"_"+nameOfFile[1],"0"+", "+count_fix_up+", "+DifficultArea()+"\n");
+          // Getting the crowded areas collisions
+          exportData(path+parentObject.name+"_"+nameOfFile[3],"0"+", "+CrowdedAreaCollisions+"\n");
         }
         Done();
       }
@@ -468,17 +597,15 @@ public class AgentScript_4_2 : Agent
         if (verbose)
         {
           // Tracking collision with pedestrians.
-          exportData(path+nameOfFile[1],"0\n");
+          exportData(path+parentObject.name+"_"+nameOfFile[0],"0\n");
           // Tracking collisions with sensors
-          exportData(path+nameOfFile[2],sensorCollisionsGlobal+", 1\n");//countingSessions+", "+
+          // exportData(path+parentObject.name+"_"+nameOfFile[2],sensorCollisionsGlobal+", 1\n");
+          // // Getting the steps
+          // exportData(path+parentObject.name+"_"+nameOfFile[3],"1"+", "+GetStepCount()+", "+DifficultArea()+"\n");
           // Getting the steps
-          exportData(path+nameOfFile[3],"1"+", "+GetStepCount()+", "+DifficultArea()+"\n");
-          // Getting the steps
-          exportData(path+nameOfFile[4],"1"+", "+count+", "+DifficultArea()+"\n");
-          // Getting the steps
-          exportData(path+nameOfFile[6],"1"+", "+count_up+", "+DifficultArea()+"\n");
-          // Getting the steps
-          exportData(path+nameOfFile[7],"1"+", "+count_fix_up+", "+DifficultArea()+"\n");
+          exportData(path+parentObject.name+"_"+nameOfFile[1],"1"+", "+count_fix_up+", "+DifficultArea()+"\n");
+          // Getting the crowded areas collisions
+          exportData(path+parentObject.name+"_"+nameOfFile[3],"1"+", "+CrowdedAreaCollisions+"\n");
         }
         Done();
 
@@ -527,17 +654,16 @@ public class AgentScript_4_2 : Agent
         //   AddReward(-0.1f * sensorCollisionsLocal);//-0.001f
         // }
         countSlowsteps = false;
+        CrowdedAreaCollisions += 1;
         if (verbose)
         {
-          exportData(path+nameOfFile[5],slowSteps_act+","+slowSteps_obs+"\n");
+          exportData(path+parentObject.name+"_"+nameOfFile[2],slowSteps_act+","+stepPenalty+"\n");
         }
         slowSteps_act = 0;
         slowSteps_obs = 0;
         stepPenalty = -0.0005f;
         // agent.GetComponent<AgentScript_4_2>().speed = 10f;
       }
-
-
     }
     // Switching brains
     public void FixedUpdate()
@@ -545,7 +671,7 @@ public class AgentScript_4_2 : Agent
       count_fix_up += 1;
       if (secondBrain != null)
       {
-        if (checkForCollision())
+        if (checkForCollision((int)18f, (int)10f, "half", (int)8f))
         {
           agent.GiveBrain(secondBrain);
           // No desire to reset locations because of the change in brain.
@@ -564,33 +690,15 @@ public class AgentScript_4_2 : Agent
           resetLocations = true;
         }
       }
-      if (count_fix_up>=(int)4000f)//(int)4000f
+      // Debug.Log(maxStep);
+      if (maxStepInvoked)
       {
-        // Getting the steps
-        exportData(path+nameOfFile[3],"0"+", "+GetStepCount()+", "+DifficultArea()+"\n");
-        // Getting the steps
-        exportData(path+nameOfFile[4],"0"+", "+count+", "+DifficultArea()+"\n");
-        // Getting the steps
-        // exportData(path+nameOfFile[6],"0"+", "+count_up+", "+DifficultArea()+"\n");
-        // Getting the steps
-        exportData(path+nameOfFile[7],"0"+", "+count_fix_up+", "+DifficultArea()+"\n");
+        if (count_fix_up>=(int)4000f)
+        {
+          // Getting the steps
+          exportData(path+parentObject.name+"_"+nameOfFile[1],"0"+", "+GetStepCount()+", "+DifficultArea()+"\n");
+        }
       }
-    }
-    public void Update()
-    {
-      // count_up += 1;
-      // if (count_up==(int)4000f)//(int)4000f
-      // {
-      //   // Getting the steps
-      //   exportData(path+nameOfFile[3],"0"+", "+GetStepCount()+", "+DifficultArea()+"\n");
-      //   // Getting the steps
-      //   exportData(path+nameOfFile[4],"0"+", "+count+", "+DifficultArea()+"\n");
-      //   // Getting the steps
-      //   exportData(path+nameOfFile[6],"0"+", "+count_up+", "+DifficultArea()+"\n");
-      //   // Getting the steps
-      //   exportData(path+nameOfFile[7],"0"+", "+count_fix_up+", "+DifficultArea()+"\n");
-      // }
-
     }
     ///////////////////////////////////////////////////
 }

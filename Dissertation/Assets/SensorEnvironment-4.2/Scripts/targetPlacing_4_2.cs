@@ -32,19 +32,19 @@ public class targetPlacing_4_2 : MonoBehaviour
       {
         RaycastHit hit;
 
-        x = transform.position.x + range*Mathf.Cos(angle);
-        z = transform.position.z + range*Mathf.Sin(angle);
+        x = this.transform.position.x + range*Mathf.Cos(angle);
+        z = this.transform.position.z + range*Mathf.Sin(angle);
 
         Vector3 dir = new Vector3(x,movementHeight,z);
 
-        if (Physics.Raycast(transform.position,dir, out hit))
+        if (Physics.Raycast(this.transform.position,dir, out hit))
         {
 
 
           if (hit.distance <= range)
           {
             noHit = true;
-            Debug.DrawLine(transform.position,dir,Color.red,10.0f);
+            Debug.DrawLine(this.transform.position,dir,Color.red,10.0f);
           }
         }
 
@@ -55,12 +55,12 @@ public class targetPlacing_4_2 : MonoBehaviour
 
     public void inCaseOfCollision()
     {
-      extendX = (transform.parent.localScale.x) / 2;
-      extendZ = (transform.parent.localScale.z) / 2;
+      extendX = (this.transform.parent.localScale.x) / 2;
+      extendZ = (this.transform.parent.localScale.z) / 2;
 
-      randomPosition = new Vector3(Random.Range(transform.localScale.x - extendX,extendX - transform.localScale.x),
+      randomPosition = new Vector3(Random.Range(this.transform.localScale.x - extendX,extendX - this.transform.localScale.x),
                              movementHeight,
-                             Random.Range(transform.localScale.z - extendZ,extendZ - transform.localScale.z));
+                             Random.Range(this.transform.localScale.z - extendZ,extendZ - this.transform.localScale.z));
 
       transform.position = randomPosition + this.transform.parent.parent.position;
       transform.rotation = Quaternion.identity;

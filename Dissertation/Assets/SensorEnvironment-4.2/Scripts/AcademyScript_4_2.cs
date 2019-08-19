@@ -7,6 +7,7 @@ public class AcademyScript_4_2 : Academy
 {
   // General declarations
   private GameObject[] environments;
+  GameObject[] agents;
   [HideInInspector]
   public float extendX;
   [HideInInspector]
@@ -27,13 +28,15 @@ public class AcademyScript_4_2 : Academy
   public GameObject crowdedArea;
   float crowdedAreasToAdd = 0;
   float[] densities;
+  int activateEnvironments;
   // Declarations to enableWalls()
   private int choice;
   private int lB;
   private int uB;
   private int incrementer;
   List<int> processedObstacles = new List<int>();
-
+  List<int> activateAgents = new List<int>();
+  public string pathForStorage;
   // Custom methods //
   void addMovingSensors(float xScale, float zScale, Vector3 translateVector, Transform parentTransform)
   {
@@ -116,14 +119,39 @@ public class AcademyScript_4_2 : Academy
   {
     // Enabling training environments
     trainingAreas = GameObject.FindGameObjectsWithTag("Area");
-    for (var i = 0; i < (trainingAreas.Length - (int)resetParameters["NumberOfAreas"]);i++)
-    {
-      trainingAreas[i].SetActive(false);
-    }
+    agents = GameObject.FindGameObjectsWithTag("Agent");
+    // activateEnvironments = (int)resetParameters["NumberOfAreas"];
+    // for (var i = 0; i < (trainingAreas.Length - (int)resetParameters["NumberOfAreas"]);i++)
+    // {
+    //   // trainingAreas[i].SetActive(false);
+    //   agents[i].SetActive(false);
+    // }
 
     densities = GameObject.FindWithTag("Agent").GetComponent<AgentScript_4_2>().densities;
     environments = GameObject.FindGameObjectsWithTag("Ground");
 
+    // var activateAgents = new int[environments.Length];
+    // for (var i = 0; i < environments.Length;i++)
+    // {
+    //   if (i < (int)resetParameters["NumberOfAreas"])
+    //   {
+    //     activateAgents.Add(1);// = 1;
+    //   } else
+    //   {
+    //     activateAgents.Add(0);//[i] = 0;
+    //   }
+    // }
+    for (var i = 0; i < environments.Length;i++)
+    {
+      if (i < (int)resetParameters["NumberOfAreas"])
+      {
+        agents[i].SetActive(true);
+      } else
+      {
+        agents[i].SetActive(false);
+      }
+    }
+    // Debug.Log(activateAgents);
     previousMovingSensors = (int)resetParameters["NumberOfMovingSensors"];
     // previousSensors = (int)resetParameters["NumberOfSensors"];
     previousClouds = (int)resetParameters["NumberOfSensorClouds"];
@@ -151,13 +179,37 @@ public class AcademyScript_4_2 : Academy
     lB = 0;
     uB = incrementer;
 
-    environments = GameObject.FindGameObjectsWithTag("Ground");
+    int count = 0;
     extendX = (environments[0].transform.localScale.x) / 2;// The first element in the environments array are used, because all environments are identical, and it therefore doesn't matter.
     extendZ = (environments[0].transform.localScale.z) / 2;
+
+    // Creating a bitmask to keep track of how many agents to activate.
+    for (var i = 0; i < environments.Length;i++)
+    {
+      if (i < (int)resetParameters["NumberOfAreas"])
+      {
+        agents[i].SetActive(true);
+      } else
+      {
+        agents[i].SetActive(false);
+      }
+    }
+    // Debug.Log(agents.Length);
     // Ensuring that each environments has the correct specifications.
     foreach (GameObject environment in environments)
     {
       int keepTrack = 0;
+      // if ((count >= activateEnvironments) && (activateEnvironments < (int)resetParameters["NumberOfAreas"]))
+      // {
+      //   agents[count].SetActive(true);
+      // }
+      // Debug.Log(activateAgents[count]);
+      // Debug.Log(count);
+      // if (activateAgents[count] == 1)
+      // {
+      //   agents[count].SetActive(true);
+      // }
+      count += 1;
       foreach (Transform child in environment.transform)
       {
         if (child.tag == "CrowdedArea")
@@ -187,6 +239,7 @@ public class AcademyScript_4_2 : Academy
       uB += incrementer;
       crowdedAreasToAdd = 0;
     }
+    activateEnvironments = (int)resetParameters["NumberOfAreas"];
     // Status report
     // Debug.Log("----------- Update Status -----------");
     // Debug.Log("Number of:");
