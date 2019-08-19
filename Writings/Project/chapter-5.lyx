@@ -303,10 +303,24 @@ thepage
 
 \begin_layout Chapter
 Policy Evaluation
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Policy-Evaluation"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
 Dicussion
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Dicussion"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

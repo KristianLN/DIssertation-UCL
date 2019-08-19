@@ -14,10 +14,14 @@
 \usepackage[figure]{hypcap}
 \usepackage{array,multirow,graphicx}
 
+% Added additionally
+
 % define "struts", as suggested by Claudio Beccari in
 %    a piece in TeX and TUG News, Vol. 2, 1993.
 \newcommand\Tstrut{\rule{0pt}{2.6ex}}         % = `top' strut was 2.6
 \newcommand\Bstrut{\rule[-0.9ex]{0pt}{0pt}}   % = `bottom' strut
+\newcommand\setrow[1]{\gdef\rowmac{#1}#1\ignorespaces}
+\newcommand\clearrow{\global\let\rowmac\relax}
 
 % the pages of the TOC is numbered roman
 % and a pdf-bookmark for the TOC is added
@@ -676,6 +680,13 @@ Depending on the environment, it is sometimes necessary to aid the learning
 
 \begin_layout Subsection
 Curriculum Learning
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Curriculum-Learning"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1000,7 +1011,8 @@ name "fig:Baseline-comparison"
 
 \shape italic
 \size footnotesize
-The means and standard deviations of are calculated after 100,000 steps.
+ACR/AEL are smoothed to better visualise, yet the means and standard deviations
+ of are calculated on the raw data and after 100,000 steps.
 \end_layout
 
 \end_inset
@@ -1338,6 +1350,13 @@ status open
 
 
 \backslash
+clearrow
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
 centering
 \end_layout
 
@@ -1345,7 +1364,31 @@ centering
 
 
 \backslash
-begin{tabular}{c|c c c c c c c c c c}
+begin{tabular}{>{
+\backslash
+rowmac}c|>{
+\backslash
+rowmac}c>{
+\backslash
+rowmac}c>{
+\backslash
+rowmac}c >{
+\backslash
+rowmac}c>{
+\backslash
+rowmac}c>{
+\backslash
+rowmac}c>{
+\backslash
+rowmac}c>{
+\backslash
+rowmac}c>{
+\backslash
+rowmac}c >{
+\backslash
+rowmac}c<{
+\backslash
+clearrow}}
 \end_layout
 
 \begin_layout Plain Layout
@@ -1359,11 +1402,20 @@ hline
 
 \begin_layout Plain Layout
 
-$Max_{steps}$ & 100 & 200 & 300 & 400 & 500 & 600 & 700 & 800 & 900 & 1000
+
+\backslash
+setrow{
+\backslash
+bfseries}$
+\backslash
+mathbf{Max}_{
+\backslash
+mathbf{steps}}$ & 100 & 200 & 300 & 400 & 500 & 600 & 700 & 800 & 900 &
+ 1000
 \backslash
 
 \backslash
- [0.5ex]
+
 \end_layout
 
 \begin_layout Plain Layout
@@ -1391,8 +1443,16 @@ hline
 
 \begin_layout Plain Layout
 
-$Max_{steps}$ & 1000 & 2000 & 3000 & 4000 & 5000 & 6000 & 7000 & 8000 &
- 9000 & 10000
+
+\backslash
+setrow{
+\backslash
+bfseries}$
+\backslash
+mathbf{Max}_{
+\backslash
+mathbf{steps}}$ & 1000 & 2000 & 3000 & 4000 & 5000 & 6000 & 7000 & 8000
+ & 9000 & 10000
 \backslash
 
 \backslash
@@ -2337,7 +2397,7 @@ hline
 
 \begin_layout Plain Layout
 
-Type & Obs & $Share_{GR}$ & $Obs_{>=L_{3}}$ & Collisions & Share
+Type & Obs & $Obs_{>=L_{3}}$ & $Share_{>=L_{3}}$ & Collisions & Share
 \backslash
 
 \backslash
@@ -2353,7 +2413,7 @@ hline
 
 \begin_layout Plain Layout
 
-MS: 0, OS: 1 & 7487 & 0.33 & 2458 & 524 & 0.21
+MS: 0, OS: 1 & 7487 & 2458 & 0.33  & 524 & 0.21
 \backslash
 Tstrut
 \backslash
@@ -2364,7 +2424,7 @@ Tstrut
 
 \begin_layout Plain Layout
 
-MS: 4000, OS: 1 & 7712 & 0.44 & 3393 & 893 & 0.26
+MS: 4000, OS: 1 & 7712 & 3393 & 0.44 & 893 & 0.26
 \backslash
 
 \backslash
@@ -2373,7 +2433,7 @@ MS: 4000, OS: 1 & 7712 & 0.44 & 3393 & 893 & 0.26
 
 \begin_layout Plain Layout
 
-MS: 0, OS: 3 & 8375 & 0.52 & 4393 & 841 & 0.19
+MS: 0, OS: 3 & 8375 & 4393 & 0.52 & 841 & 0.19
 \backslash
 
 \backslash
@@ -2382,7 +2442,7 @@ MS: 0, OS: 3 & 8375 & 0.52 & 4393 & 841 & 0.19
 
 \begin_layout Plain Layout
 
-MS: 0, OS: 6 & 8463 & 0.44 & 3698 & 868& 0.24
+MS: 0, OS: 6 & 8463 & 3698 & 0.44 & 868& 0.24
 \backslash
 
 \backslash
@@ -2413,8 +2473,278 @@ end{tabular}
 
 \end_layout
 
+\begin_layout Standard
+Three ways to improve learning in the agents, as well as their individual
+ effect, has been presented, and the following section evaluates the combined
+ effect.
+\end_layout
+
 \begin_layout Section
 Results under certainty
+\end_layout
+
+\begin_layout Standard
+The section outlines the results obtained after 1 million steps using the
+ full set of aids previously described.
+ The results presented in the following is directly comparable with the
+ baseline results, except on the number of steps simulated, which matters
+ for the quality of the policy obtained for each agent.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Full-set-up-under"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ shows similar pattern to figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Baseline-comparison"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, with agent 1 being the most efficient and stable.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Agent 2 and 3 follows closely and agent 4, the agent with visual input,
+ does not seem to benefit from the increased information.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Full set-up under certainty
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Full-set-up-under"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\paragraph_spacing single
+\noindent
+\align center
+
+\shape italic
+\size footnotesize
+\begin_inset Graphics
+	filename C:/Users/Krist/GitHub/ml-agents/Dissertation/Notebooks/graphs/Certain_comparison_100.jpg
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\paragraph_spacing single
+\noindent
+\align center
+
+\shape italic
+\size footnotesize
+ACR/AEL are smoothed to better visualise, yet the means and standard deviations
+ of are calculated on the raw data and after 100,000 steps.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Dealing-with-difficult"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ shows the ability to deal with the difficult areas, and here is little
+ more dispersion the series in between, compared to figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Efficiency-in-Difficult"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Agent 3 and 4 seems to have a harder time reaching the targets in the difficult
+ areas, which is interesting because both have the distance to the target
+ in their information set .
+ 
+\begin_inset Newline newline
+\end_inset
+
+Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Shares-of-Collisions"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ shows the shares of collisions, with crowded areas and pedestrians.
+ The numbers in parenthesis shows the shares of episodes, in which the agent
+ has been exposed to the given obstacle.
+ All shares are calculated from the episodes, and not from the steps.
+ Evaluating shares makes comparison straighter, agents in between as well
+ as the baseline case and 
+\shape italic
+certain
+\shape default
+ case.
+ Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Shares-of-Collisions"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ shows significant differences the agents in between, in their ability to
+ handle crowded areas.
+ Most importantly, table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Shares-of-Collisions"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ indicates that the agents learn to avoid the crowded areas.
+ One way to see this, is by comparing the collision share of agent 1 and
+ agent 4.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The collision share of Agent 1 are lower than the one of agent 4, with agent
+ 1 having been exposed more to the crowded areas.
+ More exposure should, all else equal, imply higher risk of collision, unless
+ learning has occurred – this is discussed more in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Dicussion"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Dealing with difficult areas
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Dealing-with-difficult"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\paragraph_spacing single
+\noindent
+\align center
+
+\shape italic
+\size footnotesize
+\begin_inset Graphics
+	filename C:/Users/Krist/GitHub/ml-agents/Dissertation/Notebooks/graphs/Certain_comparison_custom_100.jpg
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\paragraph_spacing single
+\noindent
+\align center
+
+\shape italic
+\size footnotesize
+The curves are averages from the four parallel areas, and the means and
+ standard deviations of are calculated after 2,000 increments.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+With the core of the results obtained under certainty outlined, it is time
+ to look at the results obtained under uncertainty, which is the focus of
+ the next section.
 \end_layout
 
 \begin_layout Standard
@@ -2427,7 +2757,14 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Training Time & Crowded Area Efficiency
+Shares of Collisions
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Shares-of-Collisions"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -2450,7 +2787,7 @@ centering
 
 
 \backslash
-begin{tabular}{c|c c c|c c c}
+begin{tabular}{c|c c c|c c}
 \end_layout
 
 \begin_layout Plain Layout
@@ -2464,11 +2801,11 @@ hline
 
 \begin_layout Plain Layout
 
-Agent & 
+& 
 \backslash
-multicolumn{3}{c}{Training Time} & 
+multicolumn{3}{c}{Crowded Areas} & 
 \backslash
-multicolumn{3}{c}{Efficiency, Crowded Areas}
+multicolumn{2}{c}{Pedestrians}
 \backslash
 Tstrut
 \backslash
@@ -2486,7 +2823,7 @@ hline
 
 \begin_layout Plain Layout
 
-& Baseline & Certain & Uncertain & Baseline & Certain & Uncertain 
+Agent & Baseline & Certain & Uncertain & Certain & Uncertain 
 \backslash
 
 \backslash
@@ -2502,16 +2839,32 @@ hline
 
 \begin_layout Plain Layout
 
-1 & 42 min.
- & x min.
- & x min.
- & 25.1
+1 & 25.1
 \backslash
-% & y
+% (42.3
 \backslash
-% & y
+%) & 14.4
 \backslash
-%
+% (88.0
+\backslash
+%) & y
+\backslash
+% (y
+\backslash
+%) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+13.4
+\backslash
+% (77.2
+\backslash
+%) & y
+\backslash
+% (y
+\backslash
+%)
 \backslash
 
 \backslash
@@ -2520,56 +2873,92 @@ hline
 
 \begin_layout Plain Layout
 
-2 & 43 min.
- & x min.
- & x min.
- & 36.9
+2 & 36.9
 \backslash
-% & y
+% (15.6
 \backslash
-% & y
+%)& 17.4
 \backslash
-%
+% (87.7
 \backslash
-
+%) & y
 \backslash
-
+% & 
 \end_layout
 
 \begin_layout Plain Layout
 
-3 & 44 min.
- & x min.
- & x min.
- & 24.6
+13.7
 \backslash
-% & y
+% (65.3
 \backslash
-% & y
+%) & y
 \backslash
 %
 \backslash
 
 \backslash
-
+ 
 \end_layout
 
 \begin_layout Plain Layout
 
-4 & 125 min.
- & x min.
- & x min.
- & 32.3
+3 & 24.6
 \backslash
-% & y
+% (43.1
 \backslash
-% & y
+%)& 17.3
+\backslash
+% (79.3
+\backslash
+%) & y
+\backslash
+% &
+\end_layout
+
+\begin_layout Plain Layout
+
+9.8
+\backslash
+% (32.4
+\backslash
+%) & y
 \backslash
 %
 \backslash
 
 \backslash
- [1ex]
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+4 & 32.3
+\backslash
+% (27.2
+\backslash
+%)& 22.6
+\backslash
+% (81.4
+\backslash
+%)& y
+\backslash
+% &
+\end_layout
+
+\begin_layout Plain Layout
+
+14.5
+\backslash
+% (57.7
+\backslash
+%) & y
+\backslash
+%
+\backslash
+
+\backslash
+[1ex]
 \end_layout
 
 \begin_layout Plain Layout
@@ -2598,6 +2987,137 @@ end{tabular}
 
 \begin_layout Section
 Results under uncertainty
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Training Time
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tabular}{c|c c c}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+Agent & Baseline & Certain & Uncertain
+\backslash
+Tstrut
+\backslash
+
+\backslash
+ [0.5ex]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+1 & 42 min.
+ & 124 min.
+ & x min.
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+2 & 43 min.
+ & 129 min.
+ & x min.
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+3 & 44 min.
+ & 135 min.
+ & x min.
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+4 & 125 min.
+ & 667 min.
+ & x min.
+\backslash
+
+\backslash
+  [1ex]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tabular}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

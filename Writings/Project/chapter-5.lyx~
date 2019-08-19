@@ -302,11 +302,18 @@ thepage
 \end_layout
 
 \begin_layout Chapter
-Literature Review
+Policy Evaluation
 \end_layout
 
 \begin_layout Section
-Reinforcement Learning
+Dicussion
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Dicussion"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -335,24 +342,12 @@ literal "true"
 .
 \end_layout
 
-\begin_layout Subsection
-Deep Reinforcement Learning
-\end_layout
-
-\begin_layout Subsubsection
-Policy Gradient Methods
-\end_layout
-
-\begin_layout Subsubsection
-Proximal Policy Optimisation
+\begin_layout Section
+Future Work
 \end_layout
 
 \begin_layout Section
-Robotic Navigation in Urban Environments
-\end_layout
-
-\begin_layout Subsection
-Robotic Navigation in Urban Environments using Reinforcement Learning
+Conclusion
 \end_layout
 
 \begin_layout Standard

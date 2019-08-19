@@ -43,6 +43,15 @@
 % avoids that floats are placed above its sections
 \let\mySection\section\renewcommand{\section}{\suppressfloats[t]\mySection}
 
+% Added additonally
+\newcommand\setrow[1]{\gdef\rowmac{#1}#1\ignorespaces}
+% define "struts", as suggested by Claudio Beccari in
+%    a piece in TeX and TUG News, Vol. 2, 1993.
+\newcommand\Tstrut{\rule{0pt}{2.6ex}}         % = `top' strut was 2.6
+\newcommand\Bstrut{\rule[-0.9ex]{0pt}{0pt}}   % = `bottom' strut
+\newcommand\setrow[1]{\gdef\rowmac{#1}#1\ignorespaces}
+\newcommand\clearrow{\global\let\rowmac\relax}
+
 % increases link area for cross-references and autoname them
 % if you change the document language to e.g. French
 % you must change "extrasenglish" to "extrasfrench"
@@ -559,7 +568,9 @@ Area
  
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Standard
+
+\series bold
 Tags 
 \end_layout
 
@@ -582,7 +593,9 @@ y useful in association with collision detection, collecting observations
  
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Standard
+
+\series bold
 Layers 
 \end_layout
 
@@ -595,7 +608,9 @@ Assigning different GameObject’s to different layers is used to either include
  
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Standard
+
+\series bold
 Static Objects
 \end_layout
 
@@ -615,7 +630,9 @@ literal "false"
  
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Standard
+
+\series bold
 Geometry of a GameObject 
 \end_layout
 
@@ -757,7 +774,9 @@ The pedestrian GameObject is a prefab, which is attached to the academy
  
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Standard
+
+\series bold
 Collider 
 \end_layout
 
@@ -770,7 +789,9 @@ The collider together with the rigidbody component, is what that enables
  
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Standard
+
+\series bold
 Rigidbody 
 \end_layout
 
@@ -828,7 +849,9 @@ name "fig:The-pedestrian-prefab"
 
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Standard
+
+\series bold
 RB: Drag 
 \end_layout
 
@@ -952,6 +975,8 @@ hline
 
 & Value & Unit
 \backslash
+Tstrut
+\backslash
 
 \backslash
  [0.5ex]
@@ -966,18 +991,13 @@ hline
 
 \begin_layout Plain Layout
 
-Density*,$
-\backslash
-rho$: & 1.225 & $kg/m^2$
-\backslash
 
 \backslash
-
-\end_layout
-
-\begin_layout Plain Layout
-
-Speed, $v$: & 1 & $m/s$
+multicolumn{1}{l}{Density*, $
+\backslash
+rho$:} & 1.225 & $kg/m^2$
+\backslash
+Tstrut
 \backslash
 
 \backslash
@@ -986,7 +1006,9 @@ Speed, $v$: & 1 & $m/s$
 
 \begin_layout Plain Layout
 
-Drag Coefficient, $C_{d}$**: & 1.3 & Unitless
+
+\backslash
+multicolumn{1}{l}{Speed, $v$:} & 1 & $m/s$
 \backslash
 
 \backslash
@@ -995,7 +1017,20 @@ Drag Coefficient, $C_{d}$**: & 1.3 & Unitless
 
 \begin_layout Plain Layout
 
-Cross Sectional Area, $A$: & 3.142 & $m^2$
+
+\backslash
+multicolumn{1}{l}{Drag Coefficient, $C_{d}$**:} & 1.3 & Unitless
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+multicolumn{1}{l}{Cross Sectional Area, $A$:} & 3.142 & $m^2$
 \backslash
 
 \backslash
@@ -1013,7 +1048,9 @@ hline
 
 
 \backslash
-multicolumn{3}{l}{*: Density of air}
+multicolumn{3}{l}{{
+\backslash
+scriptsize*: Density of air}}
 \backslash
 
 \backslash
@@ -1024,17 +1061,17 @@ multicolumn{3}{l}{*: Density of air}
 
 
 \backslash
-multicolumn{3}{l}{**: $^{
+multicolumn{3}{l}{$^{
 \backslash
 substack{
 \backslash
-text{Average of human body in upright position, and at} 
+text{**: Average of human body in upright position, and} 
 \backslash
 
 \backslash
  
 \backslash
-text{ the same time the coefficient of a short cylinder.}}}$}
+text{at the same time the coefficient of a short cylinder.}}}$}
 \backslash
 
 \backslash
@@ -1087,7 +1124,9 @@ The rigidbody is marked as being
  
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Standard
+
+\series bold
 Nav Mesh Agent 
 \end_layout
 
@@ -1117,7 +1156,9 @@ The Nav Mesh Agent component is what turns an empty GameObject into a Nav
  
 \end_layout
 
-\begin_layout Subsubsection*
+\begin_layout Standard
+
+\series bold
 Walking around 
 \end_layout
 
@@ -1131,6 +1172,1138 @@ The final component is a custom script, written to ensure that the pedestrian
  therefore strike a balance between the radius and the time, such that the
  agent has time to travel that distance within the specified time.
  
+\end_layout
+
+\begin_layout Subsubsection
+Crowded areas
+\end_layout
+
+\begin_layout Standard
+The crowded area is a prefab and is initialised from the academy object.
+\end_layout
+
+\begin_layout Subsubsection
+Academy
+\end_layout
+
+\begin_layout Standard
+The academy is one of three cornerstones of the toolkit, and it serves to
+ bridge actions and observations to the TensorFlow-based models in Python.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The academy is a Python API, and bridging is done through the brain.
+ The academy has only a single component attached, seen from figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:The-academy"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Brain 
+\end_layout
+
+\begin_layout Standard
+There are two types of brains, learning brains and player trains.
+ Learning brains learns the policy based on the net implemented in TensorFlow.
+ See figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:A-learning-brain"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ for the configuration of a learning brain.
+ The player brains allow the researcher to test before invoking the learning
+ brain, by giving the researcher the option to control the agent with keys
+ on the keypad.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+A learning brain
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:A-learning-brain"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename C:/Users/Krist/Desktop/Kristian/Privat/Ansøgninger/Udveksling/University College London/Being there/Dissertation/Picture/LearningBrain.PNG
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A brain can take vector observations as well as visual observations as input,
+ and it outputs an action vector.
+ The size of both the observation vectors and the action vector is specified
+ by the researcher, and it is problem specific.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The learning brain used this case takes in vector observations, as visual
+ observations requires more computational power than available for this
+ paper.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The size of the vector is determined by the observations collected, with
+ an example using sensor information provided in section 1.6.
+ 
+\end_layout
+
+\begin_layout Standard
+Stacking observation vectors equips the agent with short-term memory, which
+ can be beneficial when dealing with dynamic obstacles.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+The academy
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:The-academy"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename C:/Users/Krist/Desktop/Kristian/Privat/Ansøgninger/Udveksling/University College London/Being there/Dissertation/Picture/Academy.PNG
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+It is possible to add more than one brain to a single agent; however, it
+ is not possible to train multiple brains on a single agent – yet.
+ Training multiple brains on an agent would present some interesting possibiliti
+es, discussed at the end of this paper.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Varying complexity 
+\end_layout
+
+\begin_layout Standard
+An important purpose of the academy is to initialise and alter the complexity
+ of environment.
+ The academy script, except for some helper functions, contains two methods;
+ InitialiseAcademy() and AcademyReset().
+ AcademyReset(), for this paper, is used with CL-based training, and the
+ purpose is to update the environment with increased complexity at specific
+ times.
+ One could alternatively change location of certain objects from the academy,
+ and thereby specify a maximum number of steps or call Done to reset.
+ However, changing location of certain objects, in this study, is done through
+ the agent script.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Reset parameters 
+\end_layout
+
+\begin_layout Standard
+The reset parameters are the variables that enables changing the environment
+ on reset, and they are input variables to the agent script as well, used
+ when changing locations.
+ The values of the reset parameters are being set by the curriculum
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+See section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Curriculum-Learning"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Configuration 
+\end_layout
+
+\begin_layout Standard
+The width and the height determine the size of the application window when
+ training is done outside the editor.
+ 
+\end_layout
+
+\begin_layout Standard
+The quality level is the quality of the camera input, if visual observations
+ are provided to the brain, and is so not relevant for this paper.
+ 
+\end_layout
+
+\begin_layout Standard
+The time scale is the speed at which the simulation is carried out – 1 is
+ real time and 100 is 100 times faster than real time.
+ The actual level of time scale does not as such affect the performance
+ of the training, only the training time, yet some physics calculations
+ gets inaccurate with a too high time scale, and so affecting the performance.
+ This should only be relevant if one has objects that travels at high speed,
+ which isn’t the case in this paper.
+ 
+\end_layout
+
+\begin_layout Standard
+The time scale is set to 50, based on test simulations shown in appendix
+ A showing minimal effect on performance and training time.
+ 
+\end_layout
+
+\begin_layout Standard
+The final configuration parameter is the targeted frame rate, which is the
+ rate at which Unity aim at rendering the frames, which shouldn’t be altered
+ unless one is using visual inputs.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Initialisation of environment 
+\end_layout
+
+\begin_layout Standard
+Below the reset parameters are the two prefabs, pedestrian and crowded area,
+ attached in initialising of the environment.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Agent
+\end_layout
+
+\begin_layout Standard
+The agent object is by far the most complex, in terms of the number of component
+s and methods contained in the attached script.
+ The content of the agent object is seen figure 19.
+ 
+\end_layout
+
+\begin_layout Standard
+The agent GameObject contains a ray perception component along with two
+ custom scripts, other than the familiar components as of the mesh, the
+ rigidbody and the collider components.
+ The purpose of the custom scripts is to draw movement trails and to hold
+ the necessary methods needed, to leverage the ML-Agents toolkit.
+ 
+\end_layout
+
+\begin_layout Standard
+The ML-Agents toolkit bridges sophisticated machine learning methods with
+ the graphical interface and complex physical engine of the traditional
+ Unity application, enabling a new setting to push the boundaries for DRL
+ research (Juliani, 2018).
+ The toolkit allows researcher to utilise pre-defined algorithms, based
+ on TensorFlow, or define them themselves, via a Python API.
+ In the light of the NavMesh class, the toolkit enables the researcher to
+ take more control with the interaction, which carries a certain responsibility.
+ 
+\begin_inset Newline newline
+\end_inset
+
+It requires the researcher to exhibit a greater understanding of the task
+ and modelling at hand, and so reduces the possibility of headless simulation
+ – limiting the risk of another black box appearance.
+ 
+\end_layout
+
+\begin_layout Standard
+The specifications of the agent are based on the specifications available
+ on the current generation of ADR’s.
+ The ADR’s appears to have a height around 0.5-1.5 metre, a width and depth
+ of 0.5 metre, a total weight (including cargo) of 45-50 kgs and a speed
+ around 5 km/h (FedEx, 2019; Starship, 2019; Scott, 2019).
+ 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Ray perception 
+\end_layout
+
+\begin_layout Standard
+The ray perception component enables the agent to cast rays in specified
+ length and direction and are here used to collect observations about the
+ state of the environment.
+ The rays resemble with LIDAR sensors commonly used for robots (Georgiev
+ and Allen, 2004; Kümmerle et al., 2013; Starship, 2019; FedEx, 2019).
+ 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Agent Script 
+\end_layout
+
+\begin_layout Standard
+Any ML agent needs an agent script, to hold the agent-specific methods,
+ just as the academy needed an academy script.
+ An agent script contains some default variables and options, listed above
+ the grey line in figure 19.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+The content of the agent object
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename C:/Users/Krist/Desktop/Kristian/Privat/Ansøgninger/Udveksling/University College London/Being there/Dissertation/Picture/Agent.PNG
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Brain 
+\end_layout
+
+\begin_layout Standard
+An agent needs a brain to control the movement of the agent, and it is the
+ same brain as specified in the academy.
+ Certain methods control the movement, more specifically; CollectObservations,
+ AgentAction and MoveAgent.
+ 
+\begin_inset Newline newline
+\end_inset
+
+CollectObservations serves to provide the agent with a vector of observations,
+ sensor information in this case, and is only needed when the brain uses
+ vector observations
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Visual observations are provided directly to agent.
+\end_layout
+
+\end_inset
+
+.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The agent has 180 degrees sensor vision, in steps of 10 degrees, spanning
+ in front with a length of 50 meters.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The agent is provided with five tags to recognise, and a ray is casted for
+ each of the degrees specified.
+ For each ray is the following returned; A one-hot encoding, whether an
+ object is detected or not 
+\begin_inset Formula $(1/0)$
+\end_inset
+
+ and the normalised distance to the detected object.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The one-hot encoding returns 0 or 1 for each detectable object, depending
+ of which object was detected.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The observation vector has the dimension 
+\begin_inset Formula $(tags+2)\cdot degrees\times1$
+\end_inset
+
+, which for the specific case here means that the observation vector is
+ 
+\begin_inset Formula $(5+2)\cdot18=126\times1$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\color red
+Describe partial/full observability.
+ 
+\end_layout
+
+\begin_layout Standard
+The agent chooses an action, based on the observations about the current
+ state of the environment.
+ The action/-’s is chosen by the brain, and facilitated to the agent through
+ the AgentAction method, in which the action signal is translated to actual
+ movement via the MoveAgent method.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The action of the agent is degrees to turn, as the agent is moved forward
+ with a constant speed.
+ The speed of the agent is subject to change, via the public speed variable.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The speed of the agent is, by default yet subject for change, set equal
+ to 
+\begin_inset Formula $1\:m/s$
+\end_inset
+
+, which is roughly equal to a speed of 
+\begin_inset Formula $3.5\:km/t$
+\end_inset
+
+ – the average chilled walking speed.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Max step 
+\end_layout
+
+\begin_layout Standard
+As with the academy, the option to specify a maximum number of steps is
+ present.
+ The agent will be reset when the number of steps surpasses the specified
+ number, which is useful to break unfavourable movement patterns, as is
+ shown later.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Reset on Done
+\series default
+ 
+\end_layout
+
+\begin_layout Standard
+Another way to reset the agent is to call Done at some point, which usually
+ is after colliding with an object in the environment.
+ 
+\end_layout
+
+\begin_layout Standard
+Both max step and reset on Done is used in this paper.
+ Collisions with a wall, a static obstacle, a pedestrian or the target results
+ in Done being called, to reset the agent, and start a new episode.
+ 
+\end_layout
+
+\begin_layout Standard
+On reset, not only the position of the agent resets, but also the position
+ of the target and the crowded areas.
+ Re-positioning the crowded areas causes re-drawing the densities.
+ 
+\begin_inset Newline newline
+\end_inset
+
+For this reason, the option to specify levels and number of possible densities
+ is available under the agent script.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Decisions 
+\end_layout
+
+\begin_layout Standard
+Decisions can be done either at a specific interval or on demand, and this
+ paper here uses decision at a specific interval.
+ The decision interval (DI) should be chosen with the complexity of the
+ environment and the speed at which the agent moves in mind.
+ 
+\end_layout
+
+\begin_layout Standard
+As with many of the other parameters of the environment, it is of interest
+ to choose the level at a level which generalises.
+ The default level of DI is chosen to be every fifth step but can be subject
+ to change.
+ It seems natural that greater complexity/speed should benefit from lower
+ DI.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Camera/Render textures 
+\end_layout
+
+\begin_layout Standard
+The agent script contains the option to specify camera/-s and/or render
+ textures, if the brain attached to the agent uses visual observations.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Draw trails 
+\end_layout
+
+\begin_layout Standard
+The agent script contains the option to enable drawing, and specify the
+ number of trails drawn, which serves to visualise changes in learning patterns
+ doing training.
+ A custom implementation is used, contained in the second custom script
+ of the agent, because the default implementation, trail renderer, does
+ not consider the resetting of the agent.
+ Trail renderer draws the jump from where one episode ends to the start
+ position of the agent, which minimises the information obtained by visualising
+ the trails.
+ 
+\end_layout
+
+\begin_layout Standard
+The custom implementation simply draws a line for each episode, as either
+ a new child element of the agent, if the number of trails is less than
+ the specified number of trails, or by modifying the oldest trails.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Name of file 
+\end_layout
+
+\begin_layout Standard
+If desired, by checking verbose, the agent collects additional information,
+ compared to the information provided via TensorBoard and writes it to specified
+ files.
+ The additional information provides deeper insights into the progress of
+ the training and highlights potential shortcomings.
+ The additional information is information on the number of collisions with
+ pedestrians and crowded areas, the steps used to locate the goal and the
+ steps taken in the crowded area.
+ However, this can be changed to suite the environment and the need of the
+ researcher.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Second brain 
+\end_layout
+
+\begin_layout Standard
+The agent script is provided with an option to add a second brain, and potential
+ly many more, which is useful to investigate the effect of separating tasks
+ on individual brains.
+\end_layout
+
+\begin_layout Subsubsection
+Target
+\end_layout
+
+\begin_layout Standard
+The content of the target is seen in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:The-content-of"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The target contains a custom script which serves two purposes; randomly
+ setting a new position of the target and check for collision with static
+ objects in the environment.
+ 
+\end_layout
+
+\begin_layout Standard
+Continuously changing the position of the target increases the likelihood
+ of the learning to generalise to unseen environments.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+The content of the target object
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:The-content-of"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename C:/Users/Krist/Desktop/Kristian/Privat/Ansøgninger/Udveksling/University College London/Being there/Dissertation/Picture/Target.png
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The target is not allowed to be located within another static object in
+ the environment, to prevent conflicting collisions.
+ Having the target located separately from other static objects, simulates
+ the idea about locating a position outside a building for delivery by the
+ ADR.
+ 
+\end_layout
+
+\begin_layout Subsection
+Training
+\end_layout
+
+\begin_layout Standard
+Training can be done either in the editor or by running a build application
+ of the environment.
+ How to carry out training from the command line is described neatly by
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "TMLA"
+literal "false"
+
+\end_inset
+
+, and is so not described here.
+ 
+\end_layout
+
+\begin_layout Standard
+Running training from a build application of the environment provides some
+ desired possibilities, where two of them are running concurrent runs and
+ concurrent environments.
+ 
+\end_layout
+
+\begin_layout Standard
+Concurrent runs are independent, which is beneficial for benchmarking.
+ Concurrent environments are equivalent to having multiple training areas
+ within one environment, which implies more experience being sampled, which
+ should result in improve learning 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "FTORG"
+literal "false"
+
+\end_inset
+
+.
+ Running multiple environments is a way to speed up training beyond have
+ multiple training areas.
+ It is computationally demanding, and it is usually used together with cloud
+ computing.
+ 
+\end_layout
+
+\begin_layout Standard
+Cloud computing is not a possibility here, because of the associated cost,
+ and this paper is so limited to the use of multiple training areas.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Training hyperparameters
+\end_layout
+
+\begin_layout Standard
+As within other areas of machine learning, requires RL algorithms considerations
+ on various hyperparameters.
+ Tuning of the hyperparameters becomes increasingly important as the complexity
+ of the task increases.
+ However, when tuning the parameters to a specific task or environment,
+ some generalisation is lost.
+ 
+\begin_inset Newline newline
+\end_inset
+
+In this study, the hyperparameters are mostly kept at default values, with
+ some being modified slightly to accommodate continuous actions instead
+ of discrete.
+ The full set of hyperparameters used is seen from figure 21, and for a
+ discussion of the hyperparameters and how they should be set optimally,
+ see 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "DBLP:journals/corr/SchulmanWDRK17,TWPPO"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Training Hyperparameters
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Training-Hyperparameters"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename C:/Users/Krist/Desktop/Kristian/Privat/Ansøgninger/Udveksling/University College London/Being there/Dissertation/Picture/TrainingHyperparameters.PNG
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+TensorBoard
+\end_layout
+
+\begin_layout Standard
+TensorBoard is used to visualise a wide range of statistics related to the
+ training conducted, covering environment, policy and learning statistics.
+ Each of the statistics available is described in detail in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "TBOTU"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Effect Of Chosen Hyperparameters Of The Environment
+\end_layout
+
+\begin_layout Standard
+There are three parameters that qualifies as hyperparameters of the environment,
+ when looking back at the outlined environment.
+ These three are; the 
+\shape italic
+speed
+\shape default
+ at which both the agent and the pedestrians move, the 
+\shape italic
+decision interval
+\shape default
+ of the agent and the 
+\shape italic
+time scale
+\shape default
+ at this the simulations are carried out.
+ The reason for these three parameters is because they naturally neither
+ are part of a curriculum nor determined by the desire of having realistic
+ physics in the simulated environment.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Effect of Environment Hyperparameters
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Effect-of-Environment"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+clearrow
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tabular}{>{
+\backslash
+rowmac}c>{
+\backslash
+rowmac}c>{
+\backslash
+rowmac}c>{
+\backslash
+rowmac}c>{
+\backslash
+rowmac}c>{
+\backslash
+rowmac}c>{
+\backslash
+rowmac}c>{
+\backslash
+rowmac}c>{
+\backslash
+rowmac}c<{
+\backslash
+clearrow}}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+Speed & DI & TS & Training Time & Deviation & ACR, $
+\backslash
+mu$ & ACR, $
+\backslash
+sigma$ & AEL, $
+\backslash
+mu$ & AEL, $
+\backslash
+sigma$
+\backslash
+Tstrut
+\backslash
+
+\backslash
+ [0.5ex]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+2 & 5 & 60 & 1650 & 22.2
+\backslash
+% & 0.663 & 0.65 & 40.32 & 19.41
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+setrow{
+\backslash
+bfseries}1 & 5 & 60 & 1500 & 11.1
+\backslash
+% & 0.920 & 0.59 & 39.55 & 15.59
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 & 3 & 60 & 1350 & 0.0
+\backslash
+% & 0.916 & 0.80 & 101.31 & 198.75
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 & 7 & 60 & 1750 & 29.6
+\backslash
+% & 0.896 & 0.63 & 34.07 & 15.86
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 & 10 & 60 & 1800 & 33.3
+\backslash
+% & 0.812 & 0.56 & 26.22 & 9.32
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 & 5 & 100 & 1350 & 0.0
+\backslash
+% & 0.908 & 0.62 & 43.03 & 19.58
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 & 5 & 20 & 2020 & 49.6
+\backslash
+% & 0.908 & 0.57 & 44.02 & 21.15
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tabular}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
