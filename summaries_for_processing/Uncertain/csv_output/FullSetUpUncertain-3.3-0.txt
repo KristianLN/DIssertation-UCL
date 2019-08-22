@@ -1,0 +1,13 @@
+Tags and their place (row) in the csv file:
+
+Environment/Cumulative Reward: 0
+Environment/Episode Length: 1
+Environment/Lesson: 2
+Losses/Forward Loss: 3
+Losses/Inverse Loss: 4
+Losses/Policy Loss: 5
+Losses/Value Loss: 6
+Policy/Curiosity Reward: 7
+Policy/Entropy: 8
+Policy/Learning Rate: 9
+Policy/Value Estimate: 10

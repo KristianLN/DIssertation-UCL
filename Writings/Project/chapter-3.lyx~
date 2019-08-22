@@ -1038,8 +1038,11 @@ The distance to the target is normalised by the length of the diagonal of
 
 \begin_layout Labeling
 \labelwidthstring 00.00.0000
-Agent-4: Sensor observations, Crowded-area information, distance to target
- and greyscale image observations.
+\begin_inset Formula $Agent\:4:$
+\end_inset
+
+ Sensor observations, Crowded-area information, distance to target and greyscale
+ image observations.
  
 \end_layout
 
@@ -1110,6 +1113,41 @@ The uncertainty captures the uncertainty surrounding the actual presence
 
 An example could be inaccuracy of the sensors from being covered by dust
  or snow.
+\end_layout
+
+\begin_layout Standard
+The argument for investigating the effect of uncertainty on the agent’ perceptio
+n about the environment
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+I.e.
+ on the sensor observations.
+\end_layout
+
+\end_inset
+
+, instead of the on the rewards, which could be thought of as an alternative,
+ is based on the theory underlying RL.
+ 
+\begin_inset Newline newline
+\end_inset
+
+RL is a basically a function mapping on actions and states, and the goal
+ is to obtain a quality policy which proposes a future action, based on
+ the current action and the observed state of the environment.
+ The quality of the policy, via the recurrent policy updates, is determined
+ by the received reward signal of the environment.
+ The reward signal seeks to incentive rewarding behaviour and disincentive
+ undesired behaviour.
+ 
+\begin_inset Newline newline
+\end_inset
+
+If the reward function is stochastic, the policy will in turn be stochastic,
+ which in turn do not sustain any learning.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -1223,6 +1261,65 @@ are independent
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Empirical-sampled-noise"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ shows the distribution of sampled noise from the model, which verifies
+ that the noise is in fact standard Gaussian distributed.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Sampled noise
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Empirical-sampled-noise"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename C:/Users/Krist/GitHub/ml-agents/Dissertation/Notebooks/graphs/Empirical_Noise.jpg
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection

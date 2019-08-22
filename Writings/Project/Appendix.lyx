@@ -2306,8 +2306,289 @@ end{tabular}
 
 \end_layout
 
+\begin_layout Chapter
+Theoretical additions
+\end_layout
+
 \begin_layout Section
-The next section
+Proximal Policy Optimisation Explained
+\end_layout
+
+\begin_layout Section
+Reward Shaping
+\end_layout
+
+\begin_layout Chapter
+Analysis Support
+\end_layout
+
+\begin_layout Standard
+This section contains some additional material to support the analysis,
+ mainly by visualising the findings reported in chapter 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:Analysis"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Section
+Supplement To Comparisons
+\end_layout
+
+\begin_layout Standard
+This section contains graphs supporting the tables from section 4.2.2, 4.3
+ and 4.4.
+ The tables serve to summaries the insights from the graphs found here.
+ 
+\end_layout
+
+\begin_layout Standard
+ACR/AEL are smoothed to better visualise, by calculating a moving average
+ of the past three observations.
+ 
+\end_layout
+
+\begin_layout Standard
+Weighted average growth rates are reported for the ACR curve, weighted by
+ the time spent in each lesson.
+ The growth rates are estimated by fitting a linear regression to observations
+ in each lesson.
+ The reported growth rates are per 2000 step, which is the summary frequency
+ used doing training, see figure 21.
+ The standard deviation is calculated on the detrended series.
+ 
+\end_layout
+
+\begin_layout Standard
+The mean episode length and the standard deviation, calculated after 100,000
+ steps, are reported for the AEL curve.
+ 
+\end_layout
+
+\begin_layout Subsection
+Learning Rate Estimation
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Subsets-and-trend"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ shows how the assumption about each subsection following a linear curve
+ isn't that off, as a result of the threshold and the minimum lesson length
+ specified in the curriculum, seen from figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:The-curriculum-of"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Subsets and trend estimation
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Subsets-and-trend"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename C:/Users/Krist/GitHub/ml-agents/Dissertation/Notebooks/graphs/Learning_Rate_Estimation.jpg
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Baseline
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Baseline comparison
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Baseline-comparison"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+
+\shape italic
+\size footnotesize
+\begin_inset Graphics
+	filename C:/Users/Krist/GitHub/ml-agents/Dissertation/Notebooks/graphs/Baseline_comparison_100.jpg
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Learning Under Certainty
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Full Set-Up Under Certainty
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Full-set-up-under"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\paragraph_spacing single
+\noindent
+\align center
+
+\shape italic
+\size footnotesize
+\begin_inset Graphics
+	filename C:/Users/Krist/GitHub/ml-agents/Dissertation/Notebooks/graphs/Certain_comparison_100.jpg
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Learning Under Uncertainty
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Full Set Up Under Uncertainty
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Full-Set-Up"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename C:/Users/Krist/GitHub/ml-agents/Dissertation/Notebooks/graphs/Uncertain_comparison_100.jpg
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

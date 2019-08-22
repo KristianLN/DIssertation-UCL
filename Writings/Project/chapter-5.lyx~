@@ -12,6 +12,15 @@
 % that links to image floats jumps to the beginning
 % of the float and not to its caption
 \usepackage[figure]{hypcap}
+\usepackage{array,multirow,graphicx}
+
+% Added addtionally
+% define "struts", as suggested by Claudio Beccari in
+%    a piece in TeX and TUG News, Vol. 2, 1993.
+\newcommand\Tstrut{\rule{0pt}{2.6ex}}         % = `top' strut was 2.6
+\newcommand\Bstrut{\rule[-0.9ex]{0pt}{0pt}}   % = `bottom' strut
+\newcommand\setrow[1]{\gdef\rowmac{#1}#1\ignorespaces}
+\newcommand\clearrow{\global\let\rowmac\relax}
 
 % the pages of the TOC is numbered roman
 % and a pdf-bookmark for the TOC is added
@@ -62,7 +71,7 @@
 \end_preamble
 \options intoc,bibliography=totoc,index=totoc,BCOR10mm,captions=tableheading,titlepage
 \use_default_options true
-\master ../../../../../../../../../../../Program Files (x86)/LyX 2.3/Resources/examples/thesis/thesis.lyx
+\master Dissertation.lyx
 \begin_modules
 customHeadersFooters
 \end_modules
@@ -303,6 +312,13 @@ thepage
 
 \begin_layout Chapter
 Policy Evaluation
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Policy-Evaluation"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -317,29 +333,443 @@ name "sec:Dicussion"
 \end_layout
 
 \begin_layout Standard
-bla bla bla bla bla bla bla bla bla bla bla bla bla PPS
-\begin_inset CommandInset nomenclature
-LatexCommand nomenclature
-symbol "PPS"
-description "Polyphenylene sulfide"
-literal "false"
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Learning Rates - ACR & Difficult Areas
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Learning-Rates"
 
 \end_inset
 
- bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
- bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
- bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
- bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
- bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
- bla bla bla bla bla bla bla, see 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Rich1921,Marq1963"
-literal "true"
+
+\end_layout
 
 \end_inset
 
-.
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+clearrow
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tabular}{>{
+\backslash
+rowmac}c|>{
+\backslash
+rowmac}c>{
+\backslash
+rowmac}c>{
+\backslash
+rowmac}c<{
+\backslash
+clearrow}}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+& 
+\backslash
+multicolumn{3}{c}{Accumulated Cumulative Reward}
+\backslash
+Tstrut
+\backslash
+
+\backslash
+ [0.5ex]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+Agent & Baseline & Certain & Uncertain
+\backslash
+Tstrut
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+setrow{
+\backslash
+bfseries}1 & $
+\backslash
+mathbf{1.3
+\backslash
+cdot10^{-2}}$ (0.22) & $
+\backslash
+mathbf{6.1
+\backslash
+cdot10^{-3}}$ (0.13) & $
+\backslash
+mathbf{5.9
+\backslash
+cdot10^{-3}}$ (0.14)
+\backslash
+Tstrut
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+SO & $2.3
+\backslash
+cdot10^{-2}$ (0.22) & $5.1
+\backslash
+cdot10^{-2}$ (0.10) & $6.1
+\backslash
+cdot10^{-2}$ (0.14)
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+CA & $1.7
+\backslash
+cdot10^{-3}$ (0.20) & $-3.2
+\backslash
+cdot10^{-3}$ (0.10) & $-3.9
+\backslash
+cdot10^{-7}$ (0.14)
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+DO & NaN (NaN) & $6.4
+\backslash
+cdot10^{-4}$ (0.14) & $1.2
+\backslash
+cdot10^{-3}$ (0.14)
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+setrow{
+\backslash
+bfseries}2 & $
+\backslash
+mathbf{1.3
+\backslash
+cdot10^{-2}}$ (0.36) & $
+\backslash
+mathbf{6.2
+\backslash
+cdot10^{-3}}$ (0.12) & $
+\backslash
+mathbf{6.0
+\backslash
+cdot10^{-3}}$ (0.13)
+\backslash
+Tstrut
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+SO & $2.2
+\backslash
+cdot10^{-2}$ (0.28) & $5.8
+\backslash
+cdot10^{-2}$ (0.11) & $4.7
+\backslash
+cdot10^{-2}$ (0.13)
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+CA & $-1.7
+\backslash
+cdot10^{-4}$ (0.59) & $6.2
+\backslash
+cdot10^{-4}$ (0.11) & $1.4
+\backslash
+cdot10^{-3}$ (0.09)
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+DO & NaN (NaN) & $2.2
+\backslash
+cdot10^{-3}$ (0.13) & $9.9
+\backslash
+cdot10^{-4}$ (0.13)
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+setrow{
+\backslash
+bfseries}3 & $
+\backslash
+mathbf{1.4
+\backslash
+cdot10^{-2}}$ (0.25) & $
+\backslash
+mathbf{5.7
+\backslash
+cdot10^{-3}}$ (0.12) & $
+\backslash
+mathbf{4.4
+\backslash
+cdot10^{-3}}$ (0.13)
+\backslash
+Tstrut
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+SO & $2.7
+\backslash
+cdot10^{-2}$ (0.24) & $5.7
+\backslash
+cdot10^{-2}$ (0.12) & $3.4
+\backslash
+cdot10^{-2}$ (0.10)
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+CA & $3.2
+\backslash
+cdot10^{-3}$ (0.25) & $-6.4
+\backslash
+cdot10^{-3}$ (0.10) & $-5.5
+\backslash
+cdot10^{-2}$ (0.11)
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+DO & NaN (NaN) & $1.0
+\backslash
+cdot10^{-3}$ (0.13) & $1.1
+\backslash
+cdot10^{-2}$ (0.14)
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+setrow{
+\backslash
+bfseries}4 & $
+\backslash
+mathbf{1.1
+\backslash
+cdot10^{-2}}$ (0.27) & $
+\backslash
+mathbf{5.9
+\backslash
+cdot10^{-3}}$ (0.12) & $
+\backslash
+mathbf{2.3
+\backslash
+cdot10^{-2}}$ (0.10)
+\backslash
+Tstrut
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+SO & $1.7
+\backslash
+cdot10^{-2}$ (0.17) & $5.2
+\backslash
+cdot10^{-2}$ (0.14) & $6.4
+\backslash
+cdot10^{-2}$ (0.08)
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+CA & $1.6
+\backslash
+cdot10^{-3}$ (0.34) & $5.7
+\backslash
+cdot10^{-3}$ (0.12) & $3.1
+\backslash
+cdot10^{-3}$ (0.08)
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+DO & NaN (NaN) & $4.9
+\backslash
+cdot10^{-3}$ (0.14) & $6.3
+\backslash
+cdot10^{-4}$ (0.13)
+\backslash
+
+\backslash
+[0.5ex]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tabular}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section

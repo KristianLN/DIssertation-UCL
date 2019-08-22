@@ -49,6 +49,8 @@
 %    a piece in TeX and TUG News, Vol. 2, 1993.
 \newcommand\Tstrut{\rule{0pt}{2.6ex}}         % = `top' strut was 2.6
 \newcommand\Bstrut{\rule[-0.9ex]{0pt}{0pt}}   % = `bottom' strut
+\newcommand\setrow[1]{\gdef\rowmac{#1}#1\ignorespaces}
+\newcommand\clearrow{\global\let\rowmac\relax}
 
 % increases link area for cross-references and autoname them
 % if you change the document language to e.g. French
@@ -2127,6 +2129,13 @@ status open
 
 
 \backslash
+clearrow
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
 centering
 \end_layout
 
@@ -2134,7 +2143,27 @@ centering
 
 
 \backslash
-begin{tabular}{c c c c c c c c c}
+begin{tabular}{>{
+\backslash
+rowmac}c>{
+\backslash
+rowmac}c>{
+\backslash
+rowmac}c>{
+\backslash
+rowmac}c>{
+\backslash
+rowmac}c>{
+\backslash
+rowmac}c>{
+\backslash
+rowmac}c>{
+\backslash
+rowmac}c>{
+\backslash
+rowmac}c<{
+\backslash
+clearrow}}
 \end_layout
 
 \begin_layout Plain Layout
@@ -2150,11 +2179,11 @@ hline
 
 Speed & DI & TS & Training Time & Deviation & ACR, $
 \backslash
-my$ & ACR, $
+mu$ & ACR, $
 \backslash
 sigma$ & AEL, $
 \backslash
-my$ & AEL, $
+mu$ & AEL, $
 \backslash
 sigma$
 \backslash
@@ -2185,9 +2214,13 @@ hline
 
 \begin_layout Plain Layout
 
-1 & 5 & 60 & 1500 & 11.1
+
 \backslash
-% & 0.920 & 0.65 & 40.32 & 19.41
+setrow{
+\backslash
+bfseries}1 & 5 & 60 & 1500 & 11.1
+\backslash
+% & 0.920 & 0.59 & 39.55 & 15.59
 \backslash
 
 \backslash
@@ -2198,7 +2231,7 @@ hline
 
 1 & 3 & 60 & 1350 & 0.0
 \backslash
-% & 0.916 & 0.8 & 40.32 & 19.41
+% & 0.916 & 0.80 & 101.31 & 198.75
 \backslash
 
 \backslash
@@ -2209,7 +2242,7 @@ hline
 
 1 & 7 & 60 & 1750 & 29.6
 \backslash
-% & 0.896 & 0.63 & 40.32 & 19.41
+% & 0.896 & 0.63 & 34.07 & 15.86
 \backslash
 
 \backslash
@@ -2220,7 +2253,7 @@ hline
 
 1 & 10 & 60 & 1800 & 33.3
 \backslash
-% & 0.812 & 0.56 & 40.32 & 19.41
+% & 0.812 & 0.56 & 26.22 & 9.32
 \backslash
 
 \backslash
@@ -2231,7 +2264,7 @@ hline
 
 1 & 5 & 100 & 1350 & 0.0
 \backslash
-% & 0.908 & 0.62 & 40.32 & 19.41
+% & 0.908 & 0.62 & 43.03 & 19.58
 \backslash
 
 \backslash
@@ -2242,7 +2275,7 @@ hline
 
 1 & 5 & 20 & 2020 & 49.6
 \backslash
-% & 0.908 & 0.57 & 40.32 & 19.41
+% & 0.908 & 0.57 & 44.02 & 21.15
 \backslash
 
 \backslash
@@ -2273,8 +2306,265 @@ end{tabular}
 
 \end_layout
 
+\begin_layout Chapter
+Theoretical additions
+\end_layout
+
 \begin_layout Section
-The next section
+Proximal Policy Optimisation Explained
+\end_layout
+
+\begin_layout Section
+Reward Shaping
+\end_layout
+
+\begin_layout Chapter
+Analysis Support
+\end_layout
+
+\begin_layout Standard
+This section contains some additional material to support the analysis,
+ mainly by visualising the findings reported in chapter 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:Analysis"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Section
+Supplement To Comparisons
+\end_layout
+
+\begin_layout Standard
+This section contains graphs supporting the tables from section 4.2.2, 4.3
+ and 4.4.
+ The tables serve to summaries the insights from the graphs found here.
+ 
+\end_layout
+
+\begin_layout Standard
+ACR/AEL are smoothed to better visualise, by calculating a moving average
+ of the past three observations.
+ 
+\end_layout
+
+\begin_layout Standard
+Weighted average growth rates are reported for the ACR curve, weighted by
+ the time spent in each lesson.
+ The growth rates are estimated by fitting a linear regression to observations
+ in each lesson.
+ The reported growth rates are per 2000 step, which is the summary frequency
+ used doing training, see figure 21.
+ The standard deviation is calculated on the detrended series.
+ 
+\end_layout
+
+\begin_layout Standard
+The mean episode length and the standard deviation, calculated after 100,000
+ steps, are reported for the AEL curve.
+ 
+\end_layout
+
+\begin_layout Section
+Learning Rate Estimation
+\end_layout
+
+\begin_layout Standard
+Figure 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Subsets and trend estimation
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Subsets-and-trend"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename C:/Users/Krist/GitHub/ml-agents/Dissertation/Notebooks/graphs/Learning_Rate_Estimation.jpg
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Baseline
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Baseline comparison
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Baseline-comparison"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+
+\shape italic
+\size footnotesize
+\begin_inset Graphics
+	filename C:/Users/Krist/GitHub/ml-agents/Dissertation/Notebooks/graphs/Baseline_comparison_100.jpg
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Learning Under Certainty
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Full Set-Up Under Certainty
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Full-set-up-under"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\paragraph_spacing single
+\noindent
+\align center
+
+\shape italic
+\size footnotesize
+\begin_inset Graphics
+	filename C:/Users/Krist/GitHub/ml-agents/Dissertation/Notebooks/graphs/Certain_comparison_100.jpg
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Learning Under Uncertainty
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Full Set Up Under Uncertainty
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Full-Set-Up"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename C:/Users/Krist/GitHub/ml-agents/Dissertation/Notebooks/graphs/Uncertain_comparison_100.jpg
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
