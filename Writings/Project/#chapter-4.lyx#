@@ -13,7 +13,7 @@
 % of the float and not to its caption
 \usepackage[figure]{hypcap}
 \usepackage{array,multirow,graphicx}
-
+\usepackage{algorithmic}
 % Added additionally
 
 % define "struts", as suggested by Claudio Beccari in
@@ -137,7 +137,7 @@ customHeadersFooters
 \use_refstyle 0
 \use_minted 0
 \branch Standalone
-\selected 1
+\selected 0
 \filename_suffix 0
 \color #ff0000
 \end_branch
@@ -324,7 +324,7 @@ name "chap:Analysis"
 
 \begin_layout Standard
 Having outlined the methodology of the study, it is time to explore the
- environment, address the challenges and hopefully solve the environment.
+ environment, address the challenges and solve the environment.
  
 \begin_inset Newline newline
 \end_inset
@@ -347,7 +347,7 @@ noprefix "false"
 \end_layout
 
 \begin_layout Section
-The look of learning
+The Look of Learning
 \end_layout
 
 \begin_layout Standard
@@ -391,7 +391,17 @@ The ALE should converge to the minimum number of steps needed to obtain
 \begin_inset Newline newline
 \end_inset
 
-Figure 7 provides an example.
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:ACR-and-ALE"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ provides an example.
 \end_layout
 
 \begin_layout Standard
@@ -415,7 +425,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-The simplest version of the environment.
+The Simplest Version of the Environment.
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:The-simplest-version"
@@ -502,7 +512,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-ACR and ALE for the environment from fig.
+ACR and ALE for the Environment From Fig.
  
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -598,24 +608,7 @@ Learning can take place in complex environments, seen from the increasing
 
 An ACR-curve fluctuating around zero indicates that the actions of the agent
  is dominated by random actions.
- It is not possible to say whether the actions of the agent would continue
- to be random, or if more learning would take place over time.
- 
-\begin_inset Newline newline
-\end_inset
-
-Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:ACR-and-ALE"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- contains just 200.000 steps, which in general is regarded as few, and the
- purpose of figure 
+ The purpose of figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:ACR-and-ALE"
@@ -631,8 +624,8 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-A final note is that learning can be sensitive to the initialisation of
- the environment, especially if avoidable objects are added randomly.
+Learning can be sensitive to the initialisation of the environment, especially
+ if avoidable objects are added randomly.
  However, over time, the policy does converge to the optimal policy, see
  
 \begin_inset CommandInset ref
@@ -645,11 +638,11 @@ noprefix "false"
 \end_inset
 
 .
- The sensitivity just affects the length of 
+ The sensitivity affects the length of 
 \shape italic
 over time
 \shape default
-, and some of ways to guide learning in 
+, and some of ways to guide learning in section 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "sec:Learning-to-learn"
@@ -664,7 +657,7 @@ noprefix "false"
 \end_layout
 
 \begin_layout Section
-Learning to learn
+Learning to Learn
 \begin_inset CommandInset label
 LatexCommand label
 name "sec:Learning-to-learn"
@@ -689,18 +682,16 @@ A brief example on this; Imagine an environment consisting of static obstacles
  If the probability of colliding with a pedestrian is too high, because
  the pedestrian density of the environment is high, it could be suboptimal
  for the agent to bump into a static obstacle as fast as possible.
- The probability of locating the target does naturally correlate inversely
- with the probability of colliding with a pedestrian.
- The low locating-target-probability implies the need for taking a lot of
- steps.
+ The high collision-probability implies a low locating-target-probability,
+ which implies the need for a lot of steps to locate the target.
  
 \begin_inset Newline newline
 \end_inset
 
 The suboptimal policy would minimise the number of steps taken, by bumping
  into the wall as fast a possible, receiving the associated penalisation,
- which would seem inevitable for the agent anyway given the high-pedestrian-coll
-ision-probability.
+ which would seem inevitable for the agent anyway, given the high collision-prob
+ability.
  
 \end_layout
 
@@ -785,7 +776,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-The curriculum of this study
+The Curriculum of This Study
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:The-curriculum-of"
@@ -824,8 +815,16 @@ status open
 
 \begin_layout Plain Layout
 See 
-\color red
-appendix
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Academy"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -943,12 +942,19 @@ literal "false"
 CL is a necessity in this study, for the four different robotic agents to
  sustain any meaningful learning, within a reasonable time.
  The following section outlines the performance of each of the four agents,
- using just CL.
+ using nothing but CL.
  
 \end_layout
 
 \begin_layout Subsection
-Exploring the Envrionment under CL
+Exploring the Envrionment Under CL
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Exploring-the-Envrionment"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -958,28 +964,65 @@ This section outlines the first set of results obtained on all four agents,
 \end_layout
 
 \begin_layout Standard
-Common for this section, section 4.3 and 4.4, is the results that is examined.
- 
-\begin_inset Newline newline
-\end_inset
-
-To begin with, standard metrics provided via TensorBoard are examined.
- The metrics are the ACR, AEL and the changes in lessons, and described
- at bit in section 4.1.
- 
-\begin_inset Newline newline
-\end_inset
-
-The second set of data examined is custom data, generated by the agents
- as they learn the environment, and the data is mainly collision data.
- The collision data is data on collisions with the target, crowded areas,
- difficult areas and the pedestrians, which enables comparison of the efficiency
- of the different agents.
+The agents are evaluated by their ability to deal with the challenges provided
+ by the CL, as well as their ability to locate targets in difficult areas.
  
 \end_layout
 
 \begin_layout Standard
-Figure 
+To evaluate how the agents’ deal with the challenges presented by the CL,
+ learning rates are estimated and compared.
+ The learning rates are estimated by fitting a linear regression model to
+ each subsection, made up by a single lesson, of the data.
+ The use of a linear regression model is justified by examining each subsection,
+ which approximately follows a linear curve, as a result of the chosen threshold
+ and minimum lesson length.
+ An example is shown in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Subsets-and-trend"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, and the choice of model is discussed in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Learning-Rates-and"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+To evaluate how the agents deals with the difficult areas, it is necessary
+ to exact data from the simulation model.
+ For each episode, it is recorded if the target was in a difficult area
+ and whether it was reached.
+ The moving share of reached targets in difficult areas, over the past 500
+ episodes, are compared for each of the agents.
+ 
+\end_layout
+
+\begin_layout Standard
+Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Baseline-LR"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ shows the learning rates for each of the agents, based on figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Baseline-comparison"
@@ -989,34 +1032,66 @@ noprefix "false"
 
 \end_inset
 
- & 
+.
+ Table 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "fig:Efficiency-in-Difficult"
+reference "tab:Baseline-LR"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
- presents the results of 
-\begin_inset Formula $500,000$
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Certainty-LR"
+plural "false"
+caps "false"
+noprefix "false"
+
 \end_inset
 
- training steps using CL.
- The means and standard deviations of are calculated after 
-\begin_inset Formula $100,000$
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Uncertainty-LR"
+plural "false"
+caps "false"
+noprefix "false"
+
 \end_inset
 
- steps, excluding the burn-in period which is harder to justify belongs
- to the same distribution as the following observations.
+ are equivalent and the following description holds for them as well.
+\end_layout
+
+\end_inset
+
+ lists the learning rate and standard deviation of the associated detrended
+ ACR, for each challenge presented to the agents.
+ The overall value is a weighted sum of the subcategories, as well as each
+ subcategory is a weighted sum of the associated lessons.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The weights are provided for each subcategory, to show the actual level
+ of each subcategory, and the magnitude are the time spent in each challenge/les
+son relative to the total time.
+ 
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -1127,19 +1202,19 @@ $
 \backslash
 mathbf{Mean_w}$ & $
 \backslash
-mathbf{1.3
+mathbf{1.33
 \backslash
 cdot10^{-2}}$ & $
 \backslash
-mathbf{1.3
+mathbf{1.27
 \backslash
 cdot10^{-2}}$ & $
 \backslash
-mathbf{1.4
+mathbf{1.43
 \backslash
 cdot10^{-2}}$ & $
 \backslash
-mathbf{1.1
+mathbf{1.09
 \backslash
 cdot10^{-2}}$
 \backslash
@@ -1152,13 +1227,13 @@ Tstrut
 
 \begin_layout Plain Layout
 
-SO & $2.3
+SO & $2.46
 \backslash
-cdot10^{-2}$ & $2.2
+cdot10^{-2}$ & $1.66
 \backslash
-cdot10^{-2}$ & $2.7
+cdot10^{-2}$ & $2.30
 \backslash
-cdot10^{-2}$ & $1.7
+cdot10^{-2}$ & $1.89
 \backslash
 cdot10^{-2}$
 \backslash
@@ -1169,13 +1244,13 @@ cdot10^{-2}$
 
 \begin_layout Plain Layout
 
-CA & $1.7
+CA & $1.72
 \backslash
-cdot10^{-3}$ & $-1.7
+cdot10^{-3}$ & $-1.71
 \backslash
-cdot10^{-4}$ & $3.2
+cdot10^{-4}$ & $3.18
 \backslash
-cdot10^{-3}$ & $1.6
+cdot10^{-3}$ & $1.62
 \backslash
 cdot10^{-3}$
 \backslash
@@ -1239,7 +1314,7 @@ Tstrut
 
 \begin_layout Plain Layout
 
-SO & 0.22 & 0.28 & 0.24 & 0.17
+SO & 0.23 & 0.30 & 0.26 & 0.11
 \backslash
 
 \backslash
@@ -1248,7 +1323,7 @@ SO & 0.22 & 0.28 & 0.24 & 0.17
 
 \begin_layout Plain Layout
 
-CA & 0.20 & 0.59 & 0.25 & 0.34
+CA & 0.20 & 0.59 & 0.25 & 0.16
 \backslash
 
 \backslash
@@ -1368,31 +1443,6 @@ end{tabular}
 One should be cautious about interpreting too much on the initial results,
  as they are sensitive to initialisation, primarily because the episodes
  are unbounded, and they are provided to serve as a baseline.
- Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Baseline-comparison"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- shows the ACR, AEL and changes in lessons for all four agents.
- Looking at the tables next to the ACR and AEL curves indicates that agent
- 1 is the most stable, agent 4 is the most efficient
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-In terms of locating the target, seen from the fact that agent 4 scores
- highest average ACR.
-\end_layout
-
-\end_inset
-
- and that there isn’t much difference between agent 2 and 3.
- 
 \end_layout
 
 \begin_layout Standard
@@ -1475,6 +1525,13 @@ noprefix "false"
 
 \begin_layout Subsection
 Maximum Steps
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Maximum-Steps"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1488,15 +1545,15 @@ The motivation of invoking a maximum number of steps for the agent to take,
 \begin_layout Standard
 An example of this is that the agent runs in circles, because the target
  is located in area which is either associated with too high a probability
- of colliding with obstacles or unexplored, and so uncertain, and because
- of the size of step penalty, that implies running in circles is more attractive
+ of colliding with obstacles or unexplored.
+ The size of step penalty implies running in circles is more attractive
  at the time.
  
 \end_layout
 
 \begin_layout Standard
-Note, the threshold should be chosen such that it doesn’t circumvents the
- agent for moving around the entire environment.
+The threshold should be chosen such that it doesn’t circumvents the agent
+ for exploring the entire environment.
  
 \begin_inset Newline newline
 \end_inset
@@ -1608,7 +1665,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-The Effect of Restricting the number of steps
+The Effect of Restricting the Number of Steps
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:The-Effect-of"
@@ -1628,14 +1685,10 @@ name "fig:The-Effect-of"
 \align center
 \begin_inset Graphics
 	filename C:/Users/Krist/GitHub/ml-agents/Dissertation/Notebooks/graphs/EffectOfMaxSteps_new.jpg
-	scale 70
+	scale 50
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
 
 \end_layout
 
@@ -1652,8 +1705,16 @@ status open
 
 \begin_layout Plain Layout
 See 
-\color red
-appendix
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:The-Effect-of"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1671,7 +1732,7 @@ status collapsed
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Fraction of observations lost with maximum steps invoked
+Fraction of Observations Lost With Maximum Steps Invoked
 \begin_inset CommandInset label
 LatexCommand label
 name "tab:Fraction-of-observations"
@@ -1984,7 +2045,7 @@ status collapsed
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Learning the difficult areas
+Learning the Difficult Areas
 \begin_inset CommandInset label
 LatexCommand label
 name "tab:Learning-the-difficult"
@@ -2194,10 +2255,10 @@ noprefix "false"
 \begin_inset Newline newline
 \end_inset
 
-Bounding the steps of the agent appears to result in the agent learning
- the environment quicker, and taking smarter actions, which over the longer
- run could materialise in overall improved efficiency because the quality
- of experience of the agent increases.
+Bounding the steps of the agent results in the agent learning the environment
+ quicker, and taking smarter actions, which over the longer run could materialis
+e in overall improved efficiency because the quality of the experience gathered
+ by the agent increases.
  
 \end_layout
 
@@ -2233,7 +2294,11 @@ literal "false"
 
 , to cope with the amount of data needed, and manipulating the training
  time, to obtain significant results.
- The main objective of parallelisation is to reduce training time, and where
+ 
+\begin_inset Newline newline
+\end_inset
+
+The main objective of parallelisation is to reduce training time, and where
  training of deep nets with hundreds of millions of weights and billions
  of connections between units took weeks two years ago, advances in parallelisat
 ion have reduced training time to a few hours 
@@ -2249,8 +2314,8 @@ literal "false"
 \begin_inset Newline newline
 \end_inset
 
-Part of these advances in parallelisation comes from novel algorithms, which
- benefit from parallelisation other than reduced training time.
+Part of these advances comes from novel algorithms, which benefit from paralleli
+sation.
  These novel algorithms incorporate experience of the agent to update the
  function approximation in question, thereby reducing the amount of data
  needed, and this is exactly what PPO does.
@@ -2259,11 +2324,27 @@ Part of these advances in parallelisation comes from novel algorithms, which
 \end_inset
 
 Parallelisation, at least in Unity, works by running concurrent training
- environments, either internally or externally.
- External refers to running multiple applications of the same environment,
+ environments, either 
+\shape italic
+internally
+\shape default
+ or 
+\shape italic
+externally
+\shape default
+.
+ 
+\begin_inset Newline newline
+\end_inset
+
+External refers to running multiple applications of the same environment,
  often used when training on GPU’s via cloud computing.
- Internal refers to having multiple environments, with the agents being
- linked to the same brain, within one application, see figure 
+ 
+\begin_inset Newline newline
+\end_inset
+
+Internal refers to having multiple environments, within one application,
+ with the agents being linked to the same brain, see figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Internal-concurrent-training"
@@ -2300,7 +2381,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Internal concurrent training
+Internal Concurrent Training
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:Internal-concurrent-training"
@@ -2349,13 +2430,13 @@ Running concurrent training environments, externally as well as internally,
  fills the same experience buffer with prior observations.
  The usual benefit is that training accelerate, because the share of favourable
  prior observations increases faster with more agents to harvest.
- However, it can of cause go the other way, if the environment contains
- too much complexity at the time being.
+ However, it can go the other way, if the environment contains too much
+ complexity at the time being.
  Furthermore, if nothing prevents the agents from wandering around to infinity,
  a bad spiral unfolds.
  This spiral is powered by two events; firstly, the agents never benefit
  from sharing experience because they rarely finish an episode.
- Secondly, the shared experience is low quality of the wandering.
+ Secondly, the shared experience is low quality because of the wandering.
  In this way, sharing becomes a burden.
  This is referred to as the feedback-loop-effect by 
 \begin_inset CommandInset citation
@@ -2450,19 +2531,13 @@ noprefix "false"
 
 \end_inset
 
- provides a detailed look of the AEL curve, in 
-\color red
-figure 26
-\color inherit
-
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-See 
-\color red
-appendix
-\end_layout
+ provides a detailed look of the AEL curve, in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:The-Effect-of-3"
+plural "false"
+caps "false"
+noprefix "false"
 
 \end_inset
 
@@ -2483,14 +2558,31 @@ noprefix "false"
  experience to base the policy update on, implying an acceleration in learning,
  seen in
 \color red
- figure 26
+ 
 \color inherit
+figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:The-Effect-of-3"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
 .
  
 \end_layout
 
 \begin_layout Subsection
 Observation Stacking
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Observation-Stacking"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2691,13 +2783,13 @@ noprefix "false"
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Pedestrian collisions
+Pedestrian Collisions
 \begin_inset CommandInset label
 LatexCommand label
 name "tab:Pedestrian-collisions"
@@ -2825,19 +2917,37 @@ Three ways to improve learning in the agents, as well as their individual
 
 \begin_layout Section
 Results under certainty
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Results-under-certainty"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 This section outlines the results obtained after 1 million steps using the
  full set of aids previously described.
  The results presented in the following is directly comparable with the
- baseline results, except on the number of steps simulated, which matters
- for the quality of the policy obtained for each agent.
- 
-\begin_inset Newline newline
+ baseline results, except on the number of steps simulated, which affects
+ the quality of the policy obtained for each agent.
+ Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Certainty-LR"
+plural "false"
+caps "false"
+noprefix "false"
+
 \end_inset
 
-Figure 
+ presents the insights
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Based on figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Full-set-up-under"
@@ -2847,31 +2957,19 @@ noprefix "false"
 
 \end_inset
 
- shows similar pattern to figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Baseline-comparison"
-plural "false"
-caps "false"
-noprefix "false"
+.
+\end_layout
 
 \end_inset
 
-, with agent 1 being the most efficient and stable.
- 
-\begin_inset Newline newline
-\end_inset
 
-Agent 2 and 3 follows closely and agent 4, the agent with visual input,
- does not seem to benefit from the increased information.
- 
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -2982,19 +3080,19 @@ $
 \backslash
 mathbf{Mean_w}$ & $
 \backslash
-mathbf{6.1
+mathbf{6.08
 \backslash
 cdot10^{-3}}$ & $
 \backslash
-mathbf{6.2
+mathbf{6.22
 \backslash
 cdot10^{-3}}$ & $
 \backslash
-mathbf{5.7
+mathbf{5.69
 \backslash
 cdot10^{-3}}$ & $
 \backslash
-mathbf{5.9
+mathbf{7.40
 \backslash
 cdot10^{-3}}$
 \backslash
@@ -3007,13 +3105,13 @@ Tstrut
 
 \begin_layout Plain Layout
 
-SO & $5.1
+SO & $6.54
 \backslash
-cdot10^{-2}$ & $5.8
+cdot10^{-2}$ & $6.87
 \backslash
-cdot10^{-2}$ & $5.7
+cdot10^{-2}$ & $5.19
 \backslash
-cdot10^{-2}$ & $5.2
+cdot10^{-2}$ & $4.81
 \backslash
 cdot10^{-2}$
 \backslash
@@ -3024,13 +3122,13 @@ cdot10^{-2}$
 
 \begin_layout Plain Layout
 
-CA & $-3.2
+CA & $2.07
 \backslash
-cdot10^{-3}$ & $6.2
+cdot10^{-3}$ & $1.09
 \backslash
-cdot10^{-4}$ & $-6.4
+cdot10^{-4}$ & $-1.22
 \backslash
-cdot10^{-3}$ & $5.7
+cdot10^{-3}$ & $2.02
 \backslash
 cdot10^{-3}$
 \backslash
@@ -3041,13 +3139,13 @@ cdot10^{-3}$
 
 \begin_layout Plain Layout
 
-DO & $6.4
+DO & $6.52
 \backslash
-cdot10^{-4}$ & $2.2
+cdot10^{-4}$ & $1.35
 \backslash
-cdot10^{-3}$ & $1.0
+cdot10^{-3}$ & $1.02
 \backslash
-cdot10^{-3}$ & $4.9
+cdot10^{-3}$ & $2.02
 \backslash
 cdot10^{-3}$
 \backslash
@@ -3091,7 +3189,7 @@ setrow{
 \backslash
 bfseries}$
 \backslash
-mathbf{Mean_w}$ & 0.13 & 0.12 & 0.12 & 0.12
+mathbf{Mean_w}$ & 0.13 & 0.12 & 0.12 & 0.14
 \backslash
 Tstrut
 \backslash
@@ -3102,7 +3200,7 @@ Tstrut
 
 \begin_layout Plain Layout
 
-SO & 0.10 & 0.11 & 0.12 & 0.14
+SO & 0.11 & 0.12 & 0.11 & 0.14
 \backslash
 
 \backslash
@@ -3111,7 +3209,7 @@ SO & 0.10 & 0.11 & 0.12 & 0.14
 
 \begin_layout Plain Layout
 
-CA & 0.10 & 0.11 & 0.10 & 0.12
+CA & 0.09 & 0.10 & 0.11 & 0.12
 \backslash
 
 \backslash
@@ -3228,6 +3326,48 @@ end{tabular}
 \end_layout
 
 \begin_layout Standard
+The learning rates seen in table
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Certainty-LR"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is a proxy for how well the agents cope with each for the challenges.
+ Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Certainty-LR"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ shows that agent 1 and 2 seems to tackle the static obstacles the best,
+ yet the lead being minor.
+ 
+\begin_inset Newline newline
+\end_inset
+
+An interesting observation is that agent 1, having only sensor observations
+ available, seems to deal with the crowded areas most efficiently, based
+ on the learning rate and time spent in those lessons.
+ Agent 1 outperforms all agents having information about nearby crowded
+ areas available, closely followed by agent 4.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Agent 4, the one receiving visual observations as well, tackles dynamic
+ obstacles most efficiently.
+ 
+\end_layout
+
+\begin_layout Standard
 Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -3253,73 +3393,8 @@ noprefix "false"
  Agent 3 and 4 seems to have a harder time reaching the targets in the difficult
  areas, which is interesting because both have the distance to the target
  in their information set .
- 
-\begin_inset Newline newline
-\end_inset
-
-Table 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "tab:Shares-of-Collisions"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- shows the shares of collisions, with crowded areas and pedestrians.
- The numbers in parenthesis shows the shares of episodes, in which the agent
- has been exposed to the given obstacle.
- All shares are calculated from the episodes, and not from the steps.
- Evaluating shares makes comparison straighter, agents in between as well
- as the baseline case and 
-\shape italic
-certain
-\shape default
- case.
- Table 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "tab:Shares-of-Collisions"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- shows significant differences the agents in between, in their ability to
- handle crowded areas.
- Most importantly, table 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "tab:Shares-of-Collisions"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- indicates that the agents learn to avoid the crowded areas.
- One way to see this, is by comparing the collision share of agent 1 and
- agent 4.
- 
-\begin_inset Newline newline
-\end_inset
-
-The collision share of Agent 1 are lower than the one of agent 4, with agent
- 1 having been exposed more to the crowded areas.
- More exposure should, all else equal, imply higher risk of collision, unless
- learning has occurred – this is discussed more in section 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sec:Dicussion"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-.
+ Agent 1 and 2 quite quickly increase to a level of efficiency around 0.85,
+ of which they fluctuate rather stably.
  
 \end_layout
 
@@ -3386,253 +3461,64 @@ With the core of the results obtained under certainty outlined, it is time
  the next section.
 \end_layout
 
-\begin_layout Standard
-\begin_inset Float table
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Shares of Collisions
-\begin_inset CommandInset label
-LatexCommand label
-name "tab:Shares-of-Collisions"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-centering
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tabular}{c|c c c|c c}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-hline
-\backslash
-hline
-\end_layout
-
-\begin_layout Plain Layout
-
-& 
-\backslash
-multicolumn{3}{c}{Crowded Areas} & 
-\backslash
-multicolumn{2}{c}{Pedestrians}
-\backslash
-Tstrut
-\backslash
-
-\backslash
- [0.5ex]
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-hline
-\end_layout
-
-\begin_layout Plain Layout
-
-Agent & Baseline & Certain & Uncertain & Certain & Uncertain 
-\backslash
-
-\backslash
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-hline
-\end_layout
-
-\begin_layout Plain Layout
-
-1 & 25.1
-\backslash
-% (42.3
-\backslash
-%) & 14.4
-\backslash
-% (88.0
-\backslash
-%) & 21.6
-\backslash
-% (71.7
-\backslash
-%) & 
-\end_layout
-
-\begin_layout Plain Layout
-
-13.4
-\backslash
-% (77.2
-\backslash
-%) & 10.3
-\backslash
-% (43.4
-\backslash
-%)
-\backslash
-
-\backslash
-
-\end_layout
-
-\begin_layout Plain Layout
-
-2 & 36.9
-\backslash
-% (15.6
-\backslash
-%)& 17.4
-\backslash
-% (87.7
-\backslash
-%) & y
-\backslash
-% & 
-\end_layout
-
-\begin_layout Plain Layout
-
-13.7
-\backslash
-% (65.3
-\backslash
-%) & y
-\backslash
-%
-\backslash
-
-\backslash
- 
-\end_layout
-
-\begin_layout Plain Layout
-
-3 & 24.6
-\backslash
-% (43.1
-\backslash
-%)& 17.3
-\backslash
-% (79.3
-\backslash
-%) & y
-\backslash
-% &
-\end_layout
-
-\begin_layout Plain Layout
-
-9.8
-\backslash
-% (32.4
-\backslash
-%) & y
-\backslash
-%
-\backslash
-
-\backslash
- 
-\end_layout
-
-\begin_layout Plain Layout
-
-4 & 32.3
-\backslash
-% (27.2
-\backslash
-%)& 22.6
-\backslash
-% (81.4
-\backslash
-%)& y
-\backslash
-% &
-\end_layout
-
-\begin_layout Plain Layout
-
-14.5
-\backslash
-% (57.7
-\backslash
-%) & y
-\backslash
-%
-\backslash
-
-\backslash
-[1ex]
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-hline
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tabular}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Section
 Results under uncertainty
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Results-under-uncertainty"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This section examines the results obtained under uncertainty about the perceptio
+n of the environment.
+ As mentioned in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Uncertainty"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, uncertainty is modelled by introducing standard Gaussian noise to the
+ distance information received by the agent.
+ The results are directly comparable, agent for agent, with the results
+ from the previous section, and they are comparable to the baseline in the
+ same matter as the previously section.
+ Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Uncertainty-LR"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Dealing-With-Difficult"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ presents the result under uncertainty.
+ 
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -3743,21 +3629,21 @@ $
 \backslash
 mathbf{Mean_w}$ & $
 \backslash
-mathbf{5.9
+mathbf{5.91
 \backslash
 cdot10^{-3}}$ & $
 \backslash
-mathbf{6.0
+mathbf{5.99
 \backslash
 cdot10^{-3}}$ & $
 \backslash
-mathbf{4.4
+mathbf{4.36
 \backslash
 cdot10^{-3}}$ & $
 \backslash
-mathbf{2.3
+mathbf{5.90
 \backslash
-cdot10^{-2}}$
+cdot10^{-3}}$
 \backslash
 Tstrut
 \backslash
@@ -3768,13 +3654,13 @@ Tstrut
 
 \begin_layout Plain Layout
 
-SO & $6.1
+SO & $3.27
 \backslash
-cdot10^{-2}$ & $4.7
+cdot10^{-2}$ & $6.26
 \backslash
-cdot10^{-2}$ & $3.4
+cdot10^{-2}$ & $5.54
 \backslash
-cdot10^{-2}$ & $6.4
+cdot10^{-2}$ & $5.46
 \backslash
 cdot10^{-2}$
 \backslash
@@ -3785,13 +3671,13 @@ cdot10^{-2}$
 
 \begin_layout Plain Layout
 
-CA & $-3.9
+CA & $5.32
 \backslash
-cdot10^{-7}$ & $1.4
+cdot10^{-4}$ & $1.42
 \backslash
-cdot10^{-3}$ & $-5.5
+cdot10^{-3}$ & $-1.60
 \backslash
-cdot10^{-2}$ & $3.1
+cdot10^{-3}$ & $1.54
 \backslash
 cdot10^{-3}$
 \backslash
@@ -3802,13 +3688,13 @@ cdot10^{-3}$
 
 \begin_layout Plain Layout
 
-DO & $1.2
+DO & $1.23
 \backslash
-cdot10^{-3}$ & $9.9
+cdot10^{-3}$ & $8.67
 \backslash
-cdot10^{-4}$ & $1.1
+cdot10^{-4}$ & $1.11
 \backslash
-cdot10^{-2}$ & $6.3
+cdot10^{-3}$ & $7.69
 \backslash
 cdot10^{-4}$
 \backslash
@@ -3870,7 +3756,7 @@ Tstrut
 
 \begin_layout Plain Layout
 
-SO & 0.14 & 0.13 & 0.10 & 0.08
+SO & 0.12 & 0.14 & 0.12 & 0.09
 \backslash
 
 \backslash
@@ -3879,7 +3765,7 @@ SO & 0.14 & 0.13 & 0.10 & 0.08
 
 \begin_layout Plain Layout
 
-CA & 0.14 & 0.09 & 0.11 & 0.08
+CA & 0.14 & 0.10 & 0.11 & 0.08
 \backslash
 
 \backslash
@@ -3996,7 +3882,45 @@ end{tabular}
 \end_layout
 
 \begin_layout Standard
-Hej
+Interesting insights are indicated by table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Uncertainty-LR"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, and the first is that agent 1 seems to be the one having most difficulty
+ in dealing with the uncertainty, which takes effect with the introduction
+ of the crowded areas.
+ Another interesting observation is that agent 2 and 4 deals most efficiently
+ with the uncertainty, introduced with the introduction of the crowded areas.
+ The final take-away is that agent 1 and 3 seems, from table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Uncertainty-LR"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, to be dealing most efficiently with the dynamic areas.
+ However, the actual changes in lessons reveals the opposite picture, and
+ this is discussed in detail in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Dicussion"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -4051,138 +3975,25 @@ s are calculated on detrended series.
 \end_layout
 
 \begin_layout Standard
-hej
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float table
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Training Time
-\end_layout
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Dealing-With-Difficult"
+plural "false"
+caps "false"
+noprefix "false"
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-centering
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tabular}{c|c c c}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-hline
-\backslash
-hline
-\end_layout
-
-\begin_layout Plain Layout
-
-Agent & Baseline & Certain & Uncertain
-\backslash
-Tstrut
-\backslash
-
-\backslash
- [0.5ex]
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-hline
-\end_layout
-
-\begin_layout Plain Layout
-
-1 & 42 min.
- & 124 min.
- & x min.
-\backslash
-
-\backslash
+ shows that the agents’ ability to tackle the difficult areas converge to
+ roughly the same level, perhaps with exception of agent 4.
+ Agent 4 lies 5-10 percentage points below the other agents, with no sign
+ of demising variance.
+ Agent 1,2 and 3 converge to the same level as seen under certainty.
+ The results have now been outlined, and it is now time to discuss what
+ is witnessed and the potential implications, as long with the limitations
+ of the study.
  
-\end_layout
-
-\begin_layout Plain Layout
-
-2 & 43 min.
- & 129 min.
- & x min.
-\backslash
-
-\backslash
- 
-\end_layout
-
-\begin_layout Plain Layout
-
-3 & 44 min.
- & 135 min.
- & x min.
-\backslash
-
-\backslash
- 
-\end_layout
-
-\begin_layout Plain Layout
-
-4 & 125 min.
- & 667 min.
- & x min.
-\backslash
-
-\backslash
-  [1ex]
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-hline
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tabular}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard

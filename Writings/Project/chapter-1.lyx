@@ -12,7 +12,15 @@
 % that links to image floats jumps to the beginning
 % of the float and not to its caption
 \usepackage[figure]{hypcap}
-
+\usepackage{array,multirow,graphicx}
+\usepackage{algorithmic}
+% Added addtionally
+% define "struts", as suggested by Claudio Beccari in
+%    a piece in TeX and TUG News, Vol. 2, 1993.
+\newcommand\Tstrut{\rule{0pt}{2.6ex}}         % = `top' strut was 2.6
+\newcommand\Bstrut{\rule[-0.9ex]{0pt}{0pt}}   % = `bottom' strut
+\newcommand\setrow[1]{\gdef\rowmac{#1}#1\ignorespaces}
+\newcommand\clearrow{\global\let\rowmac\relax}
 % the pages of the TOC is numbered roman
 % and a pdf-bookmark for the TOC is added
 \let\myTOC\tableofcontents
@@ -322,9 +330,12 @@ literal "false"
 \end_inset
 
 .
- That case of study of this research is DRL’s ability to deal with some
- of the challenges faced by robotic citizens, the autonomous delivery robots
- (ADR’s).
+ 
+\begin_inset Newline newline
+\end_inset
+
+The case of study of this research is DRL’s ability to deal with the core
+ challenges faced by robotic citizens, the autonomous delivery robots (ADR’s).
  
 \end_layout
 
@@ -398,13 +409,20 @@ Theoretical Background
 The fundamental aspects of robotic navigation can be boiled down to learning
  and planning, which is also the fundamentals of reinforcement learning
  (RL) through the tasks of control and prediction.
- Control tasks are concerned with learning the best policy, while prediction
+ The objective of control tasks is to learn the optimal policy, while prediction
  tasks evaluate the policy at hand.
  
 \end_layout
 
 \begin_layout Standard
-Traditional RL literature distinguish between model-based and model-free
+Traditional RL literature distinguish between 
+\shape italic
+model-based
+\shape default
+ and 
+\shape italic
+model-free
+\shape default
  algorithms, where model-based algorithms rely on planning and model-free
  algorithms rely on learning 
 \begin_inset CommandInset citation
@@ -436,17 +454,9 @@ literal "false"
 
 \end_inset
 
-, which belongs to class of policy gradient methods.
+, which belongs to the class of policy gradient methods.
  This class of methods essentially extends traditional model-free control
  algorithms, as Q-learning 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Watkins92q-learning"
-literal "false"
-
-\end_inset
-
-
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Watkins92q-learning"
@@ -566,8 +576,7 @@ All sets of the MDP are finite.
 
 \end_inset
 
- MDP’s, which occurs rarely in practice, at least in any interesting application
-s.
+ MDP’s, which occurs rarely in practice.
  
 \end_layout
 
@@ -583,28 +592,34 @@ noprefix "false"
 \end_inset
 
 : The agent observes the initial environment and takes an action at time
- t, transitioning the environment to state t +1 and emitting a reward to
- agent.
+ t, transitioning the environment to state 
+\begin_inset Formula $t+1$
+\end_inset
+
+ and emitting a reward to agent.
  Based on the new observed state and the reward obtained, the agent chooses
  a new action, and this cycle repeat until the terminal state.
- An important thing to mention is that the reward does not say directly
- how good the action was, but how the good the resulting state is.
+ The reward does not say directly how good the action was, but how the good
+ the resulting state is.
  
 \begin_inset Newline newline
 \end_inset
 
 The reward signal is often sparse, meaning the agent only receives a reward
  at the terminal state, i.e.
- at the end of an episode.
+ at the end of an 
+\shape italic
+episode
+\shape default
+.
  If the terminal state is good, the agent receives a large positive reward,
  if bad, a large negative reward, and zero in all states
 \begin_inset Foot
 status open
 
 \begin_layout Plain Layout
-This is a modified truth, as it is common practice to reward the agent with
- a minor negative reward after each state (also called step), to incentive
- fast learning.
+It is common practice to reward the agent with a minor negative reward after
+ each state (also called step), to incentive fast learning.
  
 \end_layout
 
@@ -652,7 +667,15 @@ literal "false"
 \begin_layout Standard
 The intention of this study is not to promote DRL to replace existing methods
  in traditional robotic navigation, but hopefully to aid these, to achieve
- smarter and safer cities in the future.
+ 
+\shape italic
+smarter
+\shape default
+ and 
+\shape italic
+safer
+\shape default
+ cities in the future.
  
 \end_layout
 
@@ -700,7 +723,7 @@ literal "false"
 
 , avoiding rediscovering of known results.
  Most prior research in this area has been concerned with developing novel
- methods to tackle the challenges at hand, potentially neglecting the design
+ algorithms to tackle the challenges at hand, and less emphasis the design
  of the training phase.
  Design of the training phase has previously been shown to have a significant
  effect 
@@ -756,7 +779,7 @@ The study explores state-of-the-art methods and serves as a framework to
  CUE’s through simulation.
  Simulation is done under realistic physical settings, intending to smoot
  the future generalisation to real-world applications.
- The aim is that even though the study is limited to simulation, it could
+ The hope is that even though the study is limited to simulation, it could
  serve as a baseline for future real-world applications.
  
 \begin_inset Newline newline

@@ -13,7 +13,7 @@
 % of the float and not to its caption
 \usepackage[figure]{hypcap}
 \usepackage{array,multirow,graphicx}
-
+\usepackage{algorithmic}
 % Added addtionally
 % define "struts", as suggested by Claudio Beccari in
 %    a piece in TeX and TUG News, Vol. 2, 1993.
@@ -99,7 +99,7 @@ customHeadersFooters
 \index_command default
 \float_placement h
 \paperfontsize 12
-\spacing single
+\spacing double
 \use_hyperref true
 \pdf_title "Your title"
 \pdf_author "Your name"
@@ -136,7 +136,7 @@ customHeadersFooters
 \use_refstyle 0
 \use_minted 0
 \branch Standalone
-\selected 1
+\selected 0
 \filename_suffix 0
 \color #ff0000
 \end_branch
@@ -321,6 +321,44 @@ name "chap:Policy-Evaluation"
 
 \end_layout
 
+\begin_layout Standard
+This section digs deep into the results presented, and specifically compares
+ section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Results-under-certainty"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Results-under-uncertainty"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\begin_inset Newline newline
+\end_inset
+
+In the light of the comparison, the limitations are highlighted and rounded
+ off with a discussion of the robustness of the results.
+ 
+\end_layout
+
+\begin_layout Standard
+A brief presentation of potential areas for future studies is provided before
+ concluding on this study.
+ 
+\end_layout
+
 \begin_layout Section
 Dicussion
 \begin_inset CommandInset label
@@ -333,10 +371,210 @@ name "sec:Dicussion"
 \end_layout
 
 \begin_layout Standard
+The focus of this section is to compare the results from section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Results-under-certainty"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Results-under-uncertainty"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, to evaluate the effect of uncertainty about the perception of the environment.
+ This addresses the first and the third objective, listed in the beginning
+ of chapter 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:Methodology"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\begin_inset Newline newline
+\end_inset
+
+This section begins by comparing the baseline results, from section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Exploring-the-Envrionment"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, to the results using the full list of aids, examined in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Maximum-Steps"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+-
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Observation-Stacking"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, from section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Results-under-certainty"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Baseline compared to aided agents 
+\end_layout
+
+\begin_layout Standard
+The most notable difference is the stability provided by aids, which enables
+ the agents of section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Results-under-certainty"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ to reach at least lesson 6, doing the same number of steps as it takes
+ the agents of section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Exploring-the-Envrionment"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ to reach lesson 3.
+ The stability comes from both the parallelisation and bounding the numbers
+ of steps allowed by the agents
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Verified by section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Maximum-Steps"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Shared-Experience"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+.
+ The stability is seen by comparing the AEL curves of figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Baseline-comparison"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Full-set-up-under"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, which shows that the maximum peak is drastically reduced in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Full-set-up-under"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ compared to figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Baseline-comparison"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ The difference in the level of standard deviations of the ACR curves, seen
+ from table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Learning-Rates"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, confirms the finding.
+ 
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -449,17 +687,36 @@ hline
 \backslash
 setrow{
 \backslash
-bfseries}1 & $
+bfseries}1 & 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+$
 \backslash
-mathbf{1.3
+mathbf{1.33
 \backslash
-cdot10^{-2}}$ (0.22) & $
+cdot10^{-2}}$ (0.22) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$
 \backslash
-mathbf{6.1
+mathbf{6.08
 \backslash
-cdot10^{-3}}$ (0.13) & $
+cdot10^{-3}}$ (0.13) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$
 \backslash
-mathbf{5.9
+mathbf{5.91
 \backslash
 cdot10^{-3}}$ (0.14)
 \backslash
@@ -472,13 +729,27 @@ Tstrut
 
 \begin_layout Plain Layout
 
-SO & $2.3
+\end_layout
+
+\begin_layout Plain Layout
+
+SO & $2.46
 \backslash
-cdot10^{-2}$ (0.22) & $5.1
+cdot10^{-2}$ (0.23) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$6.54
 \backslash
-cdot10^{-2}$ (0.10) & $6.1
+cdot10^{-2}$ (0.11) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$3.27
 \backslash
-cdot10^{-2}$ (0.14)
+cdot10^{-2}$ (0.12)
 \backslash
 
 \backslash
@@ -487,13 +758,27 @@ cdot10^{-2}$ (0.14)
 
 \begin_layout Plain Layout
 
-CA & $1.7
+\end_layout
+
+\begin_layout Plain Layout
+
+CA & $1.72
 \backslash
-cdot10^{-3}$ (0.20) & $-3.2
+cdot10^{-3}$ (0.20) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$2.07
 \backslash
-cdot10^{-3}$ (0.10) & $-3.9
+cdot10^{-3}$ (0.09) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$5.32
 \backslash
-cdot10^{-7}$ (0.14)
+cdot10^{-4}$ (0.14)
 \backslash
 
 \backslash
@@ -502,9 +787,23 @@ cdot10^{-7}$ (0.14)
 
 \begin_layout Plain Layout
 
-DO & NaN (NaN) & $6.4
+\end_layout
+
+\begin_layout Plain Layout
+
+DO & NaN (NaN) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$6.52
 \backslash
-cdot10^{-4}$ (0.14) & $1.2
+cdot10^{-4}$ (0.14) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$1.23
 \backslash
 cdot10^{-3}$ (0.14)
 \backslash
@@ -522,21 +821,44 @@ hline
 
 \begin_layout Plain Layout
 
+\end_layout
+
+\begin_layout Plain Layout
+
 
 \backslash
 setrow{
 \backslash
-bfseries}2 & $
+bfseries}2 & 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+$
 \backslash
-mathbf{1.3
+mathbf{1.27
 \backslash
-cdot10^{-2}}$ (0.36) & $
+cdot10^{-2}}$ (0.36) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$
 \backslash
-mathbf{6.2
+mathbf{6.22
 \backslash
-cdot10^{-3}}$ (0.12) & $
+cdot10^{-3}}$ (0.12) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$
 \backslash
-mathbf{6.0
+mathbf{5.99
 \backslash
 cdot10^{-3}}$ (0.13)
 \backslash
@@ -549,116 +871,25 @@ Tstrut
 
 \begin_layout Plain Layout
 
-SO & $2.2
-\backslash
-cdot10^{-2}$ (0.28) & $5.8
-\backslash
-cdot10^{-2}$ (0.11) & $4.7
-\backslash
-cdot10^{-2}$ (0.13)
-\backslash
-
-\backslash
-
 \end_layout
 
 \begin_layout Plain Layout
 
-CA & $-1.7
+SO & $1.66
 \backslash
-cdot10^{-4}$ (0.59) & $6.2
-\backslash
-cdot10^{-4}$ (0.11) & $1.4
-\backslash
-cdot10^{-3}$ (0.09)
-\backslash
-
-\backslash
-
+cdot10^{-2}$ (0.30) & 
 \end_layout
 
 \begin_layout Plain Layout
 
-DO & NaN (NaN) & $2.2
+$6.87
 \backslash
-cdot10^{-3}$ (0.13) & $9.9
-\backslash
-cdot10^{-4}$ (0.13)
-\backslash
-
-\backslash
-
+cdot10^{-2}$ (0.12) & 
 \end_layout
 
 \begin_layout Plain Layout
 
-
-\backslash
-hline
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-setrow{
-\backslash
-bfseries}3 & $
-\backslash
-mathbf{1.4
-\backslash
-cdot10^{-2}}$ (0.25) & $
-\backslash
-mathbf{5.7
-\backslash
-cdot10^{-3}}$ (0.12) & $
-\backslash
-mathbf{4.4
-\backslash
-cdot10^{-3}}$ (0.13)
-\backslash
-Tstrut
-\backslash
-
-\backslash
-
-\end_layout
-
-\begin_layout Plain Layout
-
-SO & $2.7
-\backslash
-cdot10^{-2}$ (0.24) & $5.7
-\backslash
-cdot10^{-2}$ (0.12) & $3.4
-\backslash
-cdot10^{-2}$ (0.10)
-\backslash
-
-\backslash
-
-\end_layout
-
-\begin_layout Plain Layout
-
-CA & $3.2
-\backslash
-cdot10^{-3}$ (0.25) & $-6.4
-\backslash
-cdot10^{-3}$ (0.10) & $-5.5
-\backslash
-cdot10^{-2}$ (0.11)
-\backslash
-
-\backslash
-
-\end_layout
-
-\begin_layout Plain Layout
-
-DO & NaN (NaN) & $1.0
-\backslash
-cdot10^{-3}$ (0.13) & $1.1
+$6.26
 \backslash
 cdot10^{-2}$ (0.14)
 \backslash
@@ -669,9 +900,69 @@ cdot10^{-2}$ (0.14)
 
 \begin_layout Plain Layout
 
+\end_layout
+
+\begin_layout Plain Layout
+
+CA & $-1.71
+\backslash
+cdot10^{-4}$ (0.59) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$1.09
+\backslash
+cdot10^{-4}$ (0.10) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$1.42
+\backslash
+cdot10^{-3}$ (0.10)
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+DO & NaN (NaN) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$1.35
+\backslash
+cdot10^{-3}$ (0.13) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$8.67
+\backslash
+cdot10^{-4}$ (0.13)
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
 
 \backslash
 hline
+\end_layout
+
+\begin_layout Plain Layout
+
 \end_layout
 
 \begin_layout Plain Layout
@@ -680,19 +971,38 @@ hline
 \backslash
 setrow{
 \backslash
-bfseries}4 & $
+bfseries}3 & 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+$
 \backslash
-mathbf{1.1
+mathbf{1.43
 \backslash
-cdot10^{-2}}$ (0.27) & $
+cdot10^{-2}}$ (0.25) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$
 \backslash
-mathbf{5.9
+mathbf{5.69
 \backslash
-cdot10^{-3}}$ (0.12) & $
+cdot10^{-3}}$ (0.12) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$
 \backslash
-mathbf{2.3
+mathbf{4.36
 \backslash
-cdot10^{-2}}$ (0.10)
+cdot10^{-3}}$ (0.13)
 \backslash
 Tstrut
 \backslash
@@ -703,13 +1013,27 @@ Tstrut
 
 \begin_layout Plain Layout
 
-SO & $1.7
+\end_layout
+
+\begin_layout Plain Layout
+
+SO & $2.30
 \backslash
-cdot10^{-2}$ (0.17) & $5.2
+cdot10^{-2}$ (0.26) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$5.19
 \backslash
-cdot10^{-2}$ (0.14) & $6.4
+cdot10^{-2}$ (0.11) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$5.54
 \backslash
-cdot10^{-2}$ (0.08)
+cdot10^{-2}$ (0.12)
 \backslash
 
 \backslash
@@ -718,11 +1042,167 @@ cdot10^{-2}$ (0.08)
 
 \begin_layout Plain Layout
 
-CA & $1.6
+\end_layout
+
+\begin_layout Plain Layout
+
+CA & $3.18
 \backslash
-cdot10^{-3}$ (0.34) & $5.7
+cdot10^{-3}$ (0.25) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$-1.22
 \backslash
-cdot10^{-3}$ (0.12) & $3.1
+cdot10^{-3}$ (0.11) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$-1.60
+\backslash
+cdot10^{-3}$ (0.11)
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+DO & NaN (NaN) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$1.02
+\backslash
+cdot10^{-3}$ (0.13) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$1.11
+\backslash
+cdot10^{-3}$ (0.14)
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+setrow{
+\backslash
+bfseries}4 & 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+$
+\backslash
+mathbf{1.09
+\backslash
+cdot10^{-2}}$ (0.27) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$
+\backslash
+mathbf{7.40
+\backslash
+cdot10^{-3}}$ (0.14) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$
+\backslash
+mathbf{5.90
+\backslash
+cdot10^{-3}}$ (0.12)
+\backslash
+Tstrut
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+SO & $1.89
+\backslash
+cdot10^{-2}$ (0.11) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$4.81
+\backslash
+cdot10^{-2}$ (0.14) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$5.46
+\backslash
+cdot10^{-2}$ (0.09)
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+CA & $1.62
+\backslash
+cdot10^{-3}$ (0.16) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$2.02
+\backslash
+cdot10^{-3}$ (0.12) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$1.54
 \backslash
 cdot10^{-3}$ (0.08)
 \backslash
@@ -733,9 +1213,23 @@ cdot10^{-3}$ (0.08)
 
 \begin_layout Plain Layout
 
-DO & NaN (NaN) & $4.9
+\end_layout
+
+\begin_layout Plain Layout
+
+DO & NaN (NaN) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$2.02
 \backslash
-cdot10^{-3}$ (0.14) & $6.3
+cdot10^{-3}$ (0.14) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$7.69
 \backslash
 cdot10^{-4}$ (0.13)
 \backslash
@@ -745,6 +1239,26 @@ cdot10^{-4}$ (0.13)
 \end_layout
 
 \begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+& 
+\backslash
+multicolumn{3}{l}{
+\backslash
+footnotesize Standard deviations in parentheses.}
+\backslash
+
+\backslash
 
 \end_layout
 
@@ -772,12 +1286,837 @@ end{tabular}
 
 \end_layout
 
+\begin_layout Standard
+Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Shares-of-Collisions"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, showing the shares of collisions with crowded areas and pedestrians, shows
+ an improvement in the ability to avoid the crowded areas using the aids.
+ All else equal, more exposure against a challenge should imply at least
+ or worse collision rate.
+ Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Shares-of-Collisions"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ shows better collision rates and higher exposure, up to five times as much,
+ which indicates a significant improvement in the ability to avoid crowded
+ areas.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Effect of uncertainty
+\series default
+ 
+\end_layout
+
+\begin_layout Standard
+Starting out by focusing on the Certain column of table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Learning-Rates"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, shows having the distance to the target in the information set, agent
+ 3 and 4, seems to have a negative effect on learning.
+ This is seen drop from learning rate.
+ Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Shares-of-Collisions"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ confirms the finding, by similar or worse collision rate of agent 3 and
+ 4 to agent 2, with less exposure.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Shares of Collisions
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Shares-of-Collisions"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tabular}{c|c c c|c c}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+& 
+\backslash
+multicolumn{3}{c}{Crowded Areas} & 
+\backslash
+multicolumn{2}{c}{Pedestrians}
+\backslash
+Tstrut
+\backslash
+
+\backslash
+ [0.5ex]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+Agent & Baseline & Certain & Uncertain & Certain & Uncertain
+\backslash
+Tstrut
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+1 & 25.1
+\backslash
+% (42.3
+\backslash
+%) & 14.4
+\backslash
+% (88.0
+\backslash
+%) & 21.6
+\backslash
+% (71.7
+\backslash
+%) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+13.4
+\backslash
+% (77.2
+\backslash
+%) & 10.3
+\backslash
+% (43.4
+\backslash
+%)
+\backslash
+Tstrut
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2 & 36.9
+\backslash
+% (15.6
+\backslash
+%)& 17.4
+\backslash
+% (87.7
+\backslash
+%) & 16.7
+\backslash
+% (87.0
+\backslash
+%)& 
+\end_layout
+
+\begin_layout Plain Layout
+
+13.7
+\backslash
+% (65.3
+\backslash
+%) & 13.7
+\backslash
+% (75.4
+\backslash
+%)
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+3 & 24.6
+\backslash
+% (43.1
+\backslash
+%)& 17.3
+\backslash
+% (79.3
+\backslash
+%) & 18.5
+\backslash
+% (87.9
+\backslash
+%) &
+\end_layout
+
+\begin_layout Plain Layout
+
+9.8
+\backslash
+% (32.4
+\backslash
+%) & 8.9
+\backslash
+% (59.1
+\backslash
+%)
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+4 & 32.3
+\backslash
+% (27.2
+\backslash
+%)& 22.6
+\backslash
+% (81.4
+\backslash
+%)& 18.9
+\backslash
+% (80.2
+\backslash
+%) &
+\end_layout
+
+\begin_layout Plain Layout
+
+14.5
+\backslash
+% (57.7
+\backslash
+%) & 12.0
+\backslash
+% (62.7
+\backslash
+%)
+\backslash
+
+\backslash
+[0.5ex]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+& 
+\backslash
+multicolumn{5}{l}{
+\backslash
+footnotesize The percentages in parentheses are the exposure against the
+ challenge.}
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tabular}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Shares-of-Collisions"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ shows interestingly an increased ability of agent 2 and 4 to avoid crowded
+ areas in the presence of uncertainty.
+ Agent 3 experience a minor increase, albeit with an increased exposure.
+ Agent 1 goes from best to worst and is the less exposed agent in presence
+ of uncertainty.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Looking at the effect of uncertainty on the ability to avoid pedestrians,
+ table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Shares-of-Collisions"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ reveals that the performance of the agents is at least as good if not better,
+ except for agent 1.
+ All in all, it does indicate that the agents, and thereby DRL method, is
+ robust to a small degree of uncertainty.
+ 
+\end_layout
+
+\begin_layout Standard
+Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Learning-Rates"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Shares-of-Collisions"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ indicates that the agents can deal with the core challenges of CUE, as
+ learning otherwise wouldn’t show.
+ The collision rates are too high for real use cases, and extensive research
+ should be done in terms of how the temporal improvement is, and on the
+ effect of using even more parallel training environment.
+ The reason why the temporal improvement isn’t considered here is because
+ time didn’t allow to re-extract the necessary data.
+ A temporal improvement in the collision rates would suggest a benefit of
+ increased computational power, in order to undertake more simulations,
+ in preferably less time.
+ 
+\end_layout
+
+\begin_layout Standard
+The current training times are shown in table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Training-Time"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, and it shows that at worst, 1 million steps take around 11 hours to carry
+ out, using a laptop with an Intel
+\begin_inset Formula $®$
+\end_inset
+
+ Core(TM) i5-7300HQ CPU 
+\begin_inset Formula $@$
+\end_inset
+
+ 2.50 GHz.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Training Time
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Training-Time"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tabular}{c|c c c}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+Agent & Baseline & Certain & Uncertain
+\backslash
+Tstrut
+\backslash
+
+\backslash
+ [0.5ex]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+1 & 42 min.
+ & 124 min.
+ & 138 min.
+\backslash
+Tstrut
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+2 & 43 min.
+ & 129 min.
+ & 133 min.
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+3 & 44 min.
+ & 135 min.
+ & 148 min.
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+4 & 125 min.
+ & 667 min.
+ & 575 min.
+\backslash
+
+\backslash
+  [0.5ex]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tabular}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+It is now time to consider the limitations and biases of this research.
+ 
+\end_layout
+
+\begin_layout Subsection
+Limitations
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Limitations"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Learning Rates and the Linear Assumption
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Learning-Rates-and"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The assumption about a linear relationship between the number of steps and
+ the ACR only holds for short periods of time, as seen by comparing figure
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:ACR-and-ALE"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ (red curve) and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Subsets-and-trend"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:ACR-and-ALE"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, showing the ideal shape of the ACR curve, indicates that the converged
+ shape of the ACR is more likely to exhibit power-law or exponential behaviour.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The implication hereof is that the learning rates estimated over longer
+ periods is likely to be inaccurate.
+ An example hereof is seen from the certain column in table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Shares-of-Collisions"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ An increase in the learning rate of a subcategory should, all else equal,
+ be associated with a decrease in the collision rate, or wise versa.
+ This is seen between agent 1 and 2, there a decrease in the learning rate
+ implies a higher collision rate.
+ However, comparing agent 2 to 3, it is seen how the learning rate decreases
+ sharply but the collision rate is unchanged.
+ 
+\begin_inset Newline newline
+\end_inset
+
+This is likely to be a result of the linear assumption being wrong for the
+ ACR associated with agent 3, over the lessons introducing the crowded areas.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Noise Distribution
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Noise-Distribution"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The choice of modelling the noise by a standard Gaussian distribution was
+ chosen based on a desire to leave the expected distance unchanged.
+ This could be obtained using other distributions as well, yet having equal
+ probability of the effect of uncertainty being either positive or negative
+ on the observed distance seems realistic, based on the proposed causes
+ to the uncertainty.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Choosing the variance to be one was chosen without any reference, and solely
+ based on the judgement of the author as it being realistic with a variance
+ roughly equivalent to 6%.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Two tests were conducted on the simplest agent (Agent 1), with the variance
+ being equal to 2 and 3, equivalent to changes in the observed distance
+ of a least 13% and 20%.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:The-Effect-of-2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ shows the results, and the results are interesting as learning seems to
+ be affected and potentially break down.
+ Research on the effect of the noise distribution and its characteristics
+ should be investigated further.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+The Model
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:The-Model"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+One physical characteristics of UE’s that the simulated model does not consider,
+ is changing surfaces.
+ The presence of small stones on the road, cobbles or incline/decline surfaces
+ all affects the performance by introducing bias/uncertainty about the observed
+ environment and needs to be accounted for.
+ The lack of modelling this aspect could be justified, by the argument that
+ the end effect could be captured by the uncertainty introduced.
+ 
+\end_layout
+
+\begin_layout Subsection
+Robustness
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Robustness"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The use of parallel training environments ensures a degree of diversification,
+ to account for the initialisation-sensitivity.
+ The implication is that the results underlying table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Learning-Rates"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Full-set-up-under"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Full-Set-Up"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+ is average results over four runs.
+ How many parallel training environments are needed to eliminate the initialisat
+ion-sensitivity is environment dependent and varying the effect of different
+ number of parallel environments should be tested for optimal performance.
+ 
+\begin_inset Newline newline
+\end_inset
+
+However, increasing the number of parallel environments requires increasing
+ computational power.
+\end_layout
+
 \begin_layout Section
 Future Work
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Future-Work"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
 Conclusion
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Conclusion"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

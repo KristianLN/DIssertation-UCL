@@ -12,7 +12,15 @@
 % that links to image floats jumps to the beginning
 % of the float and not to its caption
 \usepackage[figure]{hypcap}
-
+\usepackage{array,multirow,graphicx}
+\usepackage{algorithmic}
+% Added addtionally
+% define "struts", as suggested by Claudio Beccari in
+%    a piece in TeX and TUG News, Vol. 2, 1993.
+\newcommand\Tstrut{\rule{0pt}{2.6ex}}         % = `top' strut was 2.6
+\newcommand\Bstrut{\rule[-0.9ex]{0pt}{0pt}}   % = `bottom' strut
+\newcommand\setrow[1]{\gdef\rowmac{#1}#1\ignorespaces}
+\newcommand\clearrow{\global\let\rowmac\relax}
 % the pages of the TOC is numbered roman
 % and a pdf-bookmark for the TOC is added
 \let\myTOC\tableofcontents
@@ -303,6 +311,13 @@ thepage
 
 \begin_layout Chapter
 Methodology
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Methodology"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -322,8 +337,8 @@ Robotic navigation possesses four main challenges; mapping, traversability
 \end_layout
 
 \begin_layout Itemize
-The use of DRL for robotic navigation in UE’s has so far been concern with
- avoiding static obstacles, using both visual and sensor observations.
+• The use of DRL for robotic navigation in UE’s has focused on environments
+ containing static obstacles, using both visual and sensor observations.
  
 \end_layout
 
@@ -465,7 +480,7 @@ noprefix "false"
 \end_layout
 
 \begin_layout Section
-Autonomous Delivery Tobots Today
+Autonomous Delivery Robots Today
 \begin_inset CommandInset label
 LatexCommand label
 name "sec:Autonomous-delivery-robots"
@@ -598,7 +613,7 @@ Utilising Unity enables this study to investigate how RL-agents handles
 \end_layout
 
 \begin_layout Section
-Unity – as a Simulation Engine for Research in DRL
+Unity – As a Simulation Engine for Research in DRL
 \begin_inset CommandInset label
 LatexCommand label
 name "sec:Unity-as"
@@ -638,7 +653,7 @@ Additionally, Unity provides various features to support reduced simulation
  than real time, while still maintain physics and frame rendering, and the
  option to deploy concurrent environments.
  Limiting simulation time as much as possible, without harming the performance,
- is important when working with complex environment, agents and methods.
+ is important when working with complex environments, agents and methods.
  Depending on the setting, some applications requires millions of double-digit
  observations to converge to the optimal outcome 
 \begin_inset CommandInset citation
@@ -672,9 +687,9 @@ Unity is a serious candidate for modelling the complex dynamics of urban
 \end_layout
 
 \begin_layout Standard
-It is not a direct objective of this study to generalise the results obtained
- to the real world, but it is hoped that this study can serve as a humble
- baseline for further research.
+It is not an objective of this study to generalise the results obtained
+ to the real world, but it is hoped that this study can serve as a baseline
+ for future research.
  
 \end_layout
 
@@ -723,8 +738,7 @@ The simulated environment is intended to capture the core dynamics of pedestrian
 s-dominated areas, which implies that the simulated environment contains,
  besides the robotic agent, four elements; static obstacles, dynamic obstacles,
  crowded areas and a target.
- Each these are described in turn below, but a brief overview looks the
- following;
+ Each element isdescribed in turn, and a brief overview is listed below;
 \end_layout
 
 \begin_layout Standard
@@ -751,7 +765,7 @@ Robotic agent:
 \shape italic
 Static obstacles:
 \shape default
- They represents everything static in the built environment, such as building,
+ They represents everything static in the built environment, such as buildings,
  bins, mailboxes or even boundaries of pilot areas.
  
 \end_layout
@@ -887,7 +901,7 @@ name "fig:The-Environment"
 
 \shape italic
 \size footnotesize
-The environment contains one moving pedestrians (light green), three crowded
+The environment contains one moving pedestrian (light green), three crowded
  areas with varying density (red (high), orange (medium), green (light)),
  the target (dark green square) and the five static obstacles.
 \end_layout
@@ -930,9 +944,15 @@ The robotic agents represent ADR’s, and comprehensive technical description
  The agents are RL-based agents powered by the ML-Agents toolkit by Unity.
  The toolkit embeds the DRL in the agent, by linking a Python API to Unity.
  For more detail, see 
-\color red
-appendix
-\color inherit
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Agent"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
 .
  
 \end_layout
@@ -953,7 +973,7 @@ The performance of four different agents, with increasing complexity, are
 
 \begin_layout Standard
 The agent is equipped with 18 sensors, spanning 180 degrees in front of
- the agent, with a length of 50 metres.
+ the agent, with a length of 50 meters.
  The effect of the length of span of the sensors is not investigated, and
  it is chosen arbitrary.
  The sensor returns the normalised distance to the detected object, with
@@ -1002,7 +1022,8 @@ name "Agent-2:-In-addition"
 \begin_layout Standard
 The agent is provided with the density and the normalised distance to crowded
  areas with a radius of 25 meters.
- This resembles with the use of radar information, and the idea stems 
+ This resembles with the use of radar information, and the idea stems from
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "NNPRS"
@@ -1105,8 +1126,7 @@ Uncertainty is introduced to the environment by adding Gaussian noise,
 \end_inset
 
 The uncertainty captures the uncertainty surrounding the actual presence
- of detected sensors, inaccuracy as a result of challenging weather conditions,
- or the use of cheap hardware to limit the cost of the ADR.
+ of detected sensors or inaccuracy as a result of challenging weather conditions.
  
 \begin_inset Newline newline
 \end_inset
@@ -1128,8 +1148,8 @@ I.e.
 
 \end_inset
 
-, instead of the on the rewards, which could be thought of as an alternative,
- is based on the theory underlying RL.
+, instead of the on the rewards, which could be an alternative, is based
+ on the theory underlying RL.
  
 \begin_inset Newline newline
 \end_inset
@@ -1146,7 +1166,7 @@ RL is a basically a function mapping on actions and states, and the goal
 \end_inset
 
 If the reward function is stochastic, the policy will in turn be stochastic,
- which in turn do not sustain any learning.
+ which do not sustain any learning.
  
 \end_layout
 
@@ -1174,7 +1194,7 @@ The standard deviation divided by the distance at which the uncertainty
 
 \end_inset
 
- , which does not seem drastic.
+, which does not seem drastic.
  The choice of distribution is discussed a bit more in the discussion, and
  it is certainly a topic for future study.
  
@@ -1183,7 +1203,7 @@ The standard deviation divided by the distance at which the uncertainty
 \begin_layout Standard
 The Gaussian noise is generated by performing a 
 \shape italic
-Box-Muller transformation
+Box-Muller Transformation
 \shape default
  of a two-dimensional continuous uniform distribution, seen in 
 \begin_inset CommandInset ref
@@ -1214,7 +1234,7 @@ literal "false"
 
 \shape italic
 \size footnotesize
-Box-Muller transformation
+Box-Muller Transformation
 \end_layout
 
 \begin_layout Standard
@@ -1292,7 +1312,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Sampled noise
+Sampled Noise
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:Empirical-sampled-noise"
@@ -1308,6 +1328,8 @@ name "fig:Empirical-sampled-noise"
 \end_layout
 
 \begin_layout Plain Layout
+\noindent
+\align center
 \begin_inset Graphics
 	filename C:/Users/Krist/GitHub/ml-agents/Dissertation/Notebooks/graphs/Empirical_Noise.jpg
 	scale 70
@@ -1364,8 +1386,7 @@ name "subsec:Extrinsic"
 \end_layout
 
 \begin_layout Standard
-Extrinsic rewards come from outside the agent, and thereby emitted by the
- environment.
+Extrinsic rewards come from outside the agent, emitted by the environment.
  
 \end_layout
 
@@ -1448,7 +1469,7 @@ Intrinsic rewards are internal rewards, encouraging curiosity-driven exploration
 \begin_layout Standard
 A full treatment is given by 
 \begin_inset CommandInset citation
-LatexCommand nocite
+LatexCommand cite
 key "DBLP:journals/corr/PathakAED17,SSRC"
 literal "false"
 
@@ -1464,10 +1485,20 @@ literal "false"
 
 \begin_layout Standard
 The agents of this study are trained with curiosity-driven exploration,
- seen from 
+ seen from figure
 \color red
-figure 13
+ 
 \color inherit
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Training-Hyperparameters"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
 , because of the sparse nature of rewards associated with navigational tasks.
  
 \end_layout
@@ -1492,7 +1523,7 @@ NavMesh agents
 \shape default
  
 \begin_inset CommandInset citation
-LatexCommand nocite
+LatexCommand cite
 key "NavMesh"
 literal "false"
 
@@ -1556,17 +1587,17 @@ name "subsec:Crowded-areas"
 \end_layout
 
 \begin_layout Standard
-The crowded areas represent an area with an increased number of challenges,
- which could be a public square or an area on a pedestrian street, where
- some entertainment unfolds.
+The crowded areas represent an area with a high number of challenges, which
+ could be a public square or an area on a pedestrian street, where some
+ entertainment unfolds.
  The common factor is that there are large number of pedestrians in a relatively
  small area, which complicates the traversability analysis tremendously.
  
 \end_layout
 
 \begin_layout Standard
-The idea of crowded areas in the environment originated from a currently
- missing feature in the ML-Agents toolkit.
+The idea of crowded areas in the environment occurred from a currently missing
+ feature in the ML-Agents toolkit.
  
 \begin_inset Newline newline
 \end_inset
@@ -1708,7 +1739,7 @@ noprefix "false"
 The empirical data is used because it brings contrast to all the simulated
  data in this study.
  It is not as such the actual levels of the densities that shape the reward
- function, but the fact that they are significantly different, in between
+ function, but the fact that they are significantly different, individually
  and to the regular step penalty.
  
 \begin_inset Newline newline
@@ -1729,7 +1760,7 @@ status collapsed
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Population densities, London.
+Population Densities, London.
 \begin_inset CommandInset label
 LatexCommand label
 name "tab:Population-densities,-London."
@@ -1773,16 +1804,17 @@ hline
 
 \begin_layout Plain Layout
 
-Area & Density
+
+\backslash
+multicolumn{1}{l}{Area} & Density
+\backslash
+Tstrut
+\backslash
+Bstrut
 \backslash
 
 \backslash
- [0.5ex]
-\end_layout
 
-\begin_layout Plain Layout
-
-%heading
 \end_layout
 
 \begin_layout Plain Layout
@@ -1794,7 +1826,11 @@ hline
 
 \begin_layout Plain Layout
 
-Ward, Maximum & 0.0289
+
+\backslash
+multicolumn{1}{l}{Ward, Maximum} & 0.0289
+\backslash
+Tstrut
 \backslash
 
 \backslash
@@ -1803,7 +1839,9 @@ Ward, Maximum & 0.0289
 
 \begin_layout Plain Layout
 
-Boroughs, Maximum & 0.0164
+
+\backslash
+multicolumn{1}{l}{Boroughs, Maximum} & 0.0164
 \backslash
 
 \backslash
@@ -1812,11 +1850,13 @@ Boroughs, Maximum & 0.0164
 
 \begin_layout Plain Layout
 
-Overall & 0.0058
+
+\backslash
+multicolumn{1}{l}{Overall} & 0.0058
 \backslash
 
 \backslash
- [1ex]
+ [0.5ex]
 \end_layout
 
 \begin_layout Plain Layout
@@ -1859,7 +1899,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Population density, Boroughs, London
+Population Density, Boroughs, London
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:Population-density,-Boroughs,"
@@ -1878,7 +1918,7 @@ name "fig:Population-density,-Boroughs,"
 \noindent
 \align center
 \begin_inset Graphics
-	filename C:/Users/Krist/Desktop/Kristian/Privat/Ansøgninger/Udveksling/University College London/Being there/Dissertation/Graphs/pop_dens_london_borougs.jpg
+	filename C:/Users/Krist/Desktop/Kristian/Privat/Ansøgninger/Udveksling/University College London/Being there/Dissertation/Graphs/pop_dens_london_borougs_A0_5.jpg
 	scale 50
 
 \end_inset
@@ -1934,21 +1974,7 @@ The similarity of the two files, based on the two columns are around
 \begin_inset Formula $71\%$
 \end_inset
 
- respectively
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-See 
-\shape italic
-Population_density_graphs.ipynb
-\shape default
- in the accompanying code file.
-\end_layout
-
-\end_inset
-
-.
+ respectively..
  Furthermore, a combination of the two columns increases the similarity
  from 
 \begin_inset Formula $85.2\%$
@@ -1977,7 +2003,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Population density, Wards, London 
+Population Density, Wards, London 
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:Population-density,-Wards,"
@@ -2040,9 +2066,19 @@ The target is an important element of the environment, as it is the sparse
 status open
 
 \begin_layout Plain Layout
-See 
+See
 \color red
-appendix
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Target-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
 \color inherit
  for more technical detail.
 \end_layout
@@ -2056,7 +2092,7 @@ appendix
 Continuously changing the position of the target increases the likelihood
  of the learning to generalise to unseen environments.
  Furthermore, the target is not allowed to be located within a static object,
- which simulates the idea about locating a position outside a building for
+ which simulates the idea of locating a position outside a building for
  delivery by the ADR.
  
 \begin_inset Newline newline

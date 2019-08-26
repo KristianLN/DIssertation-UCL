@@ -321,6 +321,44 @@ name "chap:Policy-Evaluation"
 
 \end_layout
 
+\begin_layout Standard
+This section digs deep into the results presented, and specifically compares
+ section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Results-under-certainty"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Results-under-uncertainty"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\begin_inset Newline newline
+\end_inset
+
+In the light of the comparison, the limitations are highlighted and rounded
+ off with a discussion of the robustness of the results.
+ 
+\begin_inset Newline newline
+\end_inset
+
+A brief presentation of potential areas for future studies is provided before
+ concluding on this study.
+ 
+\end_layout
+
 \begin_layout Section
 Dicussion
 \begin_inset CommandInset label
@@ -342,7 +380,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Learning Rates - ACR & Difficult Areas
+Learning Rates - Accumulated Cumulative Reward
 \begin_inset CommandInset label
 LatexCommand label
 name "tab:Learning-Rates"
@@ -365,6 +403,13 @@ status open
 
 
 \backslash
+clearrow
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
 centering
 \end_layout
 
@@ -372,7 +417,17 @@ centering
 
 
 \backslash
-begin{tabular}{c|c c c}
+begin{tabular}{>{
+\backslash
+rowmac}c|>{
+\backslash
+rowmac}c>{
+\backslash
+rowmac}c>{
+\backslash
+rowmac}c<{
+\backslash
+clearrow}}
 \end_layout
 
 \begin_layout Plain Layout
@@ -432,13 +487,40 @@ hline
 \backslash
 setrow{
 \backslash
-bfseries}1 & $1.3
+bfseries}1 & 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+$
 \backslash
-cdot10^{-2}$ (0.22) & $6.1
+mathbf{1.33
 \backslash
-cdot10^{-3}$ (0.13) & $5.9
+cdot10^{-2}}$ (0.22) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$
 \backslash
-cdot10^{-3}$ (0.14)
+mathbf{6.08
+\backslash
+cdot10^{-3}}$ (0.13) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$
+\backslash
+mathbf{5.9
+\backslash
+cdot10^{-3}}$ (0.14)
+\backslash
+Tstrut
 \backslash
 
 \backslash
@@ -447,11 +529,25 @@ cdot10^{-3}$ (0.14)
 
 \begin_layout Plain Layout
 
-SO & $2.3
+\end_layout
+
+\begin_layout Plain Layout
+
+SO & $2.46
 \backslash
-cdot10^{-2}$ (0.22) & $5.1
+cdot10^{-2}$ (0.23) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$6.54
 \backslash
-cdot10^{-2}$ (0.10) & $6.1
+cdot10^{-2}$ (0.11) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$6.1
 \backslash
 cdot10^{-2}$ (0.14)
 \backslash
@@ -462,13 +558,27 @@ cdot10^{-2}$ (0.14)
 
 \begin_layout Plain Layout
 
-CA & $1.7
+\end_layout
+
+\begin_layout Plain Layout
+
+CA & $1.72
 \backslash
-cdot10^{-3}$ (0.20) & $-3.2
+cdot10^{-3}$ (0.20) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$2.07
 \backslash
-cdot10^{-3}$ (0.10) & $-3.9
+cdot10^{-3}$ (0.09) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$6.52
 \backslash
-cdot10^{-7}$ (0.14)
+cdot10^{-4}$ (0.14)
 \backslash
 
 \backslash
@@ -477,15 +587,36 @@ cdot10^{-7}$ (0.14)
 
 \begin_layout Plain Layout
 
-DO & NaN (NaN) & $6.4
+\end_layout
+
+\begin_layout Plain Layout
+
+DO & NaN (NaN) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$6.52
 \backslash
-cdot10^{-4}$ (0.14) & $1.2
+cdot10^{-4}$ (0.14) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$1.2
 \backslash
 cdot10^{-3}$ (0.14)
 \backslash
 
 \backslash
 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
 \end_layout
 
 \begin_layout Plain Layout
@@ -498,13 +629,40 @@ cdot10^{-3}$ (0.14)
 \backslash
 setrow{
 \backslash
-bfseries}2 & $1.3
+bfseries}2 & 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+$
 \backslash
-cdot10^{-2}$ (0.36) & $6.2
+mathbf{1.27
 \backslash
-cdot10^{-3}$ (0.12) & $6.0
+cdot10^{-2}}$ (0.36) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$
 \backslash
-cdot10^{-3}$ (0.13)
+mathbf{6.22
+\backslash
+cdot10^{-3}}$ (0.12) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$
+\backslash
+mathbf{6.0
+\backslash
+cdot10^{-3}}$ (0.13)
+\backslash
+Tstrut
 \backslash
 
 \backslash
@@ -513,11 +671,25 @@ cdot10^{-3}$ (0.13)
 
 \begin_layout Plain Layout
 
-SO & $2.2
+\end_layout
+
+\begin_layout Plain Layout
+
+SO & $1.66
 \backslash
-cdot10^{-2}$ (0.28) & $5.8
+cdot10^{-2}$ (0.30) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$6.87
 \backslash
-cdot10^{-2}$ (0.11) & $4.7
+cdot10^{-2}$ (0.12) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$4.7
 \backslash
 cdot10^{-2}$ (0.13)
 \backslash
@@ -528,11 +700,25 @@ cdot10^{-2}$ (0.13)
 
 \begin_layout Plain Layout
 
-CA & $-1.7
+\end_layout
+
+\begin_layout Plain Layout
+
+CA & $-1.71
 \backslash
-cdot10^{-4}$ (0.59) & $6.2
+cdot10^{-4}$ (0.59) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$1.09
 \backslash
-cdot10^{-4}$ (0.11) & $1.4
+cdot10^{-4}$ (0.10) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$1.4
 \backslash
 cdot10^{-3}$ (0.09)
 \backslash
@@ -543,9 +729,23 @@ cdot10^{-3}$ (0.09)
 
 \begin_layout Plain Layout
 
-DO & NaN (NaN) & $2.2
+\end_layout
+
+\begin_layout Plain Layout
+
+DO & NaN (NaN) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$1.35
 \backslash
-cdot10^{-3}$ (0.13) & $9.9
+cdot10^{-3}$ (0.13) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$9.9
 \backslash
 cdot10^{-4}$ (0.13)
 \backslash
@@ -556,6 +756,13 @@ cdot10^{-4}$ (0.13)
 
 \begin_layout Plain Layout
 
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
 \end_layout
 
 \begin_layout Plain Layout
@@ -564,13 +771,40 @@ cdot10^{-4}$ (0.13)
 \backslash
 setrow{
 \backslash
-bfseries}3 & $1.4
+bfseries}3 & 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+$
 \backslash
-cdot10^{-2}$ (0.25) & $5.7
+mathbf{1.43
 \backslash
-cdot10^{-3}$ (0.12) & $4.4
+cdot10^{-2}}$ (0.25) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$
 \backslash
-cdot10^{-3}$ (0.13)
+mathbf{5.69
+\backslash
+cdot10^{-3}}$ (0.12) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$
+\backslash
+mathbf{4.4
+\backslash
+cdot10^{-3}}$ (0.13)
+\backslash
+Tstrut
 \backslash
 
 \backslash
@@ -579,11 +813,25 @@ cdot10^{-3}$ (0.13)
 
 \begin_layout Plain Layout
 
-SO & $2.7
+\end_layout
+
+\begin_layout Plain Layout
+
+SO & $2.30
 \backslash
-cdot10^{-2}$ (0.24) & $5.7
+cdot10^{-2}$ (0.26) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$5.19
 \backslash
-cdot10^{-2}$ (0.12) & $3.4
+cdot10^{-2}$ (0.11) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$3.4
 \backslash
 cdot10^{-2}$ (0.10)
 \backslash
@@ -594,11 +842,25 @@ cdot10^{-2}$ (0.10)
 
 \begin_layout Plain Layout
 
-CA & $3.2
+\end_layout
+
+\begin_layout Plain Layout
+
+CA & $3.18
 \backslash
-cdot10^{-3}$ (0.25) & $-6.4
+cdot10^{-3}$ (0.25) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$-1.22
 \backslash
-cdot10^{-3}$ (0.10) & $2.1
+cdot10^{-3}$ (0.11) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$-5.5
 \backslash
 cdot10^{-2}$ (0.11)
 \backslash
@@ -609,13 +871,36 @@ cdot10^{-2}$ (0.11)
 
 \begin_layout Plain Layout
 
-DO & NaN (NaN) & $1.0
+\end_layout
+
+\begin_layout Plain Layout
+
+DO & NaN (NaN) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$1.02
 \backslash
-cdot10^{-3}$ (0.13) & NaN (NaN)
+cdot10^{-3}$ (0.13) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$1.1
+\backslash
+cdot10^{-2}$ (0.14)
 \backslash
 
 \backslash
 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
 \end_layout
 
 \begin_layout Plain Layout
@@ -628,13 +913,40 @@ cdot10^{-3}$ (0.13) & NaN (NaN)
 \backslash
 setrow{
 \backslash
-bfseries}4 & $1.1
+bfseries}4 & 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+$
 \backslash
-cdot10^{-2}$ (0.27) & $7.4
+mathbf{1.09
 \backslash
-cdot10^{-3}$ (0.14) & $2.3
+cdot10^{-2}}$ (0.27) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$
 \backslash
-cdot10^{-2}$ (0.10)
+mathbf{7.4
+\backslash
+cdot10^{-3}}$ (0.14) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$
+\backslash
+mathbf{2.3
+\backslash
+cdot10^{-2}}$ (0.10)
+\backslash
+Tstrut
 \backslash
 
 \backslash
@@ -643,13 +955,27 @@ cdot10^{-2}$ (0.10)
 
 \begin_layout Plain Layout
 
-SO & $1.7
+\end_layout
+
+\begin_layout Plain Layout
+
+SO & $1.89
 \backslash
-cdot10^{-2}$ (0.17) & $5.2
+cdot10^{-2}$ (0.11) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$4.81
 \backslash
-cdot10^{-2}$ (0.14) & $2.1
+cdot10^{-2}$ (0.14) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$6.4
 \backslash
-cdot10^{-2}$ (0.14)
+cdot10^{-2}$ (0.08)
 \backslash
 
 \backslash
@@ -658,13 +984,27 @@ cdot10^{-2}$ (0.14)
 
 \begin_layout Plain Layout
 
-CA & $1.6
+\end_layout
+
+\begin_layout Plain Layout
+
+CA & $1.62
 \backslash
-cdot10^{-3}$ (0.34) & $5.7
+cdot10^{-3}$ (0.16) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$2.02
 \backslash
-cdot10^{-3}$ (0.12) & $2.1
+cdot10^{-3}$ (0.12) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$3.1
 \backslash
-cdot10^{-2}$ (0.14)
+cdot10^{-3}$ (0.08)
 \backslash
 
 \backslash
@@ -673,9 +1013,25 @@ cdot10^{-2}$ (0.14)
 
 \begin_layout Plain Layout
 
-DO & NaN (NaN) & $4.9
+\end_layout
+
+\begin_layout Plain Layout
+
+DO & NaN (NaN) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$4.9
 \backslash
-cdot10^{-3}$ (0.14) & NaN (NaN)
+cdot10^{-3}$ (0.14) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+$6.3
+\backslash
+cdot10^{-4}$ (0.13)
 \backslash
 
 \backslash
@@ -710,12 +1066,489 @@ end{tabular}
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Shares of Collisions
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Shares-of-Collisions"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tabular}{c|c c c|c c}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+& 
+\backslash
+multicolumn{3}{c}{Crowded Areas} & 
+\backslash
+multicolumn{2}{c}{Pedestrians}
+\backslash
+Tstrut
+\backslash
+
+\backslash
+ [0.5ex]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+Agent & Baseline & Certain & Uncertain & Certain & Uncertain
+\backslash
+Tstrut
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+1 & 25.1
+\backslash
+% (42.3
+\backslash
+%) & 14.4
+\backslash
+% (88.0
+\backslash
+%) & 21.6
+\backslash
+% (71.7
+\backslash
+%) & 
+\end_layout
+
+\begin_layout Plain Layout
+
+13.4
+\backslash
+% (77.2
+\backslash
+%) & 10.3
+\backslash
+% (43.4
+\backslash
+%)
+\backslash
+Tstrut
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2 & 36.9
+\backslash
+% (15.6
+\backslash
+%)& 17.4
+\backslash
+% (87.7
+\backslash
+%) & 16.7
+\backslash
+% (87.0
+\backslash
+%)& 
+\end_layout
+
+\begin_layout Plain Layout
+
+13.7
+\backslash
+% (65.3
+\backslash
+%) & 13.7
+\backslash
+% (75.4
+\backslash
+%)
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+3 & 24.6
+\backslash
+% (43.1
+\backslash
+%)& 17.3
+\backslash
+% (79.3
+\backslash
+%) & 18.5
+\backslash
+% (87.9
+\backslash
+%) &
+\end_layout
+
+\begin_layout Plain Layout
+
+9.8
+\backslash
+% (32.4
+\backslash
+%) & 8.9
+\backslash
+% (59.1
+\backslash
+%)
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+4 & 32.3
+\backslash
+% (27.2
+\backslash
+%)& 22.6
+\backslash
+% (81.4
+\backslash
+%)& 18.9
+\backslash
+% (80.2
+\backslash
+%) &
+\end_layout
+
+\begin_layout Plain Layout
+
+14.5
+\backslash
+% (57.7
+\backslash
+%) & 12.0
+\backslash
+% (62.7
+\backslash
+%)
+\backslash
+
+\backslash
+[0.5ex]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+& 
+\backslash
+multicolumn{5}{l}{
+\backslash
+footnotesize The percentages in parentheses are the exposure against the
+ challenge.}
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tabular}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Training Time
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tabular}{c|c c c}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+Agent & Baseline & Certain & Uncertain
+\backslash
+Tstrut
+\backslash
+
+\backslash
+ [0.5ex]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+1 & 42 min.
+ & 124 min.
+ & 138 min.
+\backslash
+Tstrut
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+2 & 43 min.
+ & 129 min.
+ & 133 min.
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+3 & 44 min.
+ & 135 min.
+ & 148 min.
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+4 & 125 min.
+ & 667 min.
+ & 575 min.
+\backslash
+
+\backslash
+  [0.5ex]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tabular}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Limitations
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Limitations"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Learning Rates and the Linear Assumption
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Learning-Rates-and"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Noise Distribution
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Noise-Distribution"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+The Model
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:The-Model"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Robustness
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Robustness"
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Future Work
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Future-Work"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
 Conclusion
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Conclusion"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

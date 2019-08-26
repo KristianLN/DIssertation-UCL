@@ -116,11 +116,9 @@ customHeadersFooters
 \use_package stackrel 1
 \use_package stmaryrd 1
 \use_package undertilde 1
-\cite_engine biblatex
-\cite_engine_type authoryear
-\biblio_style plain
-\biblatex_bibstyle numeric
-\biblatex_citestyle authoryear-comp
+\cite_engine basic
+\cite_engine_type default
+\biblio_style unsrt
 \use_bibtopic false
 \use_indices false
 \paperorientation portrait
@@ -333,8 +331,8 @@ literal "false"
 \shape default
  class of DRL algorithms, before reviewing the literature on robotic navigation
  in urban environments and the use of RL as well as DRL in this context.
- The order of the review is to provide some base knowledge of the chosen
- method, before reviewing the field of application surrounding this study.
+ The order of the review is to provide base knowledge of the chosen method,
+ before reviewing the field of application surrounding this study.
 \end_layout
 
 \begin_layout Section
@@ -392,42 +390,15 @@ literal "false"
 \shape default
  (MC), by using bootstrapping as DP, making TD online, and sampling as MC,
  making them model-free.
- Different TD methods for control tasks exists, some being 
-\shape italic
-SARSA
-\shape default
-, 
+ One such method is 
 \shape italic
 Q-learning
 \shape default
- and 
-\shape italic
-Expected SARSA
-\shape default
-, and they differ by the way they handle the estimate of the objective function
- in future states.
- 
-\end_layout
-
-\begin_layout Standard
-The following focuses on Q-learning, see 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Sutton2018"
-literal "false"
-
-\end_inset
-
- for a review of the other two.
- 
-\end_layout
-
-\begin_layout Standard
-Q-learning is an 
+, which is an 
 \shape italic
 off-policy
 \shape default
- learning method, which mean that the actual action is drawn from a 
+ learning method, meaning that the actual action is drawn from a 
 \shape italic
 behaviour
 \shape default
@@ -441,9 +412,9 @@ behaviour
 \end_inset
 
 .
- Off-policy learning methods are useful because they allow one to re-use
- experience from old policies, as we will see is useful, and to learn about
- the optimal policy while following an exploratory policy.
+ Off-policy learning methods are interesting because they enable reusing
+ experience, and to learn about the optimal policy while following an explorator
+y policy.
  
 \end_layout
 
@@ -555,9 +526,119 @@ Q(S_{t},A_{t})\:\text{←}\:Q(S_{t},A_{t})+α(R_{t+1}+γ\tbinom{\max}{a'}Q(S_{t+
 \end_layout
 
 \begin_layout Standard
-The substituted expression is just the current estimate of the optimal future
+The substituted expression is the current estimate of the optimal future
  value.
  
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Q-learning algorithm
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Q-learning-algorithm"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic}
+\end_layout
+
+\begin_layout Plain Layout
+
+Algorithm parameters: step size 
+\backslash
+alpha 
+\backslash
+in (0,1], small 
+\backslash
+epsilon > 0.
+\end_layout
+
+\begin_layout Plain Layout
+
+Initialize Q(s,a), for all s 
+\backslash
+in 
+\backslash
+begin{math} S^{+} 
+\backslash
+end{math}, 
+\backslash
+alpha 
+\backslash
+in A(s), arbitrarily except that Q(terminal,
+\backslash
+cdot) = 0.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+STATE{Loop for each episode:}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+STATE{Initialize S}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

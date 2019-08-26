@@ -12,7 +12,15 @@
 % that links to image floats jumps to the beginning
 % of the float and not to its caption
 \usepackage[figure]{hypcap}
-
+\usepackage{array,multirow,graphicx}
+\usepackage{algorithmic}
+% Added addtionally
+% define "struts", as suggested by Claudio Beccari in
+%    a piece in TeX and TUG News, Vol. 2, 1993.
+\newcommand\Tstrut{\rule{0pt}{2.6ex}}         % = `top' strut was 2.6
+\newcommand\Bstrut{\rule[-0.9ex]{0pt}{0pt}}   % = `bottom' strut
+\newcommand\setrow[1]{\gdef\rowmac{#1}#1\ignorespaces}
+\newcommand\clearrow{\global\let\rowmac\relax}
 % the pages of the TOC is numbered roman
 % and a pdf-bookmark for the TOC is added
 \let\myTOC\tableofcontents
@@ -136,7 +144,7 @@ customHeadersFooters
 \use_refstyle 0
 \use_minted 0
 \branch Standalone
-\selected 1
+\selected 0
 \filename_suffix 0
 \color #ff0000
 \end_branch
@@ -413,7 +421,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-A scene in Unity containing the components of the ML-Agents toolkit
+A Scene in Unity Containing the Components of the ML-Agents Toolkit
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:A-scene-in"
@@ -452,10 +460,6 @@ name "fig:A-scene-in"
 \shape italic
 \size footnotesize
 The scene contains all available elements within the environment.
-\end_layout
-
-\begin_layout Plain Layout
-
 \end_layout
 
 \end_inset
@@ -728,7 +732,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-The ground object
+The Ground Object
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:The-ground-object"
@@ -817,7 +821,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-The pedestrian prefab
+The Pedestrian Prefab
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:The-pedestrian-prefab"
@@ -1184,6 +1188,13 @@ The crowded area is a prefab and is initialised from the academy object.
 
 \begin_layout Subsubsection
 Academy
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Academy"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1248,7 +1259,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-A learning brain
+A Learning Brain
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:A-learning-brain"
@@ -1321,7 +1332,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-The academy
+The Academy
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:The-academy"
@@ -1472,6 +1483,13 @@ Below the reset parameters are the two prefabs, pedestrian and crowded area,
 
 \begin_layout Subsubsection
 Agent
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Agent"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1561,7 +1579,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-The content of the agent object
+The Content of the Agent Object
 \end_layout
 
 \end_inset
@@ -1837,6 +1855,13 @@ ly many more, which is useful to investigate the effect of separating tasks
 
 \begin_layout Subsubsection
 Target
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Target-1"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1881,7 +1906,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-The content of the target object
+The Content of the Target Object
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:The-content-of"
@@ -2339,7 +2364,7 @@ noprefix "false"
 \end_layout
 
 \begin_layout Section
-Supplement To Comparisons
+Supplement to Comparisons
 \end_layout
 
 \begin_layout Standard
@@ -2416,7 +2441,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Subsets and trend estimation
+Subsets and Trend Estimation
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:Subsets-and-trend"
@@ -2462,7 +2487,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Baseline comparison
+Baseline Comparison
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:Baseline-comparison"
@@ -2511,7 +2536,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Full Set-Up Under Certainty
+Full Setup Under Certainty
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:Full-set-up-under"
@@ -2561,7 +2586,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Full Set Up Under Uncertainty
+Full Setup Under Uncertainty
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:Full-Set-Up"
@@ -2591,10 +2616,172 @@ name "fig:Full-Set-Up"
 
 \end_layout
 
+\begin_layout Section
+The Effect of the Noise Distribution
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+The Effect of The Noise Distribution
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:The-Effect-of-2"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename C:/Users/Krist/GitHub/ml-agents/Dissertation/Notebooks/graphs/EffectOfNoiseDistribution.jpg
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+The Effect of Invoking Maximum Number of Steps
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:The-Effect-of"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Distribution of Steps Taken by the Agent
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Distribution-of-Steps"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename C:/Users/Krist/GitHub/ml-agents/Dissertation/Notebooks/graphs/StepDistribution.jpg
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+The Effect of Parallelisation
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:The-Effect-of-1"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+The Effect of Parallelisation
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:The-Effect-of-3"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename C:/Users/Krist/GitHub/ml-agents/Dissertation/Notebooks/graphs/EffectOfParallelisation.jpg
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 \begin_inset Branch Standalone
 inverted 0
-status open
+status collapsed
 
 \begin_layout Standard
 \begin_inset Note Note

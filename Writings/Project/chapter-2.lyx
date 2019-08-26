@@ -12,7 +12,15 @@
 % that links to image floats jumps to the beginning
 % of the float and not to its caption
 \usepackage[figure]{hypcap}
-
+\usepackage{array,multirow,graphicx}
+\usepackage{algorithmic}
+% Added addtionally
+% define "struts", as suggested by Claudio Beccari in
+%    a piece in TeX and TUG News, Vol. 2, 1993.
+\newcommand\Tstrut{\rule{0pt}{2.6ex}}         % = `top' strut was 2.6
+\newcommand\Bstrut{\rule[-0.9ex]{0pt}{0pt}}   % = `bottom' strut
+\newcommand\setrow[1]{\gdef\rowmac{#1}#1\ignorespaces}
+\newcommand\clearrow{\global\let\rowmac\relax}
 % the pages of the TOC is numbered roman
 % and a pdf-bookmark for the TOC is added
 \let\myTOC\tableofcontents
@@ -331,8 +339,8 @@ literal "false"
 \shape default
  class of DRL algorithms, before reviewing the literature on robotic navigation
  in urban environments and the use of RL as well as DRL in this context.
- The order of the review is to provide some base knowledge of the chosen
- method, before reviewing the field of application surrounding this study.
+ The order of the review is to provide base knowledge of the chosen method,
+ before reviewing the field of application surrounding this study.
 \end_layout
 
 \begin_layout Section
@@ -390,42 +398,15 @@ literal "false"
 \shape default
  (MC), by using bootstrapping as DP, making TD online, and sampling as MC,
  making them model-free.
- Different TD methods for control tasks exists, some being 
-\shape italic
-SARSA
-\shape default
-, 
+ One such method is 
 \shape italic
 Q-learning
 \shape default
- and 
-\shape italic
-Expected SARSA
-\shape default
-, and they differ by the way they handle the estimate of the objective function
- in future states.
- 
-\end_layout
-
-\begin_layout Standard
-The following focuses on Q-learning, see 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Sutton2018"
-literal "false"
-
-\end_inset
-
- for a review of the other two.
- 
-\end_layout
-
-\begin_layout Standard
-Q-learning is an 
+, which is an 
 \shape italic
 off-policy
 \shape default
- learning method, which mean that the actual action is drawn from a 
+ learning method, meaning that the actual action is drawn from a 
 \shape italic
 behaviour
 \shape default
@@ -439,9 +420,9 @@ behaviour
 \end_inset
 
 .
- Off-policy learning methods are useful because they allow one to re-use
- experience from old policies, as we will see is useful, and to learn about
- the optimal policy while following an exploratory policy.
+ Off-policy learning methods are interesting because they enable reusing
+ experience, and to learn about the optimal policy while following an explorator
+y policy.
  
 \end_layout
 
@@ -553,13 +534,13 @@ Q(S_{t},A_{t})\:\text{←}\:Q(S_{t},A_{t})+α(R_{t+1}+γ\tbinom{\max}{a'}Q(S_{t+
 \end_layout
 
 \begin_layout Standard
-The substituted expression is just the current estimate of the optimal future
+The substituted expression is the current estimate of the optimal future
  value.
  
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
+\begin_inset Float algorithm
 wide false
 sideways false
 status open
@@ -569,15 +550,13 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
-\noindent
-\align center
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Q-learning algorithm
+Q-learning Algorithm
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Q-learning-algorithm"
+name "alg:Q-learning-algorithm"
 
 \end_inset
 
@@ -590,27 +569,173 @@ name "fig:Q-learning-algorithm"
 \end_layout
 
 \begin_layout Plain Layout
-\noindent
-\align center
-\begin_inset Graphics
-	filename C:/Users/Krist/Desktop/Kristian/Privat/Ansøgninger/Udveksling/University College London/Being there/Dissertation/Picture/Qlearning.PNG
+\begin_inset ERT
+status open
 
-\end_inset
+\begin_layout Plain Layout
 
 
+\backslash
+begin{algorithmic}
 \end_layout
 
 \begin_layout Plain Layout
-\noindent
-\align center
 
-\shape italic
-\size footnotesize
-Credit: 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Sutton2018"
-literal "false"
+
+\backslash
+STATE{Algorithm parameters: step size 
+\backslash
+begin{math} 
+\backslash
+alpha 
+\backslash
+in (0,1],
+\backslash
+:small
+\backslash
+:
+\backslash
+epsilon > 0.
+ 
+\backslash
+end{math}}
+\backslash
+Tstrut
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+STATE{Initialize $Q(s,a)$, for all $s
+\backslash
+:
+\backslash
+in
+\backslash
+:S^{+},
+\backslash
+:
+\backslash
+alpha
+\backslash
+:
+\backslash
+in
+\backslash
+:A(s)$, arbitrarily except that,}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+STATE{$Q(terminal,
+\backslash
+cdot) = 0$.}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+STATE{}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+FOR{each episode}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+STATE{Initialize S}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+FOR{each step of episode}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+STATE{Choose A from S using policy deerived from Q (e.g., $
+\backslash
+epsilon$-greedy)}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+STATE{Take action A, observe R, $S^{'}$}.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+STATE{$Q(S_{t},A_{t})
+\backslash
+:
+\backslash
+gets
+\backslash
+:Q(S_{t},A_{t})+
+\backslash
+alpha(R_{t+1}+
+\backslash
+gamma
+\backslash
+tbinom{
+\backslash
+max}{a'}Q(S_{t+1},a')-Q(S_{t},A_{t}))$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+STATE{$S 
+\backslash
+gets S^{'}$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+ENDFOR
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+STATE{Until S is terminal}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+ENDFOR
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
 
 \end_inset
 
@@ -644,7 +769,18 @@ literal "false"
 
 \end_inset
 
-, illustrated in (3).
+, illustrated in eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:3"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
  
 \end_layout
 
@@ -660,17 +796,17 @@ Q(s,a)\:\text{→}\:q^{*}(s,a)\;for\;\#\;of\;episodes\:\text{→}\:\infty\label{
 \end_layout
 
 \begin_layout Standard
-The Q-learning algorithm showed in figure 
+The Q-learning algorithm, algorithm 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "fig:Q-learning-algorithm"
+reference "alg:Q-learning-algorithm"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
- can seem too simple to work on real-life large-scale control problems.
+, can seem too simple to work on real-life large-scale control problems.
  However, it illustrates the high-level idea, about improve an estimate
  in online fashion – which is essential before covering the policy gradient
  methods.
@@ -678,31 +814,17 @@ noprefix "false"
 \shape italic
 batch updates
 \shape default
-, 
-\shape italic
-eligibility traces
-\shape default
  and 
 \shape italic
 function approximation
 \shape default
- for more efficient scalable learning.
- Batch updates will be explained in a section to come, but the interested
- reader should consult 
-\begin_inset CommandInset citation
-LatexCommand cite
-after "Chapter 12"
-key "Sutton2018"
-literal "false"
-
-\end_inset
-
- for a description of eligibility traces.
+ for efficient scalable learning.
  
 \end_layout
 
 \begin_layout Standard
-Doing convergence of 
+Doing convergence of eq.
+ 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:3"
@@ -712,8 +834,12 @@ noprefix "false"
 
 \end_inset
 
-, the function on the left-side is a so-called approximate state action-value
- function, which in the simple case is a look-up table with size 
+, 
+\begin_inset Formula $Q(s,a)$
+\end_inset
+
+ is referred to as the approximate state action-value function, which in
+ the simple case is a look-up table with size 
 \begin_inset Formula $(S\cdot A)\,x\,(S\cdot A)$
 \end_inset
 
@@ -724,10 +850,14 @@ noprefix "false"
 
 In real-life applications, such a table is often impossible to store in
  memory.
- To ensure scalability, function approximations are used, implying the look-up
- table is replaced with a parameterised function, which could be a linear
- combination of features, a neural network or something third.
- The full description of function approximations are covered in 
+ To ensure scalability, 
+\shape italic
+function approximations
+\shape default
+ are used, replacing the look-up table with a parameterised function, which
+ could be a linear combination of features, a neural network or something
+ third.
+ A full description of function approximations is covered in 
 \begin_inset CommandInset citation
 LatexCommand cite
 after "Chapter 9,10 & 11"
@@ -736,8 +866,13 @@ literal "false"
 
 \end_inset
 
-, but note that the function approximation changes the state action-value
- function from 
+.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The function approximation changes the state action-value function from
+ 
 \begin_inset Formula $q(s,a)$
 \end_inset
 
@@ -937,15 +1072,16 @@ experience replay
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $N$
-\end_inset
 
+\shape italic
+N
+\shape default
  previous observations are stored, over many episodes, from which 
 \begin_inset Formula $T$
 \end_inset
 
- experiences are randomly sampled from, note 
-\begin_inset Formula $T\ll N$
+ experiences are randomly sampled from, 
+\begin_inset Formula $(T\ll N)$
 \end_inset
 
 .
@@ -954,8 +1090,7 @@ status open
 \begin_inset Formula $ϵ$
 \end_inset
 
--greedy policy, i.e.
- off-line learning, 
+-greedy policy 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "mnih2015humanlevel"
@@ -1140,18 +1275,12 @@ Actor-Critic
 \end_inset
 
 The objective of PG methods is to learn the policy parameters based on the
- gradient
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-The first derivative of a function.
-\end_layout
-
+ gradient of some scalar performance measure, with respect to the policy
+ parameters 
+\begin_inset Newline newline
 \end_inset
 
- of some scalar performance measure, with respect to the policy parameters
- 
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Sutton2018"
@@ -1180,8 +1309,7 @@ The reward signal is a function of the policy parameters
 \end_inset
 
 .
- How must to adjust, and so how to update the policy, is determined by the
- gradient of the scalar signal
+ The adjustment is done according to the gradient of the scalar signal
 \begin_inset Foot
 status open
 
@@ -1206,7 +1334,7 @@ literal "false"
 
 \end_inset
 
- and called backpropagation
+, using backpropagation
 \begin_inset Foot
 status open
 
@@ -1235,7 +1363,8 @@ noprefix "false"
 
 \end_inset
 
-, seen from 
+, seen in eq.
+ 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:4"
@@ -1301,7 +1430,7 @@ literal "false"
 
 \end_inset
 
-, using a basic PG.
+, using a basic PG method.
  
 \end_layout
 
@@ -1395,9 +1524,9 @@ Robotic Navigation in Urban Environments
 
 \begin_layout Standard
 Besides limiting this part of the literature review to consider robotic
- navigation in urban environments (UE), it is also restricted to only consider
- navigation in unknown environments as it resembles to the model-free DRL
- approach studied in this study.
+ navigation in urban environments (UE), it is further restricted to navigation
+ in unknown environments, as it resembles to the model-free DRL approach
+ studied in this study.
  
 \begin_inset Newline newline
 \end_inset
@@ -1444,8 +1573,8 @@ Common for all the papers examined on the traditional literature, is that
 \end_layout
 
 \begin_layout Standard
-The consensus way to handle mapping appears to be using particle filters,
- often using a SLAM
+The consensus way to handle mapping is using particle filters, often using
+ a SLAM
 \begin_inset Foot
 status open
 
@@ -1466,20 +1595,24 @@ literal "false"
  module 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Georgiev:2004:LMM:2211637.2211690,Lidoris2009,MariaBauer2009,Trulls2011,Kuemmerle2013"
+key "Lidoris2009,Trulls2011,Kuemmerle2013"
 literal "false"
 
 \end_inset
 
 .
  This approach implies computing an occupancy grid; however, it can be troubleso
-me in terms of memory to store large scale occupancy grid, which is something
+me in terms of memory to store large scale occupancy grids, which is something
  to consider design-wise.
  
 \end_layout
 
 \begin_layout Standard
 Localisation is done in different ways; 
+\begin_inset Newline newline
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Lidoris2009,MariaBauer2009,Kuemmerle2013"
@@ -1527,6 +1660,10 @@ literal "false"
 
 \begin_layout Standard
 Planning is done differently; 
+\begin_inset Newline newline
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Lidoris2009,MariaBauer2009,Trulls2011"
@@ -1537,6 +1674,10 @@ literal "false"
  use the A* algorithm to calculate the shortest path through the crowded
  area.
  
+\begin_inset Newline newline
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Kuemmerle2013"
@@ -1560,7 +1701,7 @@ tation of novel methods.
 \end_layout
 
 \begin_layout Subsection
-Robotic Navigation in Urban Environments using Reinforcement Learning
+Robotic Navigation in Urban Environments Using Reinforcement Learning
 \end_layout
 
 \begin_layout Standard
